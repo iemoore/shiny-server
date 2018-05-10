@@ -11,6 +11,10 @@ library(stringr)
 library(purrr)
 library(shinymaterial)
 
+options(warn=2)
+
+
+
 #...Data Load
 verbdf <- readRDS("solid/data/rds/verbs501.rds")
 sentdf <- readRDS("solid/data/rds/sent501.4.30.rds")

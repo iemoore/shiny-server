@@ -27,11 +27,11 @@ navbarPage(
         ),
         
             
-        source("ui/navbarVerbs.R",local=T)$value,
+        source("ui/navbarverbs.R",local=T)$value,
 
-        source("ui/navbarVocab.R",local=T)$value,
+        source("ui/navbarvocab.R",local=T)$value,
 
-        source("ui/navbarSents.R",local=T)$value,
+        source("ui/navbarsents.R",local=T)$value,
 
 
         tabPanel("Add Content",

@@ -2,6 +2,8 @@
 
 server <- function(input, output, session) {
   
+options(warn=2)
+  
 source("server/observe.R",local = T)
 source("server/reactive.R",local = T) 
 source("server/Login.R",local = T)  
