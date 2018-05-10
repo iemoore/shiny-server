@@ -10,8 +10,6 @@ library(dplyr)
 library(stringr)
 library(purrr)
 library(shinymaterial)
-# library(shiny.semantic)
-# library(semantic.dashboard)
 
 #...Data Load
 verbdf <- readRDS("solid/data/rds/verbs501.rds")
