@@ -86,7 +86,7 @@ observeEvent(rv$savedVerbs,{
   print("rv$vls_data")
   s1 <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),] 
   
-  if(length(s1[,1])>0){
+  if(!is.null(s1)){ 
     
     s1$Rem <- paste0('<a data-row="',rownames(s1),
                    '" class="go-map-rem-ves" href="#" onClick="return fals',
@@ -104,7 +104,7 @@ observeEvent(rv$remVerbs,{
   print("rv$vlr_data")  
   s1 <- verbdf[(rownames(verbdf) %in% rv$remVerbs),]
 
-  if(length(s1[,1])>0){  
+  if(!is.null(s1)){  
     
     s1$Rem <- paste0('<a data-row="',rownames(s1),
                    '" class="go-map-rem-ver" href="#" onClick="return fals',

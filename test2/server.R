@@ -33,7 +33,7 @@ source("server/keyControl.R",local = T)
   
 exE_data <<- ""
 exW_data <<- ""
-exW_data <<- ""
+exA_data <<- ""
 global_user <<- ""
 vls_cache <<- ""
 vlr_cache <<- ""
@@ -43,10 +43,10 @@ session$onSessionEnded(function() {
   stopApp()
   
   writeLines(paste(vls_cache,collapse = ","),
-             con = paste0("userData/",USER$name,"/savedVerbs.txt"))
+             con = paste0("userData/",global_user,"/savedVerbs.txt"))
   
   writeLines(paste(vlr_cache,collapse = ","),
-             con = paste0("userData/",USER$name,"/remVerbs.txt"))
+             con = paste0("userData/",global_user,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),
              paste0("userData/",global_user,"/excludeE.txt"))

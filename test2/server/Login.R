@@ -54,9 +54,11 @@ observeEvent(input$Login,{
       
       rv$savedVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
                         USER$name,"/savedVerbs.txt")),",")))
+      rv$vls_data <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),] 
 
       rv$remVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
                         USER$name,"/remVerbs.txt")),",")))
+      rv$vlr_data <- verbdf[(rownames(verbdf) %in% rv$remVerbs),]
       
       rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
