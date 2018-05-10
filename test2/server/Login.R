@@ -38,7 +38,7 @@ output$userPanel <- renderUI({
 
 # control login
 observeEvent(input$Login,{
-  Username <- isolate(input$userName)
+  Username <- tolower(trim(isolate(input$userName)))
   Password <- isolate(input$passwd)
   Id.username <- which(PASSWORD$User == Username)
   Id.password <- which(PASSWORD$Pswd    == Password)
@@ -52,21 +52,21 @@ observeEvent(input$Login,{
       
       pripas("User: ",USER$name)
       
-      rv$savedVerbs <- as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+      rv$savedVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
                         USER$name,"/savedVerbs.txt")),",")))
 
-      rv$remVerbs <- as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+      rv$remVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
                         USER$name,"/remVerbs.txt")),",")))
       
       rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       
-      rv$excludeE <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
+      rv$excludeE <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
                                   "/excludeE.txt")),","))
-      rv$excludeW <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
+      rv$excludeW <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
                                   "/excludeW.txt")),","))
-      rv$excludeA <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
+      rv$excludeA <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
                                   "/excludeA.txt")),","))
       
       pripas("length(rv$excludeE) <- ",paste(rv$excludeE,collapse = ","))
@@ -88,14 +88,19 @@ observeEvent(input$logout , {
   USER$Logged <- FALSE
   USER$pass <- ""
   
+  writeLines(paste(vls_data,collapse = ","),
+             con = paste0("userData/",USER$name,"/savedVerbs.txt"))
+  
+  writeLines(paste(vlr_data,collapse = ","),
+             con = paste0("userData/",USER$name,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("solid/data/",USER$name,"/excludeE.txt"))
+             paste0("userData/",USER$name,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("solid/data/",USER$name,"/excludeW.txt"))
+             paste0("userData/",USER$name,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("solid/data/",USER$name,"/excludeA.txt"))
+             paste0("userData/",USER$name,"/excludeA.txt"))
 })
 

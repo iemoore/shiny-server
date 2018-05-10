@@ -47,7 +47,6 @@ tenseNow <- c("Indicative","Subjunctive","Imperative","Continuous","Perfect",
               "Perfect Subj")
 
 
-options(warn=1)
 
 
 

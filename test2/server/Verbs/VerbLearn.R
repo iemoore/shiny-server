@@ -162,8 +162,10 @@ observeEvent(input$verbSave,{
     pripas("verbSave: Removing '",a, "' from Saved list")
     rv$savedVerbs <- rv$savedVerbs[-grep(a,rv$savedVerbs)]
     
-    writeLines(paste(rv$savedVerbs,collapse = ","),
-                            con = paste0("solid/data/",USER$name,"/savedVerbs.txt"))
+    vls_data <<- rv$savedVerbs
+    
+    # writeLines(paste(rv$savedVerbs,collapse = ","),
+    #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   }
   else{
     
@@ -171,9 +173,11 @@ observeEvent(input$verbSave,{
     rv$savedVerbs <- sort(c(rv$savedVerbs,a))
     
     # pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
+    
+    vls_data <<- rv$savedVerbs
 
-    writeLines(paste(rv$savedVerbs,collapse = ","),
-                            con = paste0("solid/data/",USER$name,"/savedVerbs.txt"))
+    # writeLines(paste(rv$savedVerbs,collapse = ","),
+    #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   }
   
 })
@@ -197,8 +201,10 @@ observeEvent(input$verbRemSaved,{
     
     rv$savedVerbs <- rv$savedVerbs[-b]
     
-    writeLines(paste(rv$savedVerbs,collapse = ","),
-               con = paste0("solid/data/",USER$name,"/savedVerbs.txt"))
+    vls_data <<- rv$savedVerbs
+    
+    # writeLines(paste(rv$savedVerbs,collapse = ","),
+    #            con = paste0("userData/",USER$name,"/savedVerbs.txt"))
     
   }
   
@@ -217,8 +223,10 @@ observeEvent(input$verbRem,{
   
   rv$remVerbs <- sort(c(rv$remVerbs,a))
   
-  writeLines(paste(rv$remVerbs,collapse = ","),
-             con = paste0("solid/data/",USER$name,"/remVerbs.txt"))
+  vlr_data <<- rv$remVerbs
+  
+  # writeLines(paste(rv$remVerbs,collapse = ","),
+  #            con = paste0("userData/",USER$name,"/remVerbs.txt"))
 
 })
 
@@ -238,8 +246,10 @@ observeEvent(input$verbSaveRemoved,{
     pripas("Removing '",a, "' from Removed list")
     rv$remVerbs <- rv$remVerbs[-grep(a,rv$remVerbs)]
     
-    writeLines(paste(rv$remVerbs,collapse = ","),
-               con = paste0("solid/data/",USER$name,"/remVerbs.txt"))
+    vlr_data <<- rv$remVerbs
+    
+    # writeLines(paste(rv$remVerbs,collapse = ","),
+    #            con = paste0("userData/",USER$name,"/remVerbs.txt"))
   }
   
 })
