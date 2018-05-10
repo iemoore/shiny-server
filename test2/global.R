@@ -10,7 +10,7 @@ library(dplyr)
 library(stringr)
 library(purrr)
 library(shinymaterial)
-library(shiny.semantic)
+# library(shiny.semantic)
 # library(semantic.dashboard)
 
 #...Data Load
