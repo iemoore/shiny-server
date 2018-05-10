@@ -1,0 +1,6 @@
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a href="#">Home</a>Home Content</li>
+    <li><a href="#">Menu 1</a>Tab1 Content</li>
+      <li><a href="#">Menu 2</a>Tab2 Content</li>
+        <li><a href="#">Menu 3</a>Tab3 Content</li>
+          </ul>

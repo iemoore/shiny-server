@@ -1,0 +1,107 @@
+#### Log in module ###
+
+USER <- reactiveValues()
+USER$Logged <- FALSE
+USER$pass <- ""
+USER$name <- "ian"
+
+PASSWORD <- data.frame(
+  User = c("ian","cat"), 
+  Pswd = c("ipass","cpass")
+  )
+
+output$uiLogin <- renderUI({
+  if (USER$Logged == FALSE) {
+    wellPanel(
+      textInput("userName", "User Name:"),
+      passwordInput("passwd", "Password:"),
+      br(),
+      actionButton("Login", "Log in")
+    )
+  }
+})
+
+output$pass <- renderText({  
+  if (USER$Logged == FALSE) {
+    USER$pass
+  }  
+})
+
+# Login info during session ----
+output$userPanel <- renderUI({
+  if (USER$Logged == TRUE) {
+
+                span("User: ",actionLink("logout", USER$name) )
+
+  }  
+})
+
+# control login
+observeEvent(input$Login,{
+  Username <- isolate(input$userName)
+  Password <- isolate(input$passwd)
+  Id.username <- which(PASSWORD$User == Username)
+  Id.password <- which(PASSWORD$Pswd    == Password)
+  if (length(Id.username) > 0 & length(Id.password) > 0) {
+    if (Id.username == Id.password) {
+      
+      USER$Logged <- TRUE
+      USER$name <- Username  
+      global_user <<- USER$name
+      print("Login Successful")
+      
+      pripas("User: ",USER$name)
+      
+      rv$savedVerbs <- as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+                        USER$name,"/savedVerbs.txt")),",")))
+
+      rv$remVerbs <- as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+                        USER$name,"/remVerbs.txt")),",")))
+      
+      rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
+      rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
+      
+      
+      rv$excludeE <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
+                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+                                  "/excludeE.txt")),","))
+      rv$excludeW <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
+                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+                                  "/excludeW.txt")),","))
+      rv$excludeA <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
+                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+                                  "/excludeA.txt")),","))
+      
+      pripas("length(rv$excludeE) <- ",paste(rv$excludeE,collapse = ","))
+      pripas("length(rv$excludeW) <- ",paste(rv$excludeW,collapse = ","))
+      pripas("length(rv$excludeA) <- ",paste(rv$excludeA,collapse = ","))
+      
+      rv$excludeE_ct <- length(rv$excludeE)
+      rv$excludeW_ct <- length(rv$excludeW)
+      rv$excludeA_ct <- length(rv$excludeA)
+      
+    } 
+  } else {
+    USER$pass <- "User name or password failed!"
+  }
+})
+
+# control logout
+observeEvent(input$logout , {
+  USER$Logged <- FALSE
+  USER$pass <- ""
+  
+  
+  writeLines(paste(exE_data,collapse = ","),
+             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
+                    USER$name,"/excludeE.txt"))
+  
+  writeLines(paste(exW_data,collapse = ","),
+             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
+                    USER$name,"/excludeW.txt"))
+  
+  writeLines(paste(exA_data,collapse = ","),
+             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
+                    USER$name,"/excludeA.txt"))
+})
+
