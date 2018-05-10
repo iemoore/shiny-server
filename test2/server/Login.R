@@ -52,16 +52,27 @@ observeEvent(input$Login,{
       
       pripas("User: ",USER$name)
       
-      rv$savedVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
-                        USER$name,"/savedVerbs.txt")),",")))
-      rv$vls_data <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),] 
+      a11 <- readLines(paste0("userData/",USER$name,"/savedVerbs.txt"))
+      if(nchar(a11)>1){
+        pripas("savedVerbs <- ",a11)
+        rv$savedVerbs <- as.numeric(unlist(str_split(a11,",")))        
+      }
 
-      rv$remVerbs <- as.numeric(unlist(str_split(readLines(paste0("userData/",
-                        USER$name,"/remVerbs.txt")),",")))
-      rv$vlr_data <- verbdf[(rownames(verbdf) %in% rv$remVerbs),]
+      a12 <- readLines(paste0("userData/", USER$name,"/remVerbs.txt"))
+      if(nchar(a12)>1){
+        pripas("remVerbs <- ",a12)
+        rv$remVerbs <- as.numeric(unlist(str_split(a12,",")))
+      }
       
-      rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
-      rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
+      if(nchar(a12)<2 & nchar(a12)<2){
+        
+        pripas("rv$initTrig bc of empty rem/save called")
+        rv$initTrig <- rv$initTrig*(-1)
+      }
+      
+      
+      rv$vls_length <- 10#ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
+      rv$vlr_length <- 10#ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       
       rv$excludeE <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,

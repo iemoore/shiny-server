@@ -11,7 +11,7 @@ library(stringr)
 library(purrr)
 library(shinymaterial)
 
-options(warn=2)
+options(warn=1)
 
 
 

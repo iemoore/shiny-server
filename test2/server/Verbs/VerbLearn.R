@@ -9,14 +9,14 @@
 #                                             USER$name,"/savedVerbs.txt")),","))))
 # len_s1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
 #                                             USER$name,"/savedVerbs.txt")),",")))))
-rv$savedVerbs <- 0
+rv$savedVerbs <- NULL
 
 
 # rv$remVerbs <- sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
 #                                                 USER$name,"/remVerbs.txt")),","))))
 # len_r1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
 #                                                 USER$name,"/remVerbs.txt")),",")))))
-rv$remVerbs <- 0
+rv$remVerbs <- NULL
 
 
 rv$vl_start <- 0
@@ -35,16 +35,19 @@ rv$vl_data <- data.frame()
 rv$vls_data <- data.frame()
 rv$vlr_data <- data.frame()
 
+rv$initTrig <- 1
+
 #####
 
 #...Data Observe
 #####------------------------------------------------------------------
 
-observeEvent(c(rv$savedVerbs,rv$remVerbs),{
+observeEvent(c(rv$initTrig,rv$vls_data,rv$vlr_data),{
+  
+    pripas("c(rv$initTrig,rv$savedVerbs,rv$remVerbs) called")
   
     s1 <- verbdf
     
-    input$reset  
     
     s1$Save <- ifelse(seq(1:501) %in% rv$savedVerbs,
                       
@@ -65,6 +68,7 @@ observeEvent(c(rv$savedVerbs,rv$remVerbs),{
     #                    ".mp3\" type=\"audio/mp3\" controls></audio>")
     
     
+    pripas("length(rv$remVerbs) <- ",length(rv$remVerbs))
     
     if(length(rv$remVerbs)>1){
       
@@ -83,37 +87,49 @@ observeEvent(c(rv$savedVerbs,rv$remVerbs),{
 
 observeEvent(rv$savedVerbs,{
   
-  print("rv$vls_data")
-  s1 <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),] 
-  
-  if(!is.null(s1)){ 
+  s1 <- rv$savedVerbs
+ 
+  if(length(s1)>0){ 
+    
+    pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
+    
+    s1 <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),]
     
     s1$Rem <- paste0('<a data-row="',rownames(s1),
                    '" class="go-map-rem-ves" href="#" onClick="return fals',
                    'e"><i class="glyphicon glyphicon-remove-sign"></i></a>')
-    rv$vls_data <- s1    
+     
+    rv$vls_data <- s1 
+    print("dim(rv$vls_data)[1] = ",dim(rv$vls_data)[1])  
   }
   
-
+  
   
 })
 
 
 observeEvent(rv$remVerbs,{
 
-  print("rv$vlr_data")  
-  s1 <- verbdf[(rownames(verbdf) %in% rv$remVerbs),]
+  s1 <- rv$remVerbs
 
-  if(!is.null(s1)){  
+  if(length(s1)>0){  
+    
+    pripas("rv$remVerbs <- ",paste(rv$remVerbs,collapse = ", "))
+    
+    s1 <- verbdf[(rownames(verbdf) %in% rv$remVerbs),]
     
     s1$Rem <- paste0('<a data-row="',rownames(s1),
                    '" class="go-map-rem-ver" href="#" onClick="return fals',
                    'e"><i class="glyphicon glyphicon-remove-sign"></i></a>') 
-    
-    rv$vlr_data <- s1
+  
+    print("rv$vlr_data")  
+    rv$vlr_data <- s1  
   }
   
+
+  
 })
+
 #####
 
 
@@ -238,13 +254,12 @@ observeEvent(input$verbSaveRemoved,{
   
   a <- input$verbSaveRemoved$row
   
-  pripas("verbSave <- ",a)
   pripas("Adding '",a, "' to rem list")
   
   if(a %in% rv$remVerbs){
     
     pripas("Removing '",a, "' from Removed list")
-    rv$remVerbs <- rv$remVerbs[-grep(a,rv$remVerbs)]
+    rv$remVerbs <- rv$remVerbs[-grep(paste0("\\b",a,"\\b"),remVerbs)]
     
     vlr_cache <<- rv$remVerbs
     
@@ -358,8 +373,9 @@ output$verb_tbl_saved <- DT::renderDataTable({
     # s1 <- verbdf[(rownames(verbdf) %in% isolate(rv$savedVerbs)),] 
     s1 <- isolate(rv$vls_data)
     
-    if(length(s1[,1])>0){
+    if(!is_empty(s1)){
     
+      pripas("rv$vlr_data not empty")
       
       # s1$Rem <- paste0('<a data-row="',rownames(s1),
       #                  '" class="go-map-rem-ves" href="#" onClick="return fals',
@@ -382,9 +398,8 @@ output$verb_tbl_saved <- DT::renderDataTable({
       escape = FALSE, 
       editable = T
       )
+      
     }
-    
-    
   }
 })
 
@@ -395,7 +410,9 @@ output$verb_tbl_rem <- DT::renderDataTable({
     # s1 <- verbdf[(rownames(verbdf) %in% isolate(rv$remVerbs)),] 
     s1 <- isolate(rv$vlr_data)
     
-    if(length(s1[,1])>0){
+    if(!is_empty(s1)){
+      
+      pripas("rv$vlr_data not empty")
       
       # s1$Rem <- paste0('<a data-row="',rownames(s1),
       #                  '" class="go-map-rem-ver" href="#" onClick="return fals',
@@ -445,8 +462,13 @@ output$verb_tbl_rem <- DT::renderDataTable({
     
     print("rv$savedVerbs replaceData called")
     
-    dataTableAjax(session, rv$vls_data, outputId = 'verb_tbl_saved')
-    reloadData(proxy2, resetPaging = FALSE)
+    # if(length(rv$vls_data)>0){
+      
+      dataTableAjax(session, rv$vls_data, outputId = 'verb_tbl_saved')
+      reloadData(proxy2, resetPaging = FALSE)      
+    # }
+    
+
     
   }) 
   
@@ -455,8 +477,12 @@ output$verb_tbl_rem <- DT::renderDataTable({
     
     print("rv$remVerbs replaceData called")
     
-    dataTableAjax(session, rv$vlr_data, outputId = 'verb_tbl_rem')
-    reloadData(proxy3, resetPaging = FALSE)
+    # if(length(rv$vlr_data)>0){
+      
+      dataTableAjax(session, rv$vlr_data, outputId = 'verb_tbl_rem')
+      reloadData(proxy3, resetPaging = FALSE)      
+    # }
+
     
   }) 
 
