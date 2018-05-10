@@ -54,15 +54,18 @@ observeEvent(input$Login,{
       
       a11 <- readLines(paste0("userData/",USER$name,"/savedVerbs.txt"))
       if(nchar(a11)>1){
-        pripas("savedVerbs <- ",a11)
-        rv$savedVerbs <- as.numeric(unlist(str_split(a11,",")))        
-      }
+        pripas("Login: savedVerbs <- ",a11)
+        rv$savedVerbs <- as.numeric(unlist(str_split(a11,",")))  
+        vls_cache <<- rv$savedVerbs
+      } else { vls_cache <<- "" }
+
 
       a12 <- readLines(paste0("userData/", USER$name,"/remVerbs.txt"))
       if(nchar(a12)>1){
-        pripas("remVerbs <- ",a12)
+        pripas("Login: remVerbs <- ",a12)
         rv$remVerbs <- as.numeric(unlist(str_split(a12,",")))
-      }
+        vlr_cache <<- rv$remVerbs
+      } else { vls_cache <<- ""}
       
       if(nchar(a12)<2 & nchar(a12)<2){
         
@@ -71,8 +74,8 @@ observeEvent(input$Login,{
       }
       
       
-      rv$vls_length <- 10#ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
-      rv$vlr_length <- 10#ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
+      rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
+      rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       
       rv$excludeE <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
@@ -81,10 +84,9 @@ observeEvent(input$Login,{
                                   "/excludeW.txt")),","))
       rv$excludeA <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
                                   "/excludeA.txt")),","))
-      
-      pripas("length(rv$excludeE) <- ",paste(rv$excludeE,collapse = ","))
-      pripas("length(rv$excludeW) <- ",paste(rv$excludeW,collapse = ","))
-      pripas("length(rv$excludeA) <- ",paste(rv$excludeA,collapse = ","))
+      exE_data <<- rv$excludeE
+      exW_data <<- rv$excludeW
+      exA_data <<- rv$excludeA
       
       rv$excludeE_ct <- length(rv$excludeE)
       rv$excludeW_ct <- length(rv$excludeW)
@@ -102,18 +104,22 @@ observeEvent(input$logout , {
   USER$pass <- ""
   
   writeLines(paste(vls_cache,collapse = ","),
-             con = paste0("userData/",USER$name,"/savedVerbs.txt"))
+             con = paste0("userData/",global_user,"/savedVerbs.txt"))
   
   writeLines(paste(vlr_cache,collapse = ","),
-             con = paste0("userData/",USER$name,"/remVerbs.txt"))
+             con = paste0("userData/",global_user,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("userData/",USER$name,"/excludeE.txt"))
+             paste0("userData/",global_user,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("userData/",USER$name,"/excludeW.txt"))
+             paste0("userData/",global_user,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("userData/",USER$name,"/excludeA.txt"))
+             paste0("userData/",global_user,"/excludeA.txt"))
+  
+  
+  
+  
 })
 

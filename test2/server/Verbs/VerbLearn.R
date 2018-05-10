@@ -24,16 +24,16 @@ rv$vl_length <- 10
 rv$vl_count <- 1
 
 rv$vls_start <- 0
-# rv$vls_length <- ifelse(len_s1<10,len_s1,10)
+rv$vls_length <- 10
 rv$vls_count <- 1
 
 rv$vlr_start <- 0
-# rv$vlr_length <- ifelse(len_r1<10,len_s1,10)
+rv$vlr_length <- 10
 rv$vlr_count <- 1 
 
 rv$vl_data <- data.frame()
-rv$vls_data <- data.frame()
-rv$vlr_data <- data.frame()
+rv$vls_data <- data.frame(verb="",meaning="",rem="")
+rv$vlr_data <- data.frame(verb="",meaning="",rem="")
 
 rv$initTrig <- 1
 
@@ -42,7 +42,7 @@ rv$initTrig <- 1
 #...Data Observe
 #####------------------------------------------------------------------
 
-observeEvent(c(rv$initTrig,rv$vls_data,rv$vlr_data),{
+observeEvent(c(rv$initTrig,rv$savedVerbs,rv$remVerbs),{
   
     pripas("c(rv$initTrig,rv$savedVerbs,rv$remVerbs) called")
   
@@ -68,9 +68,9 @@ observeEvent(c(rv$initTrig,rv$vls_data,rv$vlr_data),{
     #                    ".mp3\" type=\"audio/mp3\" controls></audio>")
     
     
-    pripas("length(rv$remVerbs) <- ",length(rv$remVerbs))
+    # pripas("length(rv$remVerbs) <- ",length(rv$remVerbs))
     
-    if(length(rv$remVerbs)>1){
+    if(length(rv$remVerbs)>0){
       
       rv$vl_data <- s1[-as.numeric(rv$remVerbs),]
       # s2 <- s1[-n,]
@@ -87,11 +87,13 @@ observeEvent(c(rv$initTrig,rv$vls_data,rv$vlr_data),{
 
 observeEvent(rv$savedVerbs,{
   
+  pripas("observeEvent(rv$savedVerbs,{}) called")
+  
   s1 <- rv$savedVerbs
  
   if(length(s1)>0){ 
     
-    pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
+    pripas("ob: rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
     
     s1 <- verbdf[(rownames(verbdf) %in% rv$savedVerbs),]
     
@@ -100,7 +102,12 @@ observeEvent(rv$savedVerbs,{
                    'e"><i class="glyphicon glyphicon-remove-sign"></i></a>')
      
     rv$vls_data <- s1 
-    print("dim(rv$vls_data)[1] = ",dim(rv$vls_data)[1])  
+    pripas("dim(rv$vls_data)[1] = ",dim(rv$vls_data)[1])  
+
+  } else {
+    
+    rv$vls_data <-data.frame(verb="",meaning="",rem="")
+    
   }
   
   
@@ -122,7 +129,7 @@ observeEvent(rv$remVerbs,{
                    '" class="go-map-rem-ver" href="#" onClick="return fals',
                    'e"><i class="glyphicon glyphicon-remove-sign"></i></a>') 
   
-    print("rv$vlr_data")  
+    pripas("dim(rv$vlr_data)[1] <- ",dim(rv$vlr_data)[1])  
     rv$vlr_data <- s1  
   }
   
@@ -170,8 +177,8 @@ observeEvent(input$verbSave,{
  
   a <- input$verbSave$row
   
-  pripas("verbSave <- ",a)
-  # pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
+  pripas("verbSave called on row ",a)
+
   
   if(a %in% rv$savedVerbs){
     
@@ -180,20 +187,17 @@ observeEvent(input$verbSave,{
     
     vls_cache <<- rv$savedVerbs
     
-    # writeLines(paste(rv$savedVerbs,collapse = ","),
-    #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   }
   else{
     
     pripas("verbSave: Adding '",a, "' to Saved list")
     rv$savedVerbs <- sort(c(rv$savedVerbs,a))
     
-    # pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
+    pripas("From verbSave procedure: rv$savedVerbs <- ",
+           paste(rv$savedVerbs,collapse = ", "))
     
     vls_cache <<- rv$savedVerbs
 
-    # writeLines(paste(rv$savedVerbs,collapse = ","),
-    #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   }
   
 })
@@ -202,20 +206,25 @@ observeEvent(input$verbSave,{
 #...Remove verb from Saved Tab
 observeEvent(input$verbRemSaved,{
   
-  pripas("verbRemSaved <- ",input$verbRemSaved$row)
+  pripas("verbRemSaved <- row:",input$verbRemSaved$row)
   
   a <- input$verbRemSaved$row
+  a2 <- grep(paste0("\\b",a,"\\b"),rv$savedVerbs)
   
-  # pripas("verbSave <- ",a)
-  # pripas("Removing '",a, "' from Saved list")
   
-  if(a %in% rv$savedVerbs){
+  if(length(a2)>0){
     
     pripas("verbRemSaved: Removing '",a, "' from Saved list")
+    pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
     
-    b <- grep(a,rv$savedVerbs, useBytes = T,fixed = T)[1]
+    b <- grep(paste0("\\b",a,"\\b"),rv$savedVerbs)
     
     rv$savedVerbs <- rv$savedVerbs[-b]
+    
+    # if(length(rv$savedVerbs)==0){
+    #   
+    #   rv$vls_data <- data.frame(verb="",meaning="",rem="")
+    # }    
     
     vls_cache <<- rv$savedVerbs
     
@@ -234,7 +243,6 @@ observeEvent(input$verbRem,{
   
   a <- input$verbRem$row
   
-  pripas("verbSave <- ",a)
   pripas("Adding '",a, "' to Removed list")
   
   rv$remVerbs <- sort(c(rv$remVerbs,a))
@@ -253,13 +261,17 @@ observeEvent(input$verbSaveRemoved,{
   pripas("verbSaveRemoved <- ",input$verbSaveRemoved$row)
   
   a <- input$verbSaveRemoved$row
+  a2 <- grep(paste0("\\b",a,"\\b"),rv$remVerbs)
   
-  pripas("Adding '",a, "' to rem list")
-  
-  if(a %in% rv$remVerbs){
+  if(length(a2)>0){
     
     pripas("Removing '",a, "' from Removed list")
-    rv$remVerbs <- rv$remVerbs[-grep(paste0("\\b",a,"\\b"),remVerbs)]
+    rv$remVerbs <- rv$remVerbs[-grep(paste0("\\b",a,"\\b"),rv$remVerbs)]
+    
+    if(length(rv$remVerbs)==0){
+      
+      rv$vlr_data <- data.frame(verb="",meaning="",rem="")
+    }
     
     vlr_cache <<- rv$remVerbs
     
@@ -281,25 +293,21 @@ output$tabVerbLearn <- renderUI({
   tabsetPanel(id = "subTabPanel1",
               # navlistPanel(id = "subTabPanel1",
               
-              tabPanel("Ess. 501", value = "panel1_a",
-                       
-                      br(),DTOutput('verb_tbl')
-              ),
-            
-              tabPanel("Saved", value = "panel1_b",
-                       
-                      br(),DTOutput('verb_tbl_saved')
-                       
-              ),
-              tabPanel("Removed", value = "panel1_c",
-                       
-                      br(),DTOutput('verb_tbl_rem')
-                       
-              )#,
-              # tabPanel("All", value = "panel1_d",
-              # 
-              #         br(),DTOutput('verb_all_tbl')
-              # )
+        tabPanel("Ess. 501", value = "panel1_a",
+                 
+                br(),DTOutput('verb_tbl')
+        ),
+      
+        tabPanel("Saved", value = "panel1_b",
+                   
+                   br(),DTOutput('verb_tbl_saved')
+                   
+        ),                
+        tabPanel("Removed", value = "panel1_c",
+                 
+                br(),DTOutput('verb_tbl_rem')
+                 
+        )
   )
 }) 
 
@@ -372,17 +380,11 @@ output$verb_tbl_saved <- DT::renderDataTable({
     
     # s1 <- verbdf[(rownames(verbdf) %in% isolate(rv$savedVerbs)),] 
     s1 <- isolate(rv$vls_data)
+    # s1 <- rv$vls_data
     
-    if(!is_empty(s1)){
+    #if(!is_empty(s1)){
     
-      pripas("rv$vlr_data not empty")
-      
-      # s1$Rem <- paste0('<a data-row="',rownames(s1),
-      #                  '" class="go-map-rem-ves" href="#" onClick="return fals',
-      #                  'e"><i class="glyphicon glyphicon-remove-sign"></i></a>') 
-      
-      # action <- DT::dataTableAjax(session, s1)
-      
+      pripas("rv$vls_data not empty")
       pripas("rv$vls_start <- ",isolate(rv$vls_start))
       pripas("rv$vls_length <- ",isolate(rv$vls_length))
       
@@ -399,7 +401,7 @@ output$verb_tbl_saved <- DT::renderDataTable({
       editable = T
       )
       
-    }
+    #}
   }
 })
 
@@ -409,16 +411,10 @@ output$verb_tbl_rem <- DT::renderDataTable({
     
     # s1 <- verbdf[(rownames(verbdf) %in% isolate(rv$remVerbs)),] 
     s1 <- isolate(rv$vlr_data)
+    # s1 <- rv$vlr_data
     
-    if(!is_empty(s1)){
-      
+
       pripas("rv$vlr_data not empty")
-      
-      # s1$Rem <- paste0('<a data-row="',rownames(s1),
-      #                  '" class="go-map-rem-ver" href="#" onClick="return fals',
-      #                  'e"><i class="glyphicon glyphicon-remove-sign"></i></a>') 
-      
-      # action <- DT::dataTableAjax(session, s1)
       
       DT::datatable(s1, selection = list(mode = "none", target = "row"#,
                                          #selected = isolate(rv$sent_now)
@@ -435,7 +431,7 @@ output$verb_tbl_rem <- DT::renderDataTable({
       )     
       
       
-    }
+    #}
   }
 })
 
@@ -459,32 +455,25 @@ output$verb_tbl_rem <- DT::renderDataTable({
   
   # Saved
   observe({
-    
-    print("rv$savedVerbs replaceData called")
-    
-    # if(length(rv$vls_data)>0){
-      
-      dataTableAjax(session, rv$vls_data, outputId = 'verb_tbl_saved')
-      reloadData(proxy2, resetPaging = FALSE)      
-    # }
-    
 
-    
-  }) 
-  
+    print("rv$vls_data table data replaced")
+
+    dataTableAjax(session, rv$vls_data, outputId = 'verb_tbl_saved')
+    reloadData(proxy2, resetPaging = FALSE)
+
+
+
+  })
+
   # Removed
   observe({
-    
-    print("rv$remVerbs replaceData called")
-    
-    # if(length(rv$vlr_data)>0){
-      
-      dataTableAjax(session, rv$vlr_data, outputId = 'verb_tbl_rem')
-      reloadData(proxy3, resetPaging = FALSE)      
-    # }
 
+    print("rv$vlr_data table data replaced")
     
-  }) 
+    dataTableAjax(session, rv$vlr_data, outputId = 'verb_tbl_rem')
+    reloadData(proxy3, resetPaging = FALSE)
+
+  })
 
 
 ####
