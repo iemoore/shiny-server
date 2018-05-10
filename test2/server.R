@@ -35,17 +35,17 @@ exE_data <<- ""
 exW_data <<- ""
 exW_data <<- ""
 global_user <<- ""
-vls_data <<- ""
-vlr_data <<- ""
+vls_cache <<- ""
+vlr_cache <<- ""
   
 session$onSessionEnded(function() {
   
   stopApp()
   
-  writeLines(paste(vls_data,collapse = ","),
+  writeLines(paste(vls_cache,collapse = ","),
              con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   
-  writeLines(paste(vlr_data,collapse = ","),
+  writeLines(paste(vlr_cache,collapse = ","),
              con = paste0("userData/",USER$name,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),

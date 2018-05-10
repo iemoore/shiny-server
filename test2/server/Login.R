@@ -38,7 +38,7 @@ output$userPanel <- renderUI({
 
 # control login
 observeEvent(input$Login,{
-  Username <- tolower(trim(isolate(input$userName)))
+  Username <- tolower(gsub(" ","",isolate(input$userName)))
   Password <- isolate(input$passwd)
   Id.username <- which(PASSWORD$User == Username)
   Id.password <- which(PASSWORD$Pswd    == Password)
@@ -88,10 +88,10 @@ observeEvent(input$logout , {
   USER$Logged <- FALSE
   USER$pass <- ""
   
-  writeLines(paste(vls_data,collapse = ","),
+  writeLines(paste(vls_cache,collapse = ","),
              con = paste0("userData/",USER$name,"/savedVerbs.txt"))
   
-  writeLines(paste(vlr_data,collapse = ","),
+  writeLines(paste(vlr_cache,collapse = ","),
              con = paste0("userData/",USER$name,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),

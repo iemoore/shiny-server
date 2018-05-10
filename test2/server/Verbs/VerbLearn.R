@@ -162,7 +162,7 @@ observeEvent(input$verbSave,{
     pripas("verbSave: Removing '",a, "' from Saved list")
     rv$savedVerbs <- rv$savedVerbs[-grep(a,rv$savedVerbs)]
     
-    vls_data <<- rv$savedVerbs
+    vls_cache <<- rv$savedVerbs
     
     # writeLines(paste(rv$savedVerbs,collapse = ","),
     #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
@@ -174,7 +174,7 @@ observeEvent(input$verbSave,{
     
     # pripas("rv$savedVerbs <- ",paste(rv$savedVerbs,collapse = ", "))
     
-    vls_data <<- rv$savedVerbs
+    vls_cache <<- rv$savedVerbs
 
     # writeLines(paste(rv$savedVerbs,collapse = ","),
     #                         con = paste0("userData/",USER$name,"/savedVerbs.txt"))
@@ -201,7 +201,7 @@ observeEvent(input$verbRemSaved,{
     
     rv$savedVerbs <- rv$savedVerbs[-b]
     
-    vls_data <<- rv$savedVerbs
+    vls_cache <<- rv$savedVerbs
     
     # writeLines(paste(rv$savedVerbs,collapse = ","),
     #            con = paste0("userData/",USER$name,"/savedVerbs.txt"))
@@ -223,7 +223,7 @@ observeEvent(input$verbRem,{
   
   rv$remVerbs <- sort(c(rv$remVerbs,a))
   
-  vlr_data <<- rv$remVerbs
+  vlr_cache <<- rv$remVerbs
   
   # writeLines(paste(rv$remVerbs,collapse = ","),
   #            con = paste0("userData/",USER$name,"/remVerbs.txt"))
@@ -246,7 +246,7 @@ observeEvent(input$verbSaveRemoved,{
     pripas("Removing '",a, "' from Removed list")
     rv$remVerbs <- rv$remVerbs[-grep(a,rv$remVerbs)]
     
-    vlr_data <<- rv$remVerbs
+    vlr_cache <<- rv$remVerbs
     
     # writeLines(paste(rv$remVerbs,collapse = ","),
     #            con = paste0("userData/",USER$name,"/remVerbs.txt"))
