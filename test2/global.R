@@ -14,28 +14,26 @@ library(shiny.semantic)
 # library(semantic.dashboard)
 
 #...Data Load
-verbdf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/verbs501.rds")
-sentdf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/sent501.4.30.rds")
+verbdf <- readRDS("solid/data/rds/verbs501.rds")
+sentdf <- readRDS("solid/data/rds/sent501.4.30.rds")
   conjAct <- sentdf[,6]
   sentdf <- sentdf[,-c(4,6)]
   colnames(sentdf)[4] <- "tense"
-conjdf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/conj501.4.25.rds")
+conjdf <- readRDS("solid/data/rds/conj501.4.25.rds")
 
-# conjdf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/conjMaster5-9.rds")
+# conjdf <- readRDS("solid/data/rds/conjMaster5-9.rds")
 
-vocabdf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/vocab.4.30.rds")
+vocabdf <- readRDS("solid/data/rds/vocab.4.30.rds")
   vocabdf <- vocabdf[,c(1,2,3,5,4)]
   vocabdf[which(vocabdf$theme1=="MiniList"),"theme1"] <-  "Category"
 
-  audioDf <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/audioDf.rds") 
-  audioWeb <- readRDS("C:/Users/moore/Dropbox/R3/Data/Spanish/rds/audioDf575.rds")
+  audioDf <- readRDS("solid/data/rds/audioDf.rds") 
+  audioWeb <- readRDS("solid/data/rds/audioDf575.rds")
   audioWeb <- audioWeb[grepl(" ",audioWeb$spn),]
   verbWeb <- audioWeb[!grepl(" ",audioWeb$spn),]
 
-dynamicTabs <- readLines(paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/",
-                              "solid/html/tabs/dynamicTabs.txt"),warn = F)
-verbTable <- readLines(paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/",
-                              "solid/html/verbTable2.txt"),warn = F)
+dynamicTabs <- readLines(paste0("solid/html/tabs/dynamicTabs.txt"),warn = F)
+verbTable <- readLines(paste0("solid/html/verbTable2.txt"),warn = F)
 
 
 

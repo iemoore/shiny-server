@@ -62,14 +62,11 @@ observeEvent(input$Login,{
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       
-      rv$excludeE <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
-                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+      rv$excludeE <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
                                   "/excludeE.txt")),","))
-      rv$excludeW <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
-                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+      rv$excludeW <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
                                   "/excludeW.txt")),","))
-      rv$excludeA <- as.numeric(un_sp(readLines(paste0("C:/Users/moore/Dropbox/",
-                                  "R3/Shiny/Spanish/solid/data/",USER$name,
+      rv$excludeA <- as.numeric(un_sp(readLines(paste0("solid/data/",USER$name,
                                   "/excludeA.txt")),","))
       
       pripas("length(rv$excludeE) <- ",paste(rv$excludeE,collapse = ","))
@@ -93,15 +90,12 @@ observeEvent(input$logout , {
   
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    USER$name,"/excludeE.txt"))
+             paste0("solid/data/",USER$name,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    USER$name,"/excludeW.txt"))
+             paste0("solid/data/",USER$name,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    USER$name,"/excludeA.txt"))
+             paste0("solid/data/",USER$name,"/excludeA.txt"))
 })
 

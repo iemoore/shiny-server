@@ -4,29 +4,31 @@
 #... rv init
 #####------------------------------------------------------------------
 
-# rv <- list()
-# rv$savedVerbs <- c(0,1,3,5,7)
-rv$savedVerbs <- sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
-                                            user,"/savedVerbs.txt")),","))))
-len_s1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
-                                            user,"/savedVerbs.txt")),",")))))
 
-# rv$remVerbs <- c(2,4,11,13,14,18)
-rv$remVerbs <- sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
-                                            user,"/remVerbs.txt")),","))))
-len_r1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
-                                            user,"/remVerbs.txt")),",")))))
+# rv$savedVerbs <- sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+#                                             USER$name,"/savedVerbs.txt")),","))))
+# len_s1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+#                                             USER$name,"/savedVerbs.txt")),",")))))
+rv$savedVerbs <- 0
+
+
+# rv$remVerbs <- sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+#                                                 USER$name,"/remVerbs.txt")),","))))
+# len_r1 <- length(sort(as.numeric(unlist(str_split(readLines(paste0("solid/data/",
+#                                                 USER$name,"/remVerbs.txt")),",")))))
+rv$remVerbs <- 0
+
 
 rv$vl_start <- 0
 rv$vl_length <- 10
 rv$vl_count <- 1
 
 rv$vls_start <- 0
-rv$vls_length <- ifelse(len_s1<10,len_s1,10)
+# rv$vls_length <- ifelse(len_s1<10,len_s1,10)
 rv$vls_count <- 1
 
 rv$vlr_start <- 0
-rv$vlr_length <- ifelse(len_r1<10,len_s1,10)
+# rv$vlr_length <- ifelse(len_r1<10,len_s1,10)
 rv$vlr_count <- 1 
 
 rv$vl_data <- data.frame()

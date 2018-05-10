@@ -4,7 +4,7 @@ server <- function(input, output, session) {
   
 source("server/observe.R",local = T)
 source("server/reactive.R",local = T) 
-
+source("server/Login.R",local = T)  
   
 #...Sentences  
 source("server/Sents/SentLearn.R",local = T)
@@ -22,7 +22,6 @@ source("server/Vocab/VocabFlash.R",local = T)
 source("server/Vocab/VocabQuiz.R",local = T)
 
   
-source("server/Login.R",local = T)  
 source("server/home.R",local = T)    
 source("server/testing.R",local = T)  
 source("server/keyControl.R",local = T)  
@@ -36,16 +35,13 @@ session$onSessionEnded(function() {
   stopApp()
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    global_user,"/excludeE.txt"))
+             paste0("solid/data/",global_user,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    global_user,"/excludeW.txt"))
+             paste0("solid/data/",global_user,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("C:/Users/moore/Dropbox/R3/Shiny/Spanish/solid/data/",
-                    global_user,"/excludeA.txt"))
+             paste0("solid/data/",sglobal_user,"/excludeA.txt"))
   
   
 })
