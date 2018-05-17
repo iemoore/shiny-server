@@ -20,7 +20,7 @@ rv$excludeA_ct <- 1
 
 rv$search_result_sf <- "All"
 
-
+rv$conj1 <- NULL
 
 rv$audioNow_sf <- 0
 
@@ -172,7 +172,7 @@ observeEvent(input$search_type_sf,{
   
   rv$search_type_ct <- rv$search_type_ct + 1
   
-  pripas("rv$search_type_sf <- ",rv$search_type_sf)
+  # pripas("rv$search_type_sf <- ",rv$search_type_sf)
   
   if(rv$search_type_sf == 1){
     
@@ -210,7 +210,7 @@ observeEvent(input$backF2,{
 
 observeEvent(input$nextF2,{
   
-  print("Next Clicked")
+  # print("Next Clicked")
   rv$nextCt2 <- rv$nextCt2 + 1
   shinyjs::hide(id= "hideF2")
   
@@ -235,7 +235,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   # observeEvent(rv$nextCt2, {  
   # observeEvent(rv$search_type_sf, {
   
-  pripas("Dynamic UI 1 activated")
+  # pripas("Dynamic UI 1 activated")
 
   removeUI("#flashUI1_sf")
   removeUI("#flashUI2_sf")
@@ -259,9 +259,9 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   if(t==3){ b <- audioDf; rvNow <- rv$excludeA; rvNow_ct <- rv$excludeA_ct}
   
   
-  pripas("t <- ",t," dim(b)[1] <- ",dim(b)[1])
-  pripas("rvNow <- ",paste(rvNow,collapse = ", "))
-  pripas("rvNow_ct <- ",rvNow_ct)
+  # pripas("t <- ",t," dim(b)[1] <- ",dim(b)[1])
+  # pripas("rvNow <- ",paste(rvNow,collapse = ", "))
+  # pripas("rvNow_ct <- ",rvNow_ct)
   
   
   if(length(b[,1])>1) {
@@ -280,8 +280,8 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           rv$excludeE <- c(rv$excludeE, rNum)
           exE_data <<- rv$excludeE
           rv$excludeE_ct <- rv$excludeE_ct + 1
-          pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
-          pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
+          # pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
+          # pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
           ui_tar1 <- h3(f[1,2])
           ui_tar2 <- f[1,3]
         }
@@ -289,9 +289,79 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           rv$excludeW <- c(rv$excludeW, rNum)
           exW_data <<- rv$excludeW
           rv$excludeW_ct <- rv$excludeW_ct + 1
-          pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
-          pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
-          ui_tar1 <- h3(f[1,1])
+          # pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
+          # pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
+          
+          
+          if(nchar(f[1,4])>0){
+            
+            conj1 <- unlist(str_split(f[1,4],", "))
+            rv$conj1 <- conj1
+            
+            sent1 <- unlist(str_split(f[1,1]," "))
+            
+            for(h in 1:length(conj1)){
+              
+              a0 <- str_split_fixed(conj1[h],"-",3)
+              a <- as.numeric(unlist(str_split(a0[1],"/")))
+              cnum <- as.numeric(unlist(str_split(a0[3],"/")))
+              
+              c <- filter(conjdf, verb==a0[2], tenseNum %in% cnum)
+              
+              
+              if(length(a)==1){
+                
+                sent1[a] <- paste0('<a id="gfw',h,'" data-row="',h,
+                     '" class="go-flash-web" href="#" onClick="return false" data-',
+                     'toggle="tooltip" title="',paste(c$popup,collapse = ", "),'" ',
+                     'data-placement="top">',
+                     sent1[a],'</a>')
+                
+              } 
+              
+              if(length(a)>1 && (a[2]-a[1])==1) {
+                
+                sent1[a[1]] <- paste0('<a id="gfw',h,'" data-row="',h,'" class="go-',
+                      'flash-web" href="#" onClick="return fals',
+                      'e" data-toggle="tooltip" title="',paste(c$popup,collapse = ", "),
+                      '" data-placement="top" >',
+                      paste(sent1[a],collapse = " "),'</a>')
+                
+                sent1[(a[1]+1):a[length(a)]] <- ""
+                
+                
+              } else {
+                
+                sent1[a[1]] <- paste0('<a data-row="',h,
+                              '" class="go-flash-web" href="#" onClick="return fals',
+                              'e">',paste(sent1[a[1]],collapse = " "),'</a>')
+                
+                sent1[a[2]] <- paste0('<a data-row="',h,
+                              '" class="go-flash-web" href="#" onClick="return fals',
+                              'e">',paste(sent1[a[2]],collapse = " "),'</a>') 
+            
+                
+              }
+              
+              # addTooltip(session, paste0("gfw",h),
+              #            # title = paste(c$tense,c$person, collapse = ", "),
+              #            title = paste(c$popup, collapse = ", "),
+              #            placement = "top",
+              #            trigger = "hover", options = NULL)
+              
+              # sent1[a] <- paste0("<a id=\"test",h,"\"  >",sent1[a],"</a>")
+              
+            }
+            
+            sent2 <- paste(sent1[which(nchar(sent1)>0)],collapse = " ")            
+            
+          } else {
+            
+            sent2 <- f[1,1]
+            
+          }
+
+          ui_tar1 <- HTML(sent2)
           ui_tar2 <- f[1,2]
   
         }
@@ -299,8 +369,8 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           rv$excludeA <- c(rv$excludeA, rNum)
           exA_data <<- rv$excludeA
           rv$excludeA_ct <- rv$excludeA_ct + 1
-          pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
-          pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
+          # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
+          # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
           ui_tar1 <- h3(f[1,1])
           ui_tar2 <- f[1,2]
           
@@ -322,6 +392,34 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           where = "afterEnd",
           ui = ui_build2
         )
+        
+        
+        # if(t==2){if(nchar(f[1,4])>0){
+        #   
+        #   print("Adding tooltips")
+        #   
+        #   conj1 <- unlist(str_split(f[1,4],", "))
+        #   
+        #   for(h in 1:length(conj1)){
+        #     
+        #     a0 <- str_split_fixed(conj1[h],"-",3)
+        #     a <- as.numeric(unlist(str_split(a0[1],"/")))
+        #     cnum <- as.numeric(unlist(str_split(a0[3],"/")))
+        #     
+        #     c <- filter(conjdf, verb==a0[2], tenseNum %in% cnum)
+        #     
+        #     addTooltip(session, paste0("gfw",h),
+        #                # title = paste(c$tense,c$person, collapse = ", "),
+        #                title = paste(c$popup, collapse = ", "),
+        #                placement = "top",
+        #                trigger = "hover", options = NULL)
+        #     
+        #     # sent1[a] <- paste0("<a id=\"test",h,"\"  >",sent1[a],"</a>")
+        #     
+        #   }  
+        # }}
+        # 
+        
       }
       else {
   
@@ -370,21 +468,21 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         
         
         if(t==1){
-          pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
-          pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
+          # pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
+          # pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
           ui_tar1 <- f[1,2]
           ui_tar2 <- f[1,3]
         }
         if(t==2){
-          pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
-          pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
+          # pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
+          # pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
           ui_tar1 <- f[1,1]
           ui_tar2 <- f[1,2]
           
         }
         if(t==3){
-          pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
-          pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
+          # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
+          # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
           ui_tar1 <- f[1,1]
           ui_tar2 <- f[1,2]
           
@@ -417,7 +515,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
 observeEvent(rv$backCt2, {
   if(rv$backCt2>0){
   
-    pripas("Dynamic UI 2 activated")
+    # pripas("Dynamic UI 2 activated")
     
     removeUI("#flashUI1_sf")
     removeUI("#flashUI2_sf")
@@ -451,7 +549,7 @@ observeEvent(rv$backCt2, {
       rvNow_ct <- rv$excludeA_ct
   }
     
-    pripas("Back called")
+    # pripas("Back called")
     
     if(length(b[,1])>1) {
     
@@ -460,21 +558,21 @@ observeEvent(rv$backCt2, {
       if(!(t==1)){rv$audioNow_sf <- f$num1}
       
       if(t==1){
-        pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
-        pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
+        # pripas("rv$excludeE <- ",paste(rv$excludeE,collapse = ", "))
+        # pripas("rv$excludeE_ct <- ",rv$excludeE_ct)
         ui_tar1 <- f[1,2]
         ui_tar2 <- f[1,3]
     }
       if(t==2){
-        pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
-        pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
+        # pripas("rv$excludeW <- ",paste(rv$excludeW,collapse = ", "))
+        # pripas("rv$excludeW_ct <- ",rv$excludeW_ct)
         ui_tar1 <- f[1,1]
         ui_tar2 <- f[1,2]
         
     }
       if(t==3){
-        pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
-        pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
+        # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
+        # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
         ui_tar1 <- f[1,1]
         ui_tar2 <- f[1,2]
         

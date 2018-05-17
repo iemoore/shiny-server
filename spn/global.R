@@ -1,4 +1,5 @@
 
+# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server/spn")
 
 library(shiny)
 library(shinyBS)
@@ -21,16 +22,19 @@ sentdf <- readRDS("solid/data/rds/sent501.4.30.rds")
   conjAct <- sentdf[,6]
   sentdf <- sentdf[,-c(4,6)]
   colnames(sentdf)[4] <- "tense"
-conjdf <- readRDS("solid/data/rds/conj501.4.25.rds")
 
-# conjdf <- readRDS("solid/data/rds/conjMaster5-9.rds")
+# conjdf <- readRDS("solid/data/rds/conj501.4.25.rds")
+conjdf <- readRDS("solid/data/rds/conjMaster5-15.rds")
+
 
 vocabdf <- readRDS("solid/data/rds/vocab.4.30.rds")
   vocabdf <- vocabdf[,c(1,2,3,5,4)]
   vocabdf[which(vocabdf$theme1=="MiniList"),"theme1"] <-  "Category"
 
-  audioDf <- readRDS("solid/data/rds/audioDf.rds") 
-  audioWeb <- readRDS("solid/data/rds/audioDf575.rds")
+audioDf <- readRDS("solid/data/rds/audioDf.rds") 
+  
+
+audioWeb <- readRDS("solid/data/rds/audioWebSent.rds")
   audioWeb <- audioWeb[grepl(" ",audioWeb$spn),]
   verbWeb <- audioWeb[!grepl(" ",audioWeb$spn),]
 

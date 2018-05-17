@@ -18,7 +18,8 @@ shinyUI(
   includeScript("solid/js/key.js"),
   includeScript("solid/js/clicktest.js"),
   includeScript("solid/js/conjCon.js"),
-
+  includeScript("solid/js/goFlash.js"),
+  # includeScript("solid/js/popper.min.js"),
 
 
 

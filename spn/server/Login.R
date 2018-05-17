@@ -118,7 +118,12 @@ observeEvent(input$logout , {
   writeLines(paste(exA_data,collapse = ","),
              paste0("userData/",global_user,"/excludeA.txt"))
   
-  
+  exE_data <<- ""
+  exW_data <<- ""
+  exA_data <<- ""
+  global_user <<- ""
+  vls_cache <<- ""
+  vlr_cache <<- ""
   
   
 })
