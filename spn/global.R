@@ -18,6 +18,9 @@ options(warn=1)
 
 #...Data Load
 verbdf <- readRDS("solid/data/rds/verbs501.rds")
+
+verbMaster <- readRDS("solid/data/rds/verbMaster5-16.rds")
+
 sentdf <- readRDS("solid/data/rds/sent501.4.30.rds")
   conjAct <- sentdf[,6]
   sentdf <- sentdf[,-c(4,6)]

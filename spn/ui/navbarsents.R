@@ -8,6 +8,11 @@ navbarMenu("Sentences",
                 )    
             ),
             tabPanel("Flashcards", value = "panel8",
+                     
+                    bsModal(id="sf_Modal", "Hello", "sfm_trigger",size = "large",
+                            
+                            uiOutput("sf_Modal_fill")
+                            ),
                     
                     pageWithSidebar(
                       headerPanel(span(inlineDing("Flash:"),
