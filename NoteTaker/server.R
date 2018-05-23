@@ -9,6 +9,7 @@ server <- function(input, output, session) {
   # notedf <<- rv$noteData
   rv$typeNow <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
   rv$typePicked <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
+  rv$pickedNow <- "Spanish"
   
   source("server/keyResponse.R",local = T) 
   source("server/noteSave.R",local = T) 

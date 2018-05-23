@@ -3,11 +3,20 @@
 output$selectInput1 <- renderUI({
   
   selectizeInput(
-    'typeInput', label = NULL, choices = rv$typeNow,
+    'typeInput', label = NULL, choices = isolate(rv$typeNow),
+    # selected = isolate(rv$pickedNow),
     options = list(create = TRUE)
   )
     
 })
+
+# observeEvent(input$typeInput,{
+#   
+#   
+#   rv$pickedNow <- input$typeInput
+#   
+# })
+
 
 
 output$pickerOut <- renderUI({

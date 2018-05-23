@@ -80,7 +80,7 @@ rv$nt_length <- 10
 # rv$typePicked <- unique(notedf$type)
 rv$typeNow <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
 rv$typePicked <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
-
+rv$pickedNow <- "Spanish"
 
 #####
 
