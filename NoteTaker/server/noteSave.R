@@ -30,7 +30,7 @@ observeEvent(input$saveNote,{
   rv$noteData <- rbind(data.frame(time = Sys.time(), body = a, type= b),
                        rv$noteData)
   notedf <<- rv$noteData
-  saveRDS(rv$noteData,"solid/rds/noteMaster1.rds")
+  saveRDS(rv$noteData,"solid/rds/noteMaster2.rds")
   
 
    
