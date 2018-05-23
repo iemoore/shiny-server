@@ -19,7 +19,10 @@ options(warn=1)
 #####-------------------------------------------------------------------
 
 # notedf <- readRDS("solid/rds/noteMaster5-23.rds")
+# notedf$type <- "Spanish"
+# saveRDS(notedf,"solid/rds/noteMaster.rds")
 notedf <- readRDS("solid/rds/noteMaster.rds")
+
 
 
 #####
@@ -71,6 +74,10 @@ rv <- reactiveValues()
 rv$nt_start <- 0
 rv$nt_length <- 10
 rv$noteData <- notedf
+
+rv$typeNow <- unique(notedf$type)
+rv$typePicked <- unique(notedf$type)
+
 
 #####
 

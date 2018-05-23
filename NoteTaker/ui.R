@@ -47,7 +47,6 @@ body <- dashboardBody(
   tags$style(HTML("                  
   .shiny-input-container:not(.shiny-input-container-inline) {
   width: 100%;
-  height: 60%;
   }")),
   useShinyalert(),
 
@@ -58,10 +57,17 @@ body <- dashboardBody(
       
       fluidPage(
         
-
-         textAreaInput("noteArea", "Enter New Note Here",resize = "vertical"),
-         actionButton("saveNote","Save")
-
+        wellPanel(
+          
+          selectizeInput(
+            'typeInput', label = NULL, choices = unique(notedf$type),
+            options = list(create = TRUE)
+          ),
+          textAreaInput("noteArea", "Enter New Note Here",
+                        resize = "vertical",rows = 10),
+          actionButton("saveNote","Save")
+          
+        )
         
       )
     ),
@@ -71,8 +77,20 @@ body <- dashboardBody(
       
       fluidPage(
         
-        DTOutput("note_tbl"),
-        h2("Hello 2nd tab")
+        pickerInput(
+          inputId = "typePicker", 
+          label = "Choose desired types", 
+          choices = as.character(unique(notedf$type)), 
+          options = list(
+            `actions-box` = TRUE, 
+            size = 10,
+            `selected-text-format` = "count > 3"
+          ), 
+          multiple = TRUE,
+          selected = as.character(unique(notedf$type))
+        ),
+        
+        DTOutput("note_tbl")
       )
     )  
     

@@ -7,6 +7,7 @@ server <- function(input, output, session) {
   source("server/keyResponse.R",local = T) 
   source("server/noteSave.R",local = T) 
   source("server/noteView.R",local = T) 
+  source("server/noteTests.R",local = T) 
   
   session$onSessionEnded(function() {
     

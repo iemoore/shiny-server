@@ -8,6 +8,9 @@ output$note_tbl <- DT::renderDataTable({
     s2 <- notedf
     pripas("RenderDataTable called at ",Sys.time())
     
+    
+    
+    
     # action <- DT::dataTableAjax(session, s2)
     
     DT::datatable(s2, selection = list(mode = "single", target = "row"),
