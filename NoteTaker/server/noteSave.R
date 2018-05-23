@@ -16,9 +16,9 @@ observeEvent(input$saveNote,{
     
     rv$typeNow <- c(as.character(rv$typeNow),b)
     rv$typePicked <- c(as.character(rv$typePicked),b)
-    pripas("rv$typeNow <- ",paste(as.character(rv$typeNow),collapse = ", "))
-    pripas("rv$typePicked <- ",paste(as.character(rv$typePicked),collapse = ", "))
-    
+    # pripas("rv$typeNow <- ",paste(as.character(rv$typeNow),collapse = ", "))
+    # pripas("rv$typePicked <- ",paste(as.character(rv$typePicked),collapse = ", "))
+    # 
     updatePickerInput(session, "typePicker", label = NULL, selected = rv$typePicked,
                       choices = rv$typeNow, 
                       choicesOpt = NULL)    
@@ -30,6 +30,7 @@ observeEvent(input$saveNote,{
   rv$noteData <- rbind(data.frame(time = Sys.time(), body = a, type= b),
                        rv$noteData)
   notedf <<- rv$noteData
+  saveRDS(rv$noteData,"solid/rds/noteMaster1.rds")
   
 
    
