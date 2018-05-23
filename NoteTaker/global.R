@@ -76,8 +76,8 @@ rv <- reactiveValues()
 rv$nt_start <- 0
 rv$nt_length <- 10
 
-rv$typeNow <- unique(notedf$type)
-rv$typePicked <- unique(notedf$type)
+# rv$typeNow <- unique(notedf$type)
+# rv$typePicked <- unique(notedf$type)
 
 
 #####
