@@ -25,9 +25,9 @@ server <- function(input, output, session) {
   
   rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
   
-  a <- readRDS("solid/rds/noteMaster1.rds")
-  rv$typeNow <- unique(a$type)
-  rv$typePicked <- unique(a$type)
+  # a <- readRDS("solid/rds/noteMaster1.rds")
+  rv$typeNow <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
+  rv$typePicked <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
 
 
 }
