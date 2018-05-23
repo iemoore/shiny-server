@@ -14,6 +14,8 @@ library(stringr)
 library(purrr)
 
 options(warn=1)
+options(shiny.error=recover)
+options(shiny.sanitize.errors=F)
 
 
 
