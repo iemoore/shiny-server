@@ -4,6 +4,10 @@ server <- function(input, output, session) {
   
   session$allowReconnect(TRUE)
   
+  rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
+  # a <- readRDS("solid/rds/noteMaster1.rds")
+  rv$typeNow <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
+  rv$typePicked <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
   
   source("server/keyResponse.R",local = T) 
   source("server/noteSave.R",local = T) 
@@ -23,11 +27,7 @@ server <- function(input, output, session) {
   })
   
   
-  rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
-  
-  # a <- readRDS("solid/rds/noteMaster1.rds")
-  rv$typeNow <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
-  rv$typePicked <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
+
 
 
 }
