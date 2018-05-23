@@ -8,6 +8,7 @@ output$note_tbl <- DT::renderDataTable({
     s2 <- notedf
     pripas("RenderDataTable called at ",Sys.time())
     
+    
     # action <- DT::dataTableAjax(session, s2)
     
     DT::datatable(s2, selection = list(mode = "single", target = "row"),
@@ -35,8 +36,12 @@ proxy1 = dataTableProxy('note_tbl')
 observe({
 
   pripas("dataTable proxy called at ",Sys.time())
-  pripas("dim(rv$noteData)[1] <- ",dim(rv$noteData)[1])
-  dataTableAjax(session, rv$noteData, outputId = 'note_tbl')
+  # pripas("dim(rv$noteData)[1] <- ",dim(rv$noteData)[1])
+  
+  
+  s1 <- rv$noteData[which(rv$noteData$type %in% rv$typePicked),]
+  
+  dataTableAjax(session, s1, outputId = 'note_tbl')
   reloadData(proxy1, resetPaging = FALSE)
 
 })

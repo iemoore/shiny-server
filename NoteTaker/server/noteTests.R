@@ -34,7 +34,7 @@ output$pickerOut <- renderUI({
       `selected-text-format` = "count > 3"
     ), 
     multiple = TRUE,
-    selected = as.character(rv$typePicked)
+    selected = as.character(isolate(rv$typePicked))
   )
   
 })

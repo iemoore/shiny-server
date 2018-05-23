@@ -13,7 +13,7 @@ library(dplyr)
 library(stringr)
 library(purrr)
 
-options(warn=1)
+options(warn=2)
 options(shiny.error=recover)
 options(shiny.sanitize.errors=F)
 
