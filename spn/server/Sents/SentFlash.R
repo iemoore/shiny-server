@@ -1,4 +1,7 @@
 
+
+#...Rv's
+#####----------------------------------------------------------------------
 rv$nextCt2 <- 0
 rv$backCt2 <- 0
 
@@ -28,7 +31,7 @@ ch1 <- c("Essential 501","Webster 575","Anki 7627")
 choices = data.frame(var = ch1,num = 1:length(ch1))
 mylist <- as.list(choices$num)
 names(mylist) <- choices$var
-
+#####
 
 
 #... Search, Buttons
@@ -371,7 +374,10 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           rv$excludeA_ct <- rv$excludeA_ct + 1
           # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
           # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
-          ui_tar1 <- h3(f[1,1])
+          
+          sent2 <- sent2function(f)
+          
+          ui_tar1 <- HTML(sent2)
           ui_tar2 <- f[1,2]
           
         }
@@ -488,7 +494,10 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         if(t==3){
           # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
           # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
-          ui_tar1 <- f[1,1]
+          
+          sent2 <- sent2function(f)
+          
+          ui_tar1 <- HTML(sent2)
           ui_tar2 <- f[1,2]
           
         }
@@ -584,7 +593,10 @@ observeEvent(rv$backCt2, {
       if(t==3){
         # pripas("rv$excludeA <- ",paste(rv$excludeA,collapse = ", "))
         # pripas("rv$excludeA_ct <- ",rv$excludeA_ct)
-        ui_tar1 <- f[1,1]
+        
+        sent2 <- sent2function(f)
+        
+        ui_tar1 <- HTML(sent2)
         ui_tar2 <- f[1,2]
         
     }

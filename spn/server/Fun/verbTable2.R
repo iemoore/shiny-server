@@ -1,13 +1,14 @@
 
 
 
+r1 <- "1/2-faltar-73"
 
 
-# verbTable_fun <- function(r1){
-#   
-# r0 <- unlist(str_split_fixed(r1,"-",3))
-# r2 <- filter(conjdf, verb==r0[2]) 
-# dim(r2)  
+verbTable_fun <- function(r1){
+
+r0 <- unlist(str_split_fixed(r1,"-",3))
+r2 <- filter(conjdf, verb==r0[2])
+dim(r2)
 
 
 
@@ -131,7 +132,7 @@ t3 <- paste(verbTable[8],collapse = "")
   }
 
 
-# }
+}
 
 
 

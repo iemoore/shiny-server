@@ -9,8 +9,9 @@ navbarMenu("Sentences",
             ),
             tabPanel("Flashcards", value = "panel8",
                      
-                    bsModal(id="sf_Modal", "Hello", "sfm_trigger",size = "large",
+                    bsModal(id="sf_Modal", "More info", "sfm_trigger",size = "large",
                             
+                            tags$a(id="hereModal1"),
                             uiOutput("sf_Modal_fill")
                             ),
                     

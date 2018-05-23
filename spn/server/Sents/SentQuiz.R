@@ -112,7 +112,7 @@ output$quizNext <- renderUI({
 
 observeEvent(input$chooseVerb, {
   
-  # a <- un_sp(input$chooseVerb,",")
+  a <- un_sp(input$chooseVerb,",")
   rv$showQuiz <- input$chooseVerb
   
   rv$data <- sentdf[which(sentdf$verb %in% a),]

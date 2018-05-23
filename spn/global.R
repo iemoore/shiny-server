@@ -34,7 +34,7 @@ vocabdf <- readRDS("solid/data/rds/vocab.4.30.rds")
   vocabdf <- vocabdf[,c(1,2,3,5,4)]
   vocabdf[which(vocabdf$theme1=="MiniList"),"theme1"] <-  "Category"
 
-audioDf <- readRDS("solid/data/rds/audioDf.rds") 
+audioDf <- readRDS("solid/data/rds/audioAnkiSent.rds") 
   
 
 audioWeb <- readRDS("solid/data/rds/audioWebSent.rds")
@@ -46,6 +46,7 @@ dynamicTabs <- readLines(paste0("solid/html/tabs/dynamicTabs.txt"),warn = F)
 verbTable <- readLines(paste0("solid/html/verbTable2.txt"),warn = F)    
 
 
+dictdf <- readRDS("solid/data/rds/dictMaster5-19.rds")
 
 
 
@@ -90,7 +91,6 @@ tenseC <- list(c(1,3,2,6,5),c(1,3,4,6),c(8,9),c(1,3,2,6,5),c(1,3,2,6,5),c(1,7,6)
 chainC <- list(c(3,32),c(33,56),c(57,66),c(67,96),c(97,126),c(127,144))
 
 
-
 #Functions 
 
 pripas <- function(...){
@@ -125,7 +125,7 @@ split_between <- function(x,pat1,pat2){
   a <- str_split_fixed(x,pat1,2)[2]
   b <- str_split_fixed(a,pat2,2)[1]
   
-  
+  return(b)
 } 
 
 

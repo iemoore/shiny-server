@@ -1,63 +1,7 @@
 
 
 
-$(document).on("click", ".go-map-save-ve", function(e) {
-  e.preventDefault();
-  $el = $(this);
-  var row = $el.data("row");
-  Shiny.onInputChange("verbSave", {
-    row: row,
-    nonce: Math.random()
-  });
-});
-
-
-$(document).on("click", ".go-map-rem-ver", function(e) {
-  e.preventDefault();
-  $el = $(this);
-  var row = $el.data("row");
-  Shiny.onInputChange("verbSaveRemoved", {
-    row: row,
-    nonce: Math.random()
-  });
-});
-
-
-
-$(document).on("click", ".go-map-rem-ve", function(e) {
-  e.preventDefault();
-  $el = $(this);
-  var row = $el.data("row");
-  Shiny.onInputChange("verbRem", {
-    row: row,
-    nonce: Math.random()
-  });
-});
-
-$(document).on("click", ".go-map-rem-ves", function(e) {
-  e.preventDefault();
-  $el = $(this);
-  var row = $el.data("row");
-  Shiny.onInputChange("verbRemSaved", {
-    row: row,
-    nonce: Math.random()
-  });
-});
-
-
-
 /*########################################################################*/
-
-var ctrlPressed = false;
-$(window).keydown(function(evt) {
-  if (evt.which == 17) { // ctrl
-    ctrlPressed = true;
-  }
-}).keyup(function(evt) {
-  if (evt.which == 17) { // ctrl
-    ctrlPressed = false;
-  }
-});
 
 
 $(document).keypress(function(e) {
@@ -79,6 +23,10 @@ $.key('ctrl+enter', function() {
 
 
 
+/*########################################################################*/
+
+
+
 $(function() {
   $(document).keypress(function(e) {
     if (e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" ||
@@ -97,49 +45,6 @@ $(function() {
     }
   });
 });
-
-
-/*########################################################################*/
-
-
-$(document).keyup(function(e) {
-  if(e.which == 16) {
-    /*alert('You pressed enter!');*/
-      /*$( "#toggleAdvanced" ).click();*/
-      /*$( "#tabBut" ).click();*/
-    Shiny.onInputChange("moTrigKey", Math.random());
-    console.log( "'Shift' pressed, #moTrog called." );
-  }
-});
-
-
-
-
-$( document ).ready(function() {
-  $("#tabBut").on("click", function (event) {
-    
-    Shiny.onInputChange("tab_click",Math.random());
-    
-  });
-});
-
-
-
-$(document).on("click", ".go-map-like", function(e) {
-  //e.preventDefault();
-  Shiny.onInputChange("icon_click_like",Math.random());
-});
-
-$(document).on("click", ".go-map-dislike", function(e) {
-  //e.preventDefault();
-  Shiny.onInputChange("icon_click_dislike",Math.random());
-});
-
-$(document).on("click", ".go-map-save", function(e) {
-  //e.preventDefault();
-  Shiny.onInputChange("icon_click_save",Math.random());
-});
-
 
 
 
