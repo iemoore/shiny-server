@@ -47,6 +47,7 @@ body <- dashboardBody(
   tags$style(HTML("                  
   .shiny-input-container:not(.shiny-input-container-inline) {
   width: 100%;
+  height: 60%;
   }")),
   useShinyalert(),
 
@@ -58,7 +59,7 @@ body <- dashboardBody(
       fluidPage(
         
 
-         textAreaInput("noteArea", "Enter New Note Here"),
+         textAreaInput("noteArea", "Enter New Note Here",resize = "vertical"),
          actionButton("saveNote","Save")
 
         
