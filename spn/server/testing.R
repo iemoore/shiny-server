@@ -143,7 +143,7 @@ output$sf_Modal_fill <- renderUI({
       b2 <- filter(b,ctx==b1[i])
       b3 <- paste0("<b>(",b2$mean,")</b> ",b2$spn," ... ",b2$eng)
       
-      b4 <- paste0("<dt><u>",b1[i],"</u>...</dt><dd>",paste(b3,
+      b4 <- paste0("<dt><u>",b1[i],"</u>...</dt><br><dd>",paste(b3,
                   collapse = "<br><br>"),"</dd>")
       
       list3 <- paste0(list3,"<dl>",b4,"</dl><br>")
