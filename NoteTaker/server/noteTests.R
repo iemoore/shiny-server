@@ -3,6 +3,7 @@
 output$pickerOut <- renderUI({
   
   pripas("output$pickerOut called at ",Sys.time())
+  shinyjs::logjs(paste0("output$pickerOut called at ",Sys.time()))
   
   pickerInput(
     inputId = "typePicker", 
