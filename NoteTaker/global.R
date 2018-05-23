@@ -78,14 +78,14 @@ rv$nt_length <- 10
 
 # rv$typeNow <- unique(notedf$type)
 # rv$typePicked <- unique(notedf$type)
-rv$typeNow <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
-rv$typePicked <- unique(readRDS("solid/rds/noteMaster1.rds")$type)
+rv$typeNow <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
+rv$typePicked <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
 
 
 #####
 
 
-
+# a <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
 
 
 
