@@ -6,9 +6,9 @@ server <- function(input, output, session) {
   
   rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
   # a <- readRDS("solid/rds/noteMaster1.rds")
-  notedf <<- rv$noteData
-  rv$typeNow <- as.character(unique(notedf$type))
-  rv$typePicked <- as.character(unique(notedf$type))
+  # notedf <<- rv$noteData
+  rv$typeNow <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
+  rv$typePicked <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
   
   source("server/keyResponse.R",local = T) 
   source("server/noteSave.R",local = T) 

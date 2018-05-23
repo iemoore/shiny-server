@@ -59,7 +59,7 @@ body <- dashboardBody(
         
         wellPanel(
           
-          uiOutput("selectInput1")),
+          uiOutput("selectInput1"),
           textAreaInput("noteArea", "Enter New Note Here",
                         resize = "vertical",rows = 10),
           actionButton("saveNote","Save")
