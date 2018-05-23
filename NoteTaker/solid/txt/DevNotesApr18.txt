@@ -1,0 +1,395 @@
+4.30.18_________________________________________________________________
+
+9:39pm
+7:39pm
+Going to try to do a little more scraping. First site I found that seems to have substantial and well organized vocab words is...
+
+http://www.spanish411.net/Spanish-Vocabulary.asp
+
+
+5:33pm
+Ok well now I am just playing around with css. I think If I am going to make any more significant changes it will be tomorrow. For now i'd like to go through new code and properly sort and comment on code. Then I would like to switch over to selenium mode and find a website with a deccent amount of scrapable catagorized nouns, phrases, or even sentences to start having a bit more data to work with.       
+
+
+4:40pm
+I have succesfully writen out the code that one need to dynamically generate a sentence/quiz with feedback mechanism for an arbitrary number of text inputs. Would like to eventually make more functionality in terms of scoring and having multiple verbs randomly distributed. 
+
+12:02pm
+Going to start this weeks work continuing with dynamically created UI, paying close attention to the mango solutions blog post on the subject in the previous comment. The desired goal at this point is to create a kind of flashcard style quiz section for sentences, verbs, phrases, or even eventually specific study topics like 'going to the beach' for an example. I imagine that when I become proficient enough i should be able to get quite fancy but for now lets focus on being efficient and thus not overly complicated.
+
+4.26.18_________________________________________________________________
+
+5:02pm
+Didn't get very far with the previous idea's tab. Read through the following blog post from mango-solutions and found it to be absolutely on point with what im trying to develop, with some next-level functionality like a function with a double-embedded reactiveVariable called a Reactive Trigger which 1) $depend() can be used within reactive expressions to declare that the reactive expression must be updated whenever the trigger sets off. 2) $trigger() sets off the trigger.
+
+https://www.mango-solutions.com/blog/dynamicaly-generated-shiny-ui
+
+
+2:16pm
+Alrighty I have created the system that I wanted here but I am lacking in what I want to do next with it, so I am going to move on to something new. I will create a new app tab called "Sentence Quiz" which will test my new skills in dynamicUI output. It will work by displaying a random sentence in english and then the spanish sentence with the actual word "______"'ed out. Then, below will be 4 words to choose from, one being correct. It will have some sort of feedback as to whether you are correct. 
+
+1:46pm
+Modified the jsConj.R tabBut lapply call to now only create tags for tenses that are in the current sentence database. This definitely improves load speed. Now I want to create some kind of mechanism to only rewrite the html and/or re-call the onclick lapply when new rows are clicked. Right now this is run every time the modal is opened. 
+
+12:06pm
+Working on tweaking datatable to accept my new tense name column from data transform done earlier. Link to 'DT' options page...
+
+https://rstudio.github.io/DT/options.html
+
+9:59am
+Starting the day with small amount of data organization at bottom of VerbConjPairing to add new column to cjdf that shows all unique sent-conj pair numbers, which I will then use in the Spanish app to only create a clickable text in conjugations for only those with matching sentences.
+
+4.25.18_________________________________________________________________
+
+6:21pm
+Ok well it is 87 of 501 verbs that don't have exactly 144 tenses, 60 of which only have 32 conjugations. It might be time to rerun some scraping code and fill this shit out. Basically hindering current processes so I would rather do that and come back to this
+
+
+6:13pm
+Cleaning a little data and finding a shitload of errors in my conjugation data, notably the extra tenses taken from escribir which has 2 forms in Perfect and Perfect Subj separated by a comma so i end up with 207 forms instead of 157ish. This is not as big of a concern as it is for verbs like Comer that only return 30ish. Not sure whats going the dingus on. 
+
+2:28pm
+Have successfully created the conjugation to id click connection. Created rv$clickNow to be the identifier of what has recently been clicked. Needed to use small tip to know to add ignoreInit = T to the observeEvent so that it doesn't call it initially when the app is opened.  
+
+https://stackoverflow.com/questions/42165567/prevent-execution-of-observe-on-app-load-in-shiny
+
+1:30pm
+It works! Significantly slows down render time however.
+
+1:03pm
+Found a possibly answer using sprintf...
+https://rdrr.io/cran/shinyjs/src/inst/examples/sandbox/server.R
+
+12:36pm
+Stumbled upon a pdf of the book "Web Application Development with R using Shiny" from the following website...
+https://englianhu.files.wordpress.com/2016/01/web-application-development-with-r-using-shiny.pdf
+
+12:22pm
+Ok well I have found that my good buddy Dean Attali has already solved this problem with the 'shinyjs' packages "onclick(input$mydiva1, print("Yay"!)" function which essentially solves the problem but would require me to write an onclick function for every one of my 144*(number of verbs). This is of course possible and easy to do but would create an unneccessary amount of clutter. This could probably be done with the earlier seen lapply function called on the onclick function. 
+
+12:01pm
+Found this site which is a general tutorial of basic js communication but It does not solve my problem. This i believe is due to the said element not existing in the DOM when the app is initiated. 
+
+https://ryouready.wordpress.com/2013/11/20/sending-data-from-client-to-server-and-back-using-shiny/
+
+11:37am
+So i believe that I am starting to understand how the 10:36am comments app works, that being that when the user inputs a number, there is observeEvent(input) -> isolate(lapply, observeEvent({input[[paste("ind",ob]] ... Basically we do the same lapply for multiple id tagged observe events. Not sure if this sovles the problem with just server side alone but dynamically created UI could be a basic solution for me. Going to walk away from this example for the time being and see if there are other options. 
+
+10:42am
+Looked through slides of following rconf 2017 talk on dynamic UI but doesn't mention ability to connect with non predefined elements.
+
+https://www.rstudio.com/resources/videos/dynamic-shiny-interfaces/
+
+
+10:36am
+Improved upon algorithm to dynamically create spanish conjugation tables the way I want them to look. I have tried a few options to try and connect somehow to individual verbs that I tag with basic ID# but need to solidify the connection to dynamically created UI before I can proceed. The example in following link seems to have solved the problem using lapply with real shiny tags rather than raw html like i have now. Example is saved to shiny/examples/ObserveDynamicUI.R
+
+https://stackoverflow.com/questions/43665863/how-to-observe-dynamically-rendered-ui
+
+4.24.18_________________________________________________________________
+
+2:16pm
+Added capability to generate verb conjugation tables in a single for-loop. Now going to add controls to turn on/off certain conjugations and re-arrange columns to my prefered order. Also want ability to make text clickable if I have a sentence using that exact conjugation and have popup text to display those sentences. Very pleased with my persistance in this as I believe that this already usefull structure can have alot of capabilities added to it.
+
+
+1:17pm
+Trying to build waaay to complicated of a html table builder for verb conjugations...
+
+10:42am
+Ok thanks to https://shiny.rstudio.com/articles/unicode.html i now know that to properly display spanish accent characters i only need to use x <- enc2native(x). Ok great, now I need to structure a way to display these 144 conjugations. 
+
+10:15am
+Have new code written using the folloing link, but for some reason the website is refusing a connection. Going to come back to this issue later and switch my attention to some shiny design...
+
+https://stackoverflow.com/questions/20495598/replace-accented-characters-in-r-with-non-accented-counterpart-utf-8-encoding
+
+9:51am
+Found this link with a few options for dealing with the problem. Seems like I could remove the accents or properly send it as it is. I will explore both options but need to know how to properly display these words in shiny no matter what... 
+
+https://stackoverflow.com/questions/9511281/handling-special-characters-e-g-accents-in-r
+
+9:33am
+Want to start the day by filling in the last gaps from my dataframes. The problem was noticed in the conjugation df by will probably have the same special character based problem for the sentence dataframe. 
+
+4.23.18_________________________________________________________________
+
+6:35pm
+Going to write a small script to correct this mistake but also found row 29 of conj_df "Atravesar" is blank but has a valid page. Going to go through and manually check a few, the following are need to be filled
+
+Other: 29,73,319
+Special Character: 106,156,165,224,303,316,317,332(*)
+
+*Needs to have ñ, or returns verb tener
+
+6:14pm
+Spent time creating a dataframe to split up the conj information. At the end I found that a good number of the rows are misaligned. Traced it back to my conj_df at row 299, verb "Convencer". My guess is this is the result of some break in server and a misplaced "spot" object causing everything to be shifted. Looks like i is cause by duplicated first row conjugation. Will need to delete row 3 info and shift rows 4-73 up on, then fill in row 73.
+
+4:51pm
+Created a hidden well with a new 'choose column' checkboxGroup item that is persistant when changing verbs. This is a good start to what I want to do. Now just to end the day with a little work on the conjugation tab, I will try to at the very least separate the conjugation tenses. 
+
+4:17pm
+Had small hiccup with new data due to improperly saved sentence data. Now have built a hidden 'settings' panel above my sentence df to have my variety of options available. In quick search for input options I came across this seemingly incredibly useful article about building custom javascript inputs and how to create useful data transfer options, one step above what I know how to do currently...
+
+https://shiny.rstudio.com/articles/building-inputs.html
+
+3:44pm
+Ok again thanks to previous link I was able to do all my necessart scraping in almost no time. Not absolutely essential to the process but it is really nice to use phantomjs for a variety of reasons. Well I guess i should get cracking at the app again now that I have all my initial data to work with. To start with I want to add two levels of functionality to the modal table. First of all I want to create a collapsible panel that can for now house a few settings that I want. The first of these being the ability to hide/show the options for settings feedback (i.e. thumbs up/down, star) to give more room for the sentences. 
+
+3:00pm
+Thank you following link (from before) for helping me find my solution to the phantomjs problem using the snippet "server <- phantomjs(port=4567L, verbose=FALSE)" at the beginning of the code initiates the phantomjs server on port 4567!
+
+http://pablobarbera.com/ECPR-SC103/html/day2/03-advanced-scraping.html
+
+
+4.22.18_________________________________________________________________
+
+4:41pm
+Used the Javascript behavior section of the following like to build a multi-tabset panel using insertUI function that has a few problems. Easy to setup using raw html and injecting my info into the basic structure. Think there might be a problem using bootsrap 4.0 because of a few problems with rendered content as well as duplicated tabs during reselection.
+
+https://getbootstrap.com/docs/4.0/components/navs/
+
+
+
+2:49pm
+Now to start working with conjugation information. What I took breaks down to 144 conjugations: 
+
+-first 2 are present/past participle
+-next 30 are Indicative(6): present,preterite,imperfect,conditional,future
+-next 24 are Subjunctive(6): present, imperfect1, imperfect2, future
+-next 10 are Imperative(5): affirmative, negative
+-next 30 are Continuous(6): estar +... present,preterite,imperfect,conditional,future
+-next 30 are Perfect(6): haber +... present,preterite,imperfect,conditional,future
+-next 18 are Perfect Subjunctive: haber +... present,past,future
+
+Not I'd like to make some kind of interactive chart that will recreate this info in a way that I like. 
+
+2:00pm
+Found the following site to add a universal "Close" button that closes browser window and ends the app process in R. Second example in second link ends process when window is closed, which is great. Now if I can find a solution to close window when process is ended what would be great. 
+
+https://www.r-bloggers.com/stop-shiny-and-close-browser-together/
+https://stackoverflow.com/questions/35306295/how-to-stop-running-shiny-app-by-closing-the-browser-window/43864498
+
+1:49pm
+After too long of a time period I found a solution for my row selection problem of not registering a row when unclicking (2nd click) a row. Solved with an observeEvent of the row click which only changes when a new rv$sent_now when clicking a new row. Now I think I am going to move on to tring to display conjugation information in the second modal tab window. 
+
+12:21pm
+Doing a little bit of casual research on this nice Sunday afternoon. Reading the following article about the 'odbc' package which uses the ODBC driver for Amazon Athena, which is a serverless SQL framework..
+
+https://www.r-bloggers.com/painless-odbc-dplyr-connections-to-amazon-athena-and-apache-drill-with-r-odbc/
+https://aws.amazon.com/athena/
+
+
+4.20.18_________________________________________________________________
+
+5:51pm
+Have succesfully made the connection between the icon in my table to a javascript pitch/catch that I am using to record what row was clicked. 
+
+
+5:40pm
+Got an icon into my datatable, want to use it as a way to connect similarly to J Cheng's Superzip data explorer option, used the following link to get started, looks like there is more info in this .js file being sent from the item... 
+
+https://github.com/rstudio/shiny-examples/blob/master/063-superzip-example/gomap.js
+
+also used this guy to help me divert to basic href "#" to have the icon go to nowhere...
+
+https://stackoverflow.com/questions/924790/how-to-make-an-anchor-tag-refer-to-nothing
+
+
+3:33pm
+Just closing a few tabs. Made a reactive table to connect to the sentences that I downloaded this morning. Also just got done with my conjugation harvest which I will put into a different tab. For now closing a few chrome tabs, here are a few links
+
+https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/
+https://ropensci.github.io/RSelenium/articles/RSelenium-basics.html
+
+11:58am
+Ok slight hickup with getting the phantomjs server started. Chome driver seems to be working just fine, though still slow
+
+https://stackoverflow.com/questions/45395849/cant-execute-rsdriver-connection-refused
+https://stackoverflow.com/questions/45391609/rsdriver-in-rselenium-doesnt-work
+https://stackoverflow.com/questions/42316527/running-rselenium-with-rsdriver
+
+10:08am
+To get the day started I want to look into a functionality i believ exists called addUI. What I want to solve today will be to work again with the SpanishApp to connect my basic display chart with a bsModal when you click on an individual row. I would also like to do an initial PhantomJS scape of the sentences and conjugations for the first 100 of my 500 verbs. To initialize this i am going to make 5 different files meant to house 100 a piece and work with the first 20 verbs from each to give my initial data more variety.
+
+11:37
+Have created 5 new files, the first holding the first 50 verbs, then 101-120,201-220,301-320,401-420. Going to try and plug this right into the Rselenium scripts written yesterday, saving this initial file as "verbs130.rds" in the "Data/Spanish/rds folder.
+
+10:05am
+Wasted a good amount of time today trying to find a workaround for the non-ability to pin individual txt files to the start menu. Used the following link but was not successful so i think I will move along...http://www.thewindowsclub.com/pin-file-to-start-menu-windows-10
+
+Also took a small amount of time to look into a possibly job with http://www.boltpos.com/
+
+4.19.18_________________________________________________________________
+
+5:12pm
+Okay, hard work has payed off, I have figured out that like in the past if I want to use phantomJs i need to first open the actual .exe file. Not sure why this is but i guess in general this opens a port at 4567L which I am then able to connect to. 
+
+eCap <- list(phantomjs.page.settings.loadImages = FALSE)
+remDr <- rsDriver(browser="phantomjs", port = 4567L, #check = "TRUE",
+                  extraCapabilities = eCap)
+remDr$client$open()
+
+
+4:56pm
+Discovered the "phantom" command for RSelenium, directed the pjs_cmd to my copy of PhantomJS in downloads and got this response...
+"The phantom function in RSelenium 
+is now deprecated and will be defunct in future releases. 
+Users can drive PhantomJS via selenium using the RSelenium::rsDriver 
+function or directly using wdman::phantomjs"
+
+4:34pm
+Has downloaded, but wont launch also tried "docker run -d -p 8080:4444 selenium/node-phantomjs" but had no results. Also found this article with some notes about docker and RSelenium. 
+
+https://ropensci.github.io/RSelenium/articles/RSelenium-basics.html
+
+4:19pm
+Used "docker run -d -p 9527:4444 selenium/standalone-chrome" earlier, running "docker run -d -p 9528:4444 selenium/node-phantomjs" seems to have downloaded phantomJS for me on docker. Very useful information also found here.
+
+https://github.com/SeleniumHQ/docker-selenium
+https://cran.r-project.org/web/packages/RSelenium/vignettes/RSelenium-headless.html
+
+3:07pm
+Wrote a successful script for harvesting data from 123teachme.com now going to move on to http://www.spanishdict.com/conjugation
+
+2:05pm
+Starting a new file Selenium/SpanishScrape.R to try and get an initial swipe at a little SpanishApp data. 
+
+1:58pm
+Worked through the tutorial on WHO, had a bunch of steps that I didn't understand due to lack of knowledge with rvest, but seems great for breaking down basic information. Final run didn't work but I think getting a server started was definitely enough for me to begin
+
+1:27pm
+Fuck yeah! We have a conncetion that we created on port 9527 (randomly selected), that has given us a connection to the World Health Organizations snake info depository
+
+1:03pm
+So in order to use docker to run selenium as I had hoped, i apparently needed windows 10 pro. Bought a key for $35 and now I am up and running. Did have to start a trial version of docker cloud that expires on May 21st.
+
+11:47am
+So this guy is using a combination of 'RSelenium' to navigate to the page and then 'XML' and 'rvest' to more accurately scrape info from the page, then use purrr to automate the process. This will surely be more productive than trying to go for the raw html and scrape the plain text as i have done in the past. Going to install packages 'rvest', 'xml2','purrr' and 'tidyverse'.
+
+11:44am
+http://rpubs.com/johndharrison/13885
+Linked to a depreciated initialization tutorial. Going to instead work with the following link to use docker along side RSelenium at least for the initialization portion. I think that once I can establish a secure connection it should work identically. 
+
+https://callumgwtaylor.github.io/blog/2018/02/01/using-rselenium-and-docker-to-webscrape-in-r-using-the-who-snake-database/
+
+11:27am
+Going to get started working with RSelenium to try and scrap a little more information for the initial stage of the Spanish App. Downloaded chromedriver.exe and phantomjs.exe and installed the 'RSelenium' package. 
+
+https://www.seleniumhq.org/projects/webdriver/
+
+4.18.18_________________________________________________________________
+
+10:30pm
+Spent a good amount of time today searching through the latest hard copy of the old 'MLSapp1' app. Which was a pretty good representation of what the app had become by about October of 2016, when i stopped working on it. There are certainly some good ideas in there, but more importantly it shows the results of a lot of research that i did. Some things that stood out as game changers are the adding of raw .js & css code. Also taking another look at my old KML building algorithms and especially my super simple .txt templates. I need to conceptualize some app that I could build that could utilize my kml and leaflet skills. Also, the shinyBS package, which I mostly use for bsmodal can be very useful for my SpanishApp and an easy connectivity with the table I created yesterday to keep additional info like my saved sentences as well as conjugation info or notes. Beyond that i think for this app I need to have myself a gay ole time and revisit my favorite old pasttime... web scraping. I could easily use this to hopefully extract everything that I need from my two favorite spanish websites, with tener as the dummy verb easily interchanged.
+
+http://www.spanishdict.com/translate/tener
+https://www.123teachme.com/translated_sentences/sp/tener
+
+Using the data taken from 123teachme I could build a small database of sentences that could be linked to a "quiz" section of the app. In this section a user could select a variaty of words and test themselves in a random fashion. One of the ultimate goals of this app will be to create some sort of SQL connected storage system that allows addition of information so that I could use the app on the go and add to my spanish "matrix". 
+
+11:04pm 
+Other than the spanishApp, I need to start thinking about how I would actually want my beer app to be constructed. I see the potential of this app being a bacis POS system in general, which could be extended to include a whole suite of online service ordering products. 
+
+https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/
+https://cran.r-project.org/web/packages/RSelenium/vignettes/RSelenium-saucelabs.html
+https://callumgwtaylor.github.io/blog/2018/02/01/using-rselenium-and-docker-to-webscrape-in-r-using-the-who-snake-database/
+http://pablobarbera.com/ECPR-SC103/html/day2/03-advanced-scraping.html
+
+
+1:13pm
+Ok well i am not sure what the problem is but 'shinymaterials' seems to not be allowing me to use material_columns, which is my only means of organizing things on the app. I might come back to this but for now this is incredibly annoying. Going to work on shifting to a new project which will be focused on allowing me to more easily access my notes. I will build a basic app that will injest and process all of the note text and then display it in some way. Will do a quick search for a better shiny UI interface, possibly bootstrap. 
+
+12:30pm
+Started with basic materials 3 nav-layout and then uploaded my first fifty verbs .rds from my spanish notes yesterday. Then used the DT package to make a basic list. Now want to make a reactive with the input of clicking a row in the table to add UI to the third tab that will give further info about the verb such as conjugation rules or practice sentences. Also used link for 'shinymaterial' icons
+
+https://ericrayanderson.github.io/shinymaterial/
+https://yihui.shinyapps.io/DT-rows/
+https://material.io/icons/
+
+Now going to spend some time reading the 'shinymaterial' vingnette
+https://cran.r-project.org/web/packages/shinymaterial/shinymaterial.pdf
+
+11:39am
+Spent a little time working on the Udemy machine Learning A-Z course but am becoming quite frustrated with the pace of the course. I definitely don't think I have the time to commit too many resources to learning Python when I have so much to relearn when it comes to R. Well getting too it i want to start working again with Shiny for the early afternoon. I am going to mess around with Materials and try and create as basic as possibly of mock-up apps for an App to display my spanish verbs, to organize development notes, and one Beer POS system. I want to have very basic goals for today but keep my mind open to various possibilities. Now to start with the Spanish App
+
+
+4.17.18_________________________________________________________________
+
+1:11pm
+Now investigating the package 'shinymaterial', which uses some of the features available in the material.io which is a new platform for web development that focuses on fluid motion. I seems that the current capabilities are a little limited but can clean things up a little bit. This was what I was looking for a while ago as an alternative markup language. If it could utilize all of the materials capabilities it would be incredible. 
+https://ericrayanderson.github.io/shinymaterial/
+https://material.io/guidelines/material-design/introduction.html
+
+
+12:39pm
+Now that I have gotten a good amount of initial research down to start thinking about new capabilities i would like to work with a few app examples to start getting a little refresher course in basic development practices. I will start by looking at the git page for the user "uasnap" who has a wide range of apps that I remember working with in the past. Decided not to download the repository because of size concerns and incompatability issues. Still useful stuff for the organization of apps.
+https://github.com/ua-snap/shiny-apps
+
+So UA-Snap stands for University of Alaska Scenarios Network for Alaska/Artic Planning. It is run by Matthew Leonawicz, useful article from him found here...
+https://uasnap.shinyapps.io/ex_leaflet/
+ 
+
+11:36am
+Found this great article from last July that outlines a few great accessory apps to enhance shiny. 
+https://www.r-bloggers.com/the-r-shiny-packages-you-need-for-your-web-apps/
+
+First listed and now remembered is the 'shiny.semantic' package, which connects to the Semantics markup language for some pretty beautiful results
+https://github.com/Appsilon/shiny.semantic
+
+Next is the package 'rintrojs', which connects to the javascript package intro.js to provide interesting opening component demos to explain how the app works.
+https://carlganz.github.io/rintrojs/
+
+Reminded of the 'DT' package which was what i used to use most often but is very useful outside of mobile applications
+https://rstudio.github.io/DT/
+
+Also an interesting package 'Rhandsontable', which allows for datatable editing through the shiny app. Basically an excel file in the app. The article above praises it for its use as a data input devise. And if the associated data is connected to an sql server, this input method could become a way to edit otherwise permanent data. 
+https://github.com/handsontable/handsontable
+https://cran.r-project.org/web/packages/rhandsontable/vignettes/intro_rhandsontable.html
+
+Also interesting and useful is the 'shinyAce' package which allows the developer for syntax coloring and code edition in your web browser. This could be very useful during development to fix minor issues without having to close and relaunch the app, which in the past has been incredibly time consuming. After some exporation it didn't seem to be what I will be looking for as it doesn't actually change code, but ill leave it here for now. 
+https://github.com/trestletech/shinyAce
+
+Also reminded of the incredibly useful and simple to implement 'shinyJs' package by Dean Attali. Definitely on of my most used apps in previous app development 
+https://github.com/daattali/shinyjs
+
+Another package for testing is 'shinyTest', which allows for record keeping of inputs, taking snapshots of the app, and rudimentary version control. Could be useful in the process of trying to rerun the same inputs into an app to make sure it works the same way.
+https://rstudio.github.io/shinytest/articles/shinytest.html
+
+
+11:19am
+Looking into getting a good start through reading a few 'shiny' best practices. Want to start with having modularized and distributed (i.e. clean) 'shiny' apps. 
+
+http://jasdumas.com/2016-05-14-best-practices-for-shiny-dev/
+
+Need to download Git and possibly start a Github account to at the very least get very comfortable with using version control for all applications built. Will need to spend time familiarizing myself with css but that can be done through usemy. Shiny is built around bootstrap compontents. 
+
+Summary of Bootstrap components
+https://getbootstrap.com/docs/3.3/components/#jumbotron
+
+Bootstrap easy templates
+https://bootswatch.com/
+
+10:58am
+Have decided to dedicate the mornings research to free roam in the Shiny realm. Great start for revisiting shiny's capabilities found at http://shiny.rstudio.com/gallery/see-more.html
+
+Found 2 sites that offer tutorials for how to launch Shiny instances on dataiku.com and Ibm cloud services.
+https://www.dataiku.com/learn/guide/code/webapps/shiny.html
+https://medium.com/ibm-data-science-experience/create-r-shiny-web-apps-with-data-science-experience-and-bluemix-bbf51c0bf4db
+
+
+10:33am
+Just got done finishing my taxes. Just started work on my new Acer E-15. My intention is to use this new machine as a fresh start for coding and app development, free from distactions and/or interfering or insecure software. Now before I get started I need to assess my goals for the near future and to try to choose a path to have a bit more clarity into my future going forward. Also listening to Data Framed podcast Episode #15 on building a data science team. For now I would like to have a bit of an open brainstorm for specific goals going forward.
+
+Larger Goals:
+-Download Selenium server and retrain myself in Web Scaping
+-Launch another Rstudio Server and Shiny server for app development testing
+-Build a V_0.0 Shiny app for the CrowlerFactory to learn about/test multi-user environments
+-Build a V_0.0 Shiny app for Spanish Verbs to learn about/test environments to manipulte and display a non permanent data set. More specifically to learn about having an app connected to an SQL database that will accept new information input by the user. 
+-Build a V_0.0 Shiny app for ingesting and organizing these Development Notes, enabling searching for topics and links over a long range of indepenent text files
+
+Minor Goals:
+-Re-acquant myself with the R suite of packages
+-Continue Udemy courses in R, Tableau, and Python
+-Gather info about new 'shiny' packages: futures
+
+

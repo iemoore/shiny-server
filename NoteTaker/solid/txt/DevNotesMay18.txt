@@ -1,0 +1,407 @@
+5.22.18_________________________________________________________________
+
+
+
+11:55am
+Need to read...
+
+https://rstudio.github.io/promises/articles/shiny.html
+https://rstudio.github.io/promises/articles/futures.html
+
+
+11:03am
+Spent a good amount of time yesterday working on building a resume for a few jobs i'm looking at. Makes me think that I should be spending my time trying to create a suite of shiny apps to showcase a variety of skills. I need to pair this with a website to serve as my resume. I think I want to make the spanish server my landing page to serve as my online resume and then use it as a way to showcase a variety of apps that I will create to showcase these skills. This will give me a way to move forward with new app development as I have significantly stagnated with the spanish app. 
+
+
+5.20.18_________________________________________________________________
+
+12:53pm
+Closing out the conjMaster program after having processed dictMaster5-19.rds. Found problems with 3 word dingus's at i=220, 339, 949, 1185, 1187, 1273, 1293, 1623, 1630, 1890, 1900, 3555, 3613, 3883, 3889, 3933, 5158, 5160, 5499, 6614, 7491, 7945, 7949, 9305, 9438
+
+5.15.18_________________________________________________________________
+
+12:30pm
+check: i=277 incorrect 'viaje'
+
+
+12:12pm
+check: i=255 incorrect 'nada'
+
+
+10:52am
+check: i=222 incorrect 'abogado' as '3-abogar-2'
+
+check: i=223 need to re-scrape data for cojer, contains conj of comer. Also incorrect 'como' as comer
+
+check: i=227 missing advanced conjugation 'hacerlo'. Also incorrect 'tarde' as '10-tardar-33/41/59'
+
+check: i=228 reg. 'casa' as '3-NA-'
+result: added 'if(length(d1[[1]])==0) {next()}' to rem1 procedure in 'length(l)>0'.
+
+check: i=232 incorrect 'para' as '7-parar-13/57'
+
+check: i=233 totally missing 'esperaban'
+result: had totally bogus line to use 'if(k>1 && l2==1){if(w1[k-1] %in% c("el","la","los","las","su")){next()}}'. Removed it but expect problems.
+
+check: i=234 missing advanced conj 'divirtiéndose'
+
+check: i=235 incorrect "una casa' as '9-unir-33/41/59, 10-NA-'
+result: fixed casa dingus with i=228. Now just normal 'una' mistake
+
+check: i=237 incorrect 'partido' as '3-partir-2'
+
+
+10:30am
+check: i=214 'aburrido' returning '3-aburrir-2, 3-aburrirse-2' not sure if I want to revisit this issue. 
+
+check: i=218 reg. 'nos' as '2-NA-'
+result: going to be isolated case of 3 char word triggering like this. Added 'if(w1[k]=="nos") {next()}' to if(length(l)>0)
+
+
+10:13am
+check: i=201 reg. 'para uso personal' as '10-parar-13/57, 11-usar-3'
+
+check: i=202 incorrect 'cuidado' as '9-cuidar-2, 9-cuidarse-2'
+
+check: i=203 not catching 'hubiese herido'. Also missing 'atajó', will be added to addVerbs.txt
+
+9:55am
+check: i=184 incorrect 'nada' as '5-nadar-13/57'
+
+check: i=185 incorrect 'una' and 'nada' as '3-unir-33/41/59, 5-parar-13/57'
+
+check: i=191 incorrect 'a causa'-'because' and '8-causar-13/57'
+
+check: i=196 incorrect 'una' as '4-unir-33/41/59'
+
+check: i=198 not recognizing 'se quejaba' at all
+result: it seems that I do not have 'quejar' in the conjMaster but I do in verbMaster. Added new sections to add verbs to reflect needing to be added to both or just 1.
+
+9:25am
+check: i=161 for '4-NA-' for 'cuerda', definitely a problem created by my new i=145 procedure
+result: easy fix, didn't have procedure to check if match.
+
+check: i=171 incorrect parar
+
+check: i=172 '1-repartir-13/57' has '!' in senctence and should recognize it as an imperative. 
+
+check: i=175 incorrect 'viaje' as '9-viajar-33/41/59'
+
+check: i=178 incorrect 'una' as '6-unir-33/41/59'
+
+
+5.14.18_________________________________________________________________
+
+4:37pm
+check: i=124 reg. 'cansado-tired' as verbs '14-cansar-2/2, 14-cansarse-2'
+
+check: i=125 reg. '5-aparecer-5/15, 5-aperecer-5/15', while 'aperecer' is not a word. Need to remove. 
+result: made appropriate changes to conjMaster5.15
+
+check: i=126 missing the verb 'acostar', only have 'acostarse'.
+result: added to addVerbs.txt to take care of later
+
+check: i=127 incorrect 'parar'
+
+check: i=130 incorrect 'parar' and occuranse of advanced conjugation 'bañarnos' which I am not sure how I could efficiently check for.
+
+
+4:31pm
+check: i=115 reg. esposa as 'esposar'
+
+4:19pm
+check: i=101 registering 'hagas' but i would like it if it could register 'no hagas' since that is negative imperative
+result: added 'if(length(n1)==0 && w1[j]=="no")' procedure below the n1 check to catch these occurences.
+
+check: i=107 registering both 'para' incorrectly and 'regalo'. Its possible that if it recognized ' un regalo' it might exclude it. 
+
+check: i=109 another error as in i=101 with 'No zapateen'. Also mojado-wet registering as verb mojarse
+result: First error corrected with i=101
+
+4:07pm
+check: i=91 another misreading of 'para' as 'parar'. Could probably create procedure to disregard if immediately following a different conjugated verb. 
+
+check: i=95 for double '2-crear-3, 2-creer-3'
+result: correct conjugations
+
+3:32pm
+Fixed the above verbs and incorporated them into new conjMaster5.15
+
+check: i=84 registering both '5/6-obligar-122/122' and '5/6-obligarse-122' for 'han obligado', which should only trigger 'obligarse' for 'se han obligado'.
+result: Now have procedure in 'if(length(l)>0)' to remove d1 rows where the number of words in conj dont match number in desired search. 
+
+check: i=85 for another double recognition of '4/5-soprender-107, 4/5-sorprender-107'. Seems like i have dublicated information in 'soprender' from 'sorprender'.
+result: turns out there is no spanish word 'soprender', will remove it entirely and have that reflected in conjMaster5-15.rds
+
+check: i=86 not recognizing "Es" as form of estar. Not going to add to specialTwo b.c. will confuse with regular word which is super common 
+
+
+2:41pm
+Going to spend a small amount of time looking into the messed up 'ñ' verbs. So far it seems to have affected 'bañar', 'empeñar', 'reñir', 'soñar', 'tañer', 'teñir'.
+
+2:05pm
+check: i=73 doesn't recognize 2 infinitive forms of 'ir'
+result: create new variable 'specialTwo' to handle special verbs with two letter conjugations.
+
+check: i=76 not recognizing 'se resfriaba', the 15th tense of refriarse
+result: Removed 'c2==F' requirement from ns0-2/c0-2 procedure in the reflectCheck initial procedure. 
+
+check: i=79 not registering 'se despedía' for 'despedirse', instead just 'despedía' for 'despedir - to say goodbye, to fire'. 
+result: i=76 fix helped solved this issue.
+
+5.13.18_________________________________________________________________
+
+5:30pm
+need to add clause to sentence conj to exclude from single verb lookup if the preceding word is el or la. i.e. el trabajo assumes conjugated
+
+check: i=19 for cojer, comer detection for como
+result: will start specialWords list to deal with in the future
+
+check: i=20 for 'me llamó' registering as llamar instead of llamarse 
+result: the pattern 'me llamó' in this sentence is miswritten and would register correctly as 'me llamo'
+
+check: i=24 returns 1/2-sentarse-3, 1/2-sentirse-3
+result: is correct, 'to sit' and 'to feel' reflexively both mean "me siento" in 3rd conj.
+
+check: i=21 doesn't correctly register 'te hubiese alegrado' as a three word conj. instead stops at 'te hubiese' 
+result: thought that this was a result of a failed connection because alegrarse doesn't have the the 2nd type of imperfect which can be found in the normal 'haber' conjugation. This imlplementation would have fixed this but 'te hubiese' would only register under that implementation if it was said as 'te hubieses'. 'Se hubiese' would work but that is not in the framework of what we are doing. Created feedback loop to try to prevent this in the future if it is correct.
+
+check: i=30 has problem with 'estoy seguro' returning '1/2-asegurar-3', which has continuous progressing of 'estoy asegurando' and 'aseguro' for the 3rd verb return. It also has problem with 'te gustará' being injested as a reflexive when this is really just conjugation of 'gustará' saying 'you will love'. 
+result: made change to initial sentence procedure to precheck that the n2 rewrite process is only done if the word has a match. Not sure what to do with the '1/2-asegurar-3' problem.
+
+check: i=34 registering 'hubiese bajado' as '6/7-bajar-2' and 'hubiesen producido' as '11/12-producir-2'.
+result: Had to do another tweak to account for 'se' 'ra' imperfect ending problem but stumbled upon problem of banar taking on the values of bajar
+
+check: i=36 registering 'Nos ahorramos' as '1/2-NA-NA'
+result: Created new procedure in the n2 pre check that checks if "nos ahhoramos", just "ahhoramos", and "ahhoramos "+(next word) are matches to comply with original intention of the dingus. 
+
+check: i=39 registering 'para' as '4-parar-13/57', instead of simple word 'para'. Also 'mejores' meaning "better' being registered as verb '6-mejorar-37'. Also 'trabajo' refering to noun is being registered as verb '9-trabajar-3'.
+
+
+9:39am
+Ok lets get the week started. Pretty pleased with the progress from last week. Now have my 'conjMaster' file with ~186K different conjugated verbs. Want to develop an algorithm to now pair those conjugations with my new ~10k sentences w/ audio. Also want to develop a new verb flashcard system to model the excercise cat did with her spanish tutor last thursday. 
+
+
+5.11.18_________________________________________________________________
+
+3:03pm
+I have spent again a stupid amount of time trying to get my app to conform to shinydashboard specifications and believe that I am going to have to walk away. 
+
+
+
+2:05pm
+https://github.com/rstudio/shinydashboard/issues/51
+
+
+1:01pm
+Also a fan of 'dashspanish', which namecheap has .com for ~11/yr and .app for ~15/yr
+
+12:55pm
+Spent some time looking into the possibility of getting a SSL lets encrypt certificate and a registered domain name. Looked on namecheap at possibly ianspanish.com or neatospanish.com for $11...
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+
+11:49am
+Also want to improve the section for flashcards. Cat had her first lesson with her new spanish teacher who used a select set of flashcards to quiz her on a variety of tenses. First round of cards was kind of a 'do you know the verb' and bam it flashes to the next. A lightning round of sorts. He then did the same thing with the same verbs by surprising you with some tense that he wants you to say. I would love to build some kind of a more condensed flashcard procedure that pretty much follows what happened above. 
+
+11:22am
+Today I want to think a bit about the frontend of the app. I want to explore the possibility of using shiny dashboard to make a cleaner app, especially in the mobile format. 
+
+11:16am
+Yesterday was spent almost entirely on getting the app launched on a digital ocean instance running ubuntu 14.04 shiny server using Dean Atalli's blog. The app had quite a few problems to get going but I believe that I worked out most of the kinks. The primary problem was with persistant data storage and having to rework the VerbLearn program to reflect new global variable structure. Definitely had me almost losing my shit but it works. I am very pleased with the structure that dean created to use github as the middleground between me and the server, which requires only a push from my computer and two commands plugged into putty and the app is live. Fantastic. 
+
+5.9.18_________________________________________________________________
+
+1:45pm
+Ok well I have taken the time to properly join the vocabDF, verb501, and audioWeb df's to create new df 'verbMaster' with 1321 verbs. Rewrote old selenium code for spanishdict.com to now capture tense, person, and translation. This is being compiled right now and will eventually have a length of at max 190,000 rows. I think I would love to then go through my new anki sentences and somehow find all verbs present in each sentence based on their conjugation. This will then allow me to have some kind of modal conjugation table to connect to the verbs being used in every sentence as well as allow me to now filter the sentence flashcards and/or quizes based on whatever list of verbs I want.  
+
+
+10:10am
+Ok well that was certainly worth my time. Seems that If I had stopped on step short when finding text originally I would have been able to get the full element node, which includes the tense, person#, popup text, and the conjugated word. This will be useful to solve my >144 word problem and make for a more useful conjugation interface. Given that I will need to scrape at least the original 501, I might as well see about creating some sort of a master verb list called 'verbMaster' that will serve to be the master location for all info related to a particular verb. This new scrape procedure will be called 'ConjScrape5-9.R'. 
+
+9:50am
+For now I am going to study a bit of spanish at a couple other websites and see If an insipration strikes. To start I would like to work on the 'Add Content' page at least as a way to add "for now" an new verbs that I encounter. This can then be kind of the 'ready-to-mine" list that can be connected to a scheduled harvest of new conjugation and sentences. Then eventually seemlessly integrated into the app. This of course makes me think that I would like to see about dean attali's tutorial on launching a digital ocean virtual machine to start hosting the app. Perhaps later. For now, upon revisiting the spanishdict.com page I remembered how useful the popups are and want to see if that is something I can gather via 'phantomJs'.
+
+9:26am
+Very pleased with the progress from yesterday. As a user alone I think that with the improvements to the sentence flashcard settings I have created something worth using. From here I'm not sure what needs to happed next. I might need to move on to the next app...
+
+https://spanishboom.com/spanish-texts-with-audio/
+
+5.8.18_________________________________________________________________
+
+7:04pm
+Created basic key controls for tables to switch left and rigth between tabs with corresponding arrow key. Also created key controls to move left and right thought sentence flashcards thanks to new tracking system with rv$excludeE(/W/A) capabilities that save themselves when the app is closed. This is a better form of persistant data than the one I had before 
+
+https://stackoverflow.com/questions/49123198/store-a-reactiveval-on-session-exit
+
+
+12:29pm
+Ok well I want to focus primarily on the sentence tab today considering that I want to work with this new audio enabled sentences. First off I am going to create a persistant storage and save function for the 3 tables "Anki 7627", "Websters 575" and "Essential 501". I will then make the connection between the tables so that the flashcard and quiz sections update when a new table tab is selected and all three tabs work together. I also want to create basic functionality of left/right arrow keys switching between table tabs in 'Learn' section. Also the down and right keys to control the 'Show' and 'Next' buttons in the flashcards section and 'Check' and 'Next' in the quiz section. 
+
+11:43am
+Found this link while trying to find a way to clear up the new audio sections in my dataframes but also when I incorporate it into flashcards and quizes. The third comment here offers a very easy way to create basic audio player. Going to move forward with this for now at least to save space but the top comment had a solution for an external plugin that would be better.
+
+https://stackoverflow.com/questions/4126708/is-it-possible-to-style-html5-audio-tag
+
+
+11:21am
+Ok lets get the day started. Want to work with new audioDf2 which is selected sentences from Websters 575 selected verbs, basically 2,442 sentences with audio to help pad my current list to a total of 10,069 sentences with audio. This audio2 df is supposed to be ordered with each of the sentences but I wasn't able to find any order. No worries though I think that I will spend time today to develop an algorithm to analyze sentences and pair it to an individual verb conjugations and also pick out phrases or individual vocab words to hopefully better pair users to relevant content in the future. 
+
+5.7.18_________________________________________________________________
+
+5:58pm
+Found the following site with resource of 7627 medium length sentences with accomanying audio file. Was a bit annoying to pull the info apart bc it was in .anki format. Got to do a fun data extraction puzzle to pair the right audio to sentence but we are in business now. Created basic dataframe called audioDf with this new information as well as a new tab in the Sentence learn section to display it. Also close on having a dual purpose flashcard section for original sentence df. 
+
+https://ankiweb.net/shared/info/1617822148
+
+
+1:16pm
+Since I am going a little scatterbrained today as to what I want to do next, I am going to search through some data sources to see If i can't find any new data sets.
+
+12:59pm
+Looking through a bunch of amazing new widget options using the 'shinyWidgets' package that can easliy be implemented into the app. 
+
+https://github.com/dreamRs/shinyWidgets
+
+Also beginning to look through the list of shiny htmlWidgets available to the shiny realm. 
+
+http://gallery.htmlwidgets.org/
+
+11:52am
+Trying to find a solution to the scrunched titles in collapsible navbar when uiOutput is in the header. Didn't find solution yet but found (again) an interesting navbar option of putting a search bar in the header
+
+11:38pm
+Found out that multiple columnDef calls need to be created as individual lists. That'll be useful! Thanks...
+
+https://stackoverflow.com/questions/35749389/column-alignment-in-dt-datatable
+
+All available columnDef calls...
+
+https://datatables.net/reference/option/columnDefs
+
+11:20am
+Above link shows that scrollX=TRUE needs to be used  in options. Was able to get it to work for one column with 'columnDefs = list(list(width = '60%', targets = list(2)))', but not for multiple. 
+
+11:08am
+Fuckin around with the Dt to try and control column width individually.
+
+https://github.com/rstudio/DT/issues/29
+
+10:47am
+Found out about great 'deferRender' DT function to only render the first page of rows to enable quicker initialization. Useful for large data sets. 
+
+https://datatables.net/reference/option/deferRender
+
+
+10:28am
+Also would like to look into implementing a "Get Started" or "Signup" section enabled for app opening to allow new users to create an account. 
+
+10:22am
+Finally have a working model of a dataTableAjax reloadData enabled tables for E501, Saved and Removed tabs for the Verb Learn tab. Going to spend some time today figuring out how to get the app going online. I might work again through dean attali's blogpost on creating a github enabled git project that will pull the latest version and allow me to update the app from my rstudio browser. Also going to spend some time looking into using 'docker' with an R application, but I doubt it will have the same benefits during development that the digital ocean/ github pairing will have.
+
+http://tamaszilagyi.com/blog/dockerized-shiny-app-development/
+
+6:39am
+Trying to work with the 'dataTableProxy' and 'replaceData' functions to prevent my datatable from reloading when replacing a single rows data. Found at the following link that the problem has something to do with namespace conflicts when combined with dataTableAjax, which I assume made some connection to my clickable icons. I now have no idea what that function did for me in my previous version but moving it to a separate observeEvent doesn't seem to affect functionality. Looks really clean now.
+
+https://github.com/rstudio/DT/issues/359
+
+
+5.5.18_________________________________________________________________
+
+9:13pm
+On that note i'd like to bring it back down to the level of what I think I can actually get done in the next few days of development. First of all I am not a fan of the current vocab dataframe. I honestly didn't spent shit for time choosing the dataset and I don't feel that it is in an way truly comprehensive, which makes me hesitate in moving forward with it as something to build my model around. But moving forward to the idea that I am happy with the data. There needs to be a persistant data structure system for flashcard interactions, hopefully with my previously mentioned rating system. Also having saved quizes is a must. I would like to do this both to avoid repetition and to be able to revist past quizes or monitor comprehension progress.  
+
+
+8:35pm
+Did some good work on this fine saturday. Replaced the quiz modal procedure with nicer version provided my Mr. Dean Attali's 'shinyalert' package which had some fantactic options for different modals I will want to take advantage of in the future, specifically modals with text input. This could be great for info gathering from user. I would also love to add a selectInput into a modal so that the user could be guided in modal form with no wrong answers. 
+
+https://deanattali.com/blog/shinyalert-package/
+
+Spent yesterday working through a few problems but was successful in filling out the Learn, Flashcard, and Quiz sections for the Verb, Vocab, and Sentence tabs. Restructured and renamed a few files for better thought flow. Another nice fix today was fixing the verbdf to be able to reload and preserve state. Having a few problems with this in terms of constant reload of the table but I think that good ole Yihui fixed this with the replaceData() function in conjunction with dataTableProxy(). 
+
+https://github.com/rstudio/DT/issues/168
+
+Also played around a bit with some new key commands. Initially the user is able to use the enter button to click the 'login' button. Next, each of the 9 main tabs (Learn,Flash,Quiz X 3) is accesable using the 1-9 keys. Had an awesome time this morning finding that these don't work when semantic page is enabled. Bunch of shit if you ask me. 
+
+This is going to be important for my most useful new feature of the day being a system to save and of remove rows from the essential 500 list using new 'superZip' connected style icons in the table. I am very excited about this new feature of imbedding data into the raw html column containing the icon which allows me to not need 501 onclick() recievers to monitor these rows, A feature essential to me moving on to implementing the same sort of functionality in my 13K row vocab list. This new feature allows the user to click a row icon to add a selected verb to their 'saved' list. This is also paired with the 'remove' list that at the very least removes it from from the initial table, but in future installments will remove it from the flashcard and quiz sections (based on user choice). The idea for me at least is that 'saved' verbs are ones I want to focus on more and 'removed' verbs are ones that I feel that i have mastered. In future iterations I want to pursue a difficulty ratings system rather than this reject or not system I have at the moment. The idea behind a multi-user interface is the ability to tailor the experience to the user based on their level. 
+
+I have been having the recurring idea that this difficulty system could rather be scewed in terms of usefulness. Abrir, Beber, Dejar, Sentir, Poner ect. are verbs that the user will want to learn first, but a difficulty rating of 1/4 is processing the wrong sentiment. I think if the user is prompted to instead rate their familiarity and/or percieved usefulness of a given subject verb has a much better chance of capturing the true interaction that I am having with the word. I am constantly playing around with the idea of how this app can be unique. What experience of learning a language am I trying to create but can't quite see because I am indeed deep in the process of learning a language. I know that I can imagine what it is like to interact with an app that would be incredible to the journey of a user dying to use it as a tool to grow but craves an experience that feels fluid and relevant. Something that has a curriculum, a plan for me. A tailored interaction that can be planned out over time. It has a new set of words for me to interact with based on the day. It takes the information from my interaction to better build the curriculum for tomorrow. I'm tempted to use the phrase 'machine learning' but lets be honest thats a far off goal.  
+
+5.4.18_________________________________________________________________
+
+4:13pm
+Made some improvement to the Sentence Quiz section to include a scoreboard, solid well panels, propert removal of elements, and a corrected exclude list. I think this is close to the benchmark of what I'd like to get the verb and vocab quiz up to, with slighly different input methods. 
+
+
+2:51pm
+Was about to move on to filling out the quiz sections with some basic data when I found that the rendered conjugation tabs have stopped working properly. Going to spend a bit of time figuring that out. 
+
+12:45pm
+Getting the day started with a little fooling around with tab selection and fixing the navbarPage overlap that existed in vocab review with a tabsetPanel renderUI. Have a bunch of things that I would like to work on today. I'd like to fill out the quiz sections for verbs and vocab. I would also like to create a tabsetPanel renderUI for the verb review tab that will have multiple tabs like "All,Essential501,Saved" to start which should allow me to then play around a little with some persitant data based on the user. I'd then like to add a datatable to the sentence review section with multiverb selection. 
+
+5.3.18_________________________________________________________________
+
+1:14pm
+I have done a pretty extensive search and think i can conclude that this is a lost cause for the moment, at least my prefered option of having the whole app run through a uoOutput call doesn't seem to have a solution. What I can do instead is have the login page displayed until a user is logged in. This could control the rv USER which could easily disably most functionality like what data will be loaded.
+
+
+12:47pm
+Having a problem with the possible solution to auth problems using the "Ray901" link above. The only problem being that the uiOutputs don't want to work inside another uiOutput. Confusing to me because it seems to work just fine in the example downloaded, but nothing seems to want to render. Thought i had solved it with outputOptions suggested in the following link, but with no success. 
+
+https://stackoverflow.com/questions/36613018/r-shiny-uioutput-not-rendering-inside-menuitem
+https://stackoverflow.com/questions/36012995/navbar-tabset-with-reactive-panel-number-but-not-rendering-everything
+
+11:13am
+Ok well the first link above was a wild goose chase. Has some interesting flow of processes about returning different data based on the users level of authentication. For me I think I would like to create 4 hypothetical users: ben, ian, cat, gabbi who represent four levels of spanish speakers (beg,intm,adv,exp) as well as an admin level able to access all levels of content. The idea here for me is to start creating a multi-tiered user experience capable of reaching a variet of audiences. As the users intereact with the app through the ability to rate difficulty as it appears to them, the content can then be shifted to another level. What appears easy to an advanced user would then be shifted as content appropriate for beginners and intermediates. At least for right now I will approach it from the intermediate level as there is alot for me to learn and a good amount that is trivial to me but shouldn't be disgarded as not useful to a future user. 
+
+10:34am
+Ok well the last link above seems to work just fine. Not secure but good enough to have a login and tract a user. Doesn't seems to have any logout functionality but I think that is something i could build on my own. Going to see about a few other options that might be a bit more sophicticated but for now i like this because it should be easily injectable into my app right now. 
+
+9:41am
+Ok well yesterday was a slightly frustrating day, not much progress made, but I was definitely doing some necessary restructuring. One thing that I would like to pursure in the future is trying to do a bit of consolidation. The three versions of the flashcards could probably be written as a single function. However, what I really have on my mind right now is implementing some basic form of multi-user interfacing. This is something that I have had problems with in the past in terms of making something that is internet 'ready' and 'secure', but what I need it for is much more in the realm of user interaction. The basic idea behind this is related to wanting to give feedback on certain bits of info. e.g. I would like to be able to remove certain phrases that are too easy or common, i'd like to save certain verbs that I would like to come back to, and it would be great to be able to add info or rate difficulty and/or usefullness of sentences or phrases. Building this feedback loop will definitely be something that I will do, so might as well get started early. Would also like to restructure the app again to have the types of spanish as the main level, as in the main tabs will be "Home, Verbs, Vocab, Sentences" with learn,flashcards, and quiz subsections for each...
+
+https://gist.github.com/trestletech/9793754
+https://gist.github.com/Ray901/656f4314d00a7b00a05f
+https://github.com/treysp/shiny_password
+
+5.2.18_________________________________________________________________
+
+12:49pm
+Added icon to headerPanel with span()
+https://github.com/rstudio/shinydashboard/issues/57
+https://shiny.rstudio.com/reference/shiny/1.0.5/icon.html
+
+10:43am
+Ok well i think I've had about enough of this. The app is getting out of control in terms of complexity. I need to see this app as both an opportunity to learn some new skills as well as an opportunity to practice good code writing. I am going to spend the rest of the morning re-organizing the app, especially the modal window for my dingus sentnce table which has very little use at this point. Time to make a git commit and start thinking about the app without this initial functionality which i am not longer fond of.
+
+10:27am
+Upon further inspection this seems to be a deeper proplem within the DT framework where there seems to be some sort of confusion going on in the saveState handler that gets confused when you relaunch the app. 
+
+https://github.com/rstudio/DT/issues/76
+https://datatables.net/reference/option/stateLoadParams
+https://stackoverflow.com/questions/36265032/how-to-pass-statesave-in-shiny-when-i-have-ui-r-and-server-r-file-separate
+https://rstudio.github.io/DT/shiny.html
+
+9:52am
+Getting the day started by trying to solve my issue with controlling the saveState properties of DT, which seems to want to kind of do whatever it wants.
+
+5.1.18_________________________________________________________________
+
+8:36pm
+Just got done demo'ing the app with Cat and got some solid feedback. First of all I would like to change the system for the verb sentence quiz to show only one question at a time. This will look better on mobile, avoid cumbersome loads, and allow for specific keyboard controls. Also had the thought of redesigning the verb conj/sent to have a reverse structure with the verb being main level tab and the switch between sentences and conjugation to be the second level tab. Also want to put more work into my datatable controls. Was very annoyed that table resets to original when turning off specific variables. Cat had suggested having some sort of a popup hover option to show the answer of the specific sentence. This speaks more to the need to enhance capabilities of flashcards to serve as a quick learning module as well as the ability to quiz yourself like a real flashcard. This could be solved with a 'Show' actionButton that is activated by switching into 'quiz' mode. For now, given the time left in the day, I am going to do see about better controls on my data.tables when changing shown columns...
+
+https://stackoverflow.com/questions/38316013/update-rows-of-a-shiny-datatable-while-maintaining-position
+
+1:57pm
+Have created new file 'server/vocab.R' which creates 4 datatables along with select input to filer said dfs by their sub-theme. Reorganized the app into a 5 navMenu style format with tabs "Home, Review, Flashcards, Quizes, More". Review for now is 5 subtabs with verbs and 4 new datatables. Flashcards is empty, and Quizes has just the verb quiz. Swithed theme over to 'yeti' for slighly cleaner feel
+
+12:27pm
+Going to created new navbarMenu called Review to create 4 tables with a sub tab for MiniList, Category, Parts of Speech, and Advanced Vocabulary. From here I will make 4 new tables with the ability to subset to theme2 categories from there. These new callers are mt_tbl, cat_tbl, pos_tbl, and av_tbl.
+
+12:11pm
+Worked through sections 1,3,4 of hadley wickhams datacamp course and learned a few useful things about writing functions. Main takeaway is from the purrr package and functions map(), walk(),induce_map(), and safely(). Will try to start appplying this. For now I want to start working with the data that I scraped last night. Since I wouldn't say that I know most of these words I will instead try to start building more of a review section like my initial verb table and then perhaps work on to bulding more of a flashcard and quiz type section. 
+
+9:36am
+Going to get this month started out on the right track. Used a link through 'meetup' to get a one month free trial with datacamp. Starting right now with Hadley Wickhams course on writing functions. Inspired to make this note specifically because of the small fact that dataframes are a certain kind of list and a specific column can be called as both df[,1] & df[[1]]. Good to know.
+
