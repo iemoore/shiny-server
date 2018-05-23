@@ -67,6 +67,7 @@ split_between <- function(x,pat1,pat2){
 #...RV's
 #####-------------------------------------------------------------------
 
+rv <- reactiveValues()
 rv$nt_start <- 0
 rv$nt_length <- 10
 rv$noteData <- notedf
