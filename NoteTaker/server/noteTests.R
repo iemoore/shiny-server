@@ -1,5 +1,15 @@
 
 
+output$selectInput1 <- renderUI({
+  
+  selectizeInput(
+    'typeInput', label = NULL, choices = rv$typeNow,
+    options = list(create = TRUE)
+  )
+    
+})
+
+
 output$pickerOut <- renderUI({
   
   pripas("output$pickerOut called at ",Sys.time())

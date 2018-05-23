@@ -59,10 +59,7 @@ body <- dashboardBody(
         
         wellPanel(
           
-          selectizeInput(
-            'typeInput', label = NULL, choices = unique(notedf$type),
-            options = list(create = TRUE)
-          ),
+          uiOutput("selectInput1")),
           textAreaInput("noteArea", "Enter New Note Here",
                         resize = "vertical",rows = 10),
           actionButton("saveNote","Save")
