@@ -2,6 +2,7 @@
 
 server <- function(input, output, session) {
   
+  session$allowReconnect(TRUE)
   
   
   source("server/keyResponse.R",local = T) 
@@ -16,10 +17,13 @@ server <- function(input, output, session) {
     # writeLines(paste(vls_cache,collapse = ","),
     #            con = paste0("userData/",global_user,"/savedVerbs.txt"))
     
-    saveRDS(notedf,"solid/rds/noteMaster.rds")
+    saveRDS(notedf,"solid/rds/noteMaster1.rds")
     
     
   })
+  
+  
+  rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
 
 
 }

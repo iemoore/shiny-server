@@ -77,18 +77,7 @@ body <- dashboardBody(
       
       fluidPage(
         
-        pickerInput(
-          inputId = "typePicker", 
-          label = "Choose desired types", 
-          choices = as.character(unique(notedf$type)), 
-          options = list(
-            `actions-box` = TRUE, 
-            size = 10,
-            `selected-text-format` = "count > 3"
-          ), 
-          multiple = TRUE,
-          selected = as.character(unique(notedf$type))
-        ),
+        uiOutput("pickerOut"),
         
         DTOutput("note_tbl")
       )

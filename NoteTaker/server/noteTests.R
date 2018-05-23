@@ -1,5 +1,24 @@
 
 
+output$pickerOut <- renderUI({
+  
+  pripas("output$pickerOut called at ",Sys.time())
+  
+  pickerInput(
+    inputId = "typePicker", 
+    label = "Choose desired types", 
+    choices = as.character(rv$typeNow), 
+    options = list(
+      `actions-box` = TRUE, 
+      size = 10,
+      `selected-text-format` = "count > 3"
+    ), 
+    multiple = TRUE,
+    selected = as.character(rv$typePicked)
+  )
+  
+})
+
 
 
 observeEvent(input$typePicker,{

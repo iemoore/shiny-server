@@ -15,17 +15,7 @@ library(purrr)
 
 options(warn=1)
 
-#...Data Load
-#####-------------------------------------------------------------------
 
-# notedf <- readRDS("solid/rds/noteMaster5-23.rds")
-# notedf$type <- "Spanish"
-# saveRDS(notedf,"solid/rds/noteMaster.rds")
-notedf <- readRDS("solid/rds/noteMaster.rds")
-
-
-
-#####
 
 #...Functions
 #####-------------------------------------------------------------------
@@ -67,13 +57,24 @@ split_between <- function(x,pat1,pat2){
 
 #####
 
+#...Data Load
+#####-------------------------------------------------------------------
+
+# notedf <- readRDS("solid/rds/noteMaster5-23.rds")
+# notedf$type <- "Spanish"
+# saveRDS(notedf,"solid/rds/noteMaster.rds")
+notedf <- readRDS("solid/rds/noteMaster1.rds")
+
+# n <- readRDS("solid/noteMaster.rds")
+
+#####
+
 #...RV's
 #####-------------------------------------------------------------------
 
 rv <- reactiveValues()
 rv$nt_start <- 0
 rv$nt_length <- 10
-rv$noteData <- notedf
 
 rv$typeNow <- unique(notedf$type)
 rv$typePicked <- unique(notedf$type)
