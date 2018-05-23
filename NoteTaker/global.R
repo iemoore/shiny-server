@@ -64,8 +64,8 @@ split_between <- function(x,pat1,pat2){
 
 # notedf <- readRDS("solid/rds/noteMaster5-23.rds")
 # notedf$type <- "Spanish"
-# saveRDS(notedf,"solid/rds/noteMaster.rds")
-notedf <- readRDS("solid/rds/noteMaster1.rds")
+# saveRDS(notedf,"solid/rds/noteMaster2.rds")
+notedf <- readRDS("solid/rds/noteMaster2.rds")
 
 # n <- readRDS("solid/noteMaster.rds")
 
