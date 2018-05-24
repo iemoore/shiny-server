@@ -115,7 +115,7 @@ body <- dashboardBody(
                         }
                         }
 
-                        var TIMEOUT = 100; //SPECIFY
+                        var TIMEOUT = 10000; //SPECIFY
                         var started = false;
                         function getLocationRepeat(){
                         //first time only - no delay needed
