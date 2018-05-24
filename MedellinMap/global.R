@@ -13,7 +13,8 @@ library(dplyr)
 library(stringr)
 library(purrr)
 library(leaflet)
-library(leafletplugins)
+# library(leafletplugins)
+library(leaflet.extras)
 
 options(warn=1)
 

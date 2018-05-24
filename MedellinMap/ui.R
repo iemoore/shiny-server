@@ -7,7 +7,8 @@ dm <- dropdownMenu(type="messages")
 mm <- dropdownMenu(type="notifications")
 tm <- dropdownMenu(type="tasks")
 
-header <- dashboardHeader(title="Medellin", dm, mm, tm)
+# header <- dashboardHeader(title="Medellin", dm, mm, tm)
+header <- dashboardHeader(title="Medellin")
 
 # No sidebar --------------------------------------------------------------
 
@@ -44,6 +45,11 @@ body <- dashboardBody(
   useShinyjs(),
   includeScript("solid/js/key.js"),
   includeScript("solid/js/keyMessage.js"),
+  includeScript("solid/js/oldGPS.js"),
+  
+  HTML(paste0("<meta content='width=device-width, initial-scale=1.0,",
+              " maximum-scale=1.0, user-scalable=0' name='viewport' />")),
+  
   # includeScript("solid/js/geoLoc.js"),
   # extendShinyjs(text = jsCode),
   # includeCSS('solid/appStyles.css'),
@@ -63,7 +69,7 @@ body <- dashboardBody(
           # )
         # leafletOutput("map")
         
-        tags$style(type = "text/css", "html, body {width:100%;height:95%}"),
+        tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
         tags$style(type = "text/css", "#map {height: calc(100vh - 100px) !important;}"),
         leafletOutput("map", width = "100%")#,
         # absolutePanel(top=20, left=70, textInput("target_zone", "" , "Ex: Bamako"))
@@ -135,7 +141,7 @@ body <- dashboardBody(
 
                         });
                         '),
-        
+
         # Show a plot of the generated distribution
         fluidRow(column(width = 5,
                         verbatimTextOutput("lat"),
