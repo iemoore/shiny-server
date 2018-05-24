@@ -7,7 +7,7 @@ dm <- dropdownMenu(type="messages")
 mm <- dropdownMenu(type="notifications")
 tm <- dropdownMenu(type="tasks")
 
-header <- dashboardHeader(title="Dashboard", dm, mm, tm)
+header <- dashboardHeader(title="Notes Dashboard", dm, mm, tm)
 
 # No sidebar --------------------------------------------------------------
 
