@@ -65,7 +65,7 @@ split_between <- function(x,pat1,pat2){
 # notedf <- readRDS("solid/rds/noteMaster5-23.rds")
 # notedf$type <- "Spanish"
 # saveRDS(notedf,"solid/rds/noteMaster2.rds")
-notedf <- readRDS(paste0("solid/rds/",dfNow,".rds"))
+notedf <- readRDS(paste0("solid/rds/noteMaster2.rds"))
 
 # n <- readRDS("solid/noteMaster.rds")
 
@@ -80,8 +80,8 @@ rv$nt_length <- 10
 
 # rv$typeNow <- unique(notedf$type)
 # rv$typePicked <- unique(notedf$type)
-rv$typeNow <- as.character(unique(readRDS(paste0("solid/rds/",dfNow,".rds"))$type))
-rv$typePicked <- as.character(unique(readRDS(paste0("solid/rds/",dfNow,".rds"))$type))
+rv$typeNow <- as.character(unique(readRDS(paste0("solid/rds/noteMaster2.rds"))$type))
+rv$typePicked <- as.character(unique(readRDS(paste0("solid/rds/noteMaster2.rds"))$type))
 rv$pickedNow <- "Spanish"
 
 #####
