@@ -7,8 +7,8 @@ server <- function(input, output, session) {
   rv$noteData <- readRDS("solid/rds/noteMaster.rds")
   # a <- readRDS("solid/rds/noteMaster1.rds")
   # notedf <<- rv$noteData
-  rv$typeNow <- as.character(unique(readRDS("solid/rds/",dfNow,".rds")$type))
-  rv$typePicked <- as.character(unique(readRDS("solid/rds/",dfNow,".rds")$type))
+  rv$typeNow <- as.character(unique(readRDS(paste0("solid/rds/",dfNow,".rds"))$type))
+  rv$typePicked <- as.character(unique(readRDS(paste0("solid/rds/",dfNow,".rds"))$type))
   rv$pickedNow <- "Spanish"
   
   source("server/keyResponse.R",local = T) 
@@ -20,7 +20,7 @@ server <- function(input, output, session) {
     
     stopApp()
     
-    saveRDS(notedf,"solid/rds/",dfNow,".rds")
+    saveRDS(notedf,paste0("solid/rds/",dfNow,".rds"))
     
     
   })
