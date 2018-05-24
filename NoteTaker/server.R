@@ -4,11 +4,11 @@ server <- function(input, output, session) {
   
   session$allowReconnect(TRUE)
   
-  rv$noteData <- readRDS("solid/rds/noteMaster1.rds")
+  rv$noteData <- readRDS("solid/rds/noteMaster.rds")
   # a <- readRDS("solid/rds/noteMaster1.rds")
   # notedf <<- rv$noteData
-  rv$typeNow <- as.character(unique(readRDS("solid/rds/noteMaster2.rds")$type))
-  rv$typePicked <- as.character(unique(readRDS("solid/rds/noteMaster2.rds")$type))
+  rv$typeNow <- as.character(unique(readRDS("solid/rds/",dfNow,".rds")$type))
+  rv$typePicked <- as.character(unique(readRDS("solid/rds/",dfNow,".rds")$type))
   rv$pickedNow <- "Spanish"
   
   source("server/keyResponse.R",local = T) 
@@ -20,7 +20,7 @@ server <- function(input, output, session) {
     
     stopApp()
     
-    saveRDS(notedf,"solid/rds/noteMaster2.rds")
+    saveRDS(notedf,"solid/rds/",dfNow,".rds")
     
     
   })
