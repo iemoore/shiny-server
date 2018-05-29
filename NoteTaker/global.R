@@ -67,6 +67,8 @@ split_between <- function(x,pat1,pat2){
 # notedf$type <- "Spanish"
 # saveRDS(notedf,"solid/rds/noteMaster2.rds")
 notedf <- readRDS(paste0("solid/rds/",dfNow,".rds"))
+notedf$time <- as.POSIXct(notedf$time,tz="US/Central")
+notedf$time <- paste(as.character(notedf$time), "CTZ")
 
 # n <- readRDS("solid/noteMaster.rds")
 

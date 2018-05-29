@@ -22,8 +22,8 @@ output$map <- renderLeaflet({
     setView(lng = -75.583515, lat = 6.205090, zoom = 14) %>% 
     addMarkers(lng = -75.583515, lat = 6.205090) %>% 
     addFullscreenControl() %>%
-    addSearchOSM() #%>%
-    # addControlGPS()
+    addSearchOSM() %>%
+    addControlGPS()
     
     # addControlFullScreen() %>% 
     # addControlGPS() %>% 

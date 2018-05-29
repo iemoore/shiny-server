@@ -1,5 +1,5 @@
 
-# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server/NoteTaker")
+# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server/MedellinMap")
 
 
 library(shiny)
@@ -20,6 +20,20 @@ options(warn=1)
 
 #...Data Load
 #####-------------------------------------------------------------------
+
+barrios <- readRDS(paste0("solid/rds/Barrios.rds"))
+
+espac <- readRDS(paste0("solid/rds/EspacioPublico.rds"))
+colnames(espac)[1] <- "ID"
+
+domic <- readRDS(paste0("solid/rds/NomenDomic.rds"))
+colnames(domic) <- c("Long","Lat","OBJECTID","CBML","NUMERO_MEJORA",
+                     "ID_NM_DOM","VIA","PLACA")
+colnames(domic)[c(1,2)] <- c("Long","Lat")
+
+usos <- readRDS(paste0("solid/rds/UsosUrbano.rds"))
+
+vias <- readRDS(paste0("solid/rds/ViasUrbano.rds"))
 
 
 #####
