@@ -1,4 +1,6 @@
-
+ 
+ 
+ 
 
 
 /*########################################################################*/
@@ -47,10 +49,13 @@ $(function() {
 });
 
 
-
-
-
-
+$(function() {
+  $(document).keyup(function(e) {
+    if (e.which == 32 ) {
+      Shiny.onInputChange("shift_key", [e.which, Math.random()]);
+    }
+  });
+});
 
 
 

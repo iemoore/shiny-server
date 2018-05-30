@@ -1,66 +1,108 @@
 
 
 
-# observeEvent(input$userPosition,{
-#   
-#   a <- input$userPosition$latitude
-#   b <- input$userPosition$longitude
-#   
-#   print(paste(a,", ",b))
-#   
-# })'
 
-onclick(".gps-button",print("Onclick gps detected"))
-onclick("a.gps-button",print("Onclick gps 2 detected"))
-onclick("#gps-button active",print("Onclick gps 3 detected"))
-onclick(".gps-button active",print("Onclick gps 4 detected"))
-onclick(".leaflet-control-gps",print("Onclick gps 2 detected"))
-
-onclick(".leaflet-control-gps .gps-button.active",
-        print(".leaflet-control-gps .gps-button.active"))
-onclick(".leaflet-control-gps .gps-button",
-        print(".leaflet-control-gps .gps-button"))
-
-onclick(".search-button", print(".search-button clicked"))
-
-observeEvent(input$lat1,{
+observeEvent(input$shift_key,{ 
   
-  print(input$lat1)
+  data1 <- domic
+  b <- input$map_bounds
+  z <- input$map_zoom
+  
+  pripas("Map bounds <- ",paste(b,collapse = ", ")," and zoom <- ",z)
+  
+  data1 <- filter(domic, lat<b[1] & lng<b[2] & lat>b[3] & lng>b[4])
+  
+  pripas("dim(data1)[1] <- ",dim(data1)[1])
+ 
+  leafletProxy("map", data = data1) %>%
+    clearMarkers() %>%
+    addMarkers(lng = data1$lng, lat=data1$lat, popup = ~paste(VIA,", ",PLACA))
+
+
+})
+
+
+
+observeEvent(input$numKeys,{
+  
+  a <- input$numKeys[1]
+  
+  if(a==1){
+    
+    b <- filter(barrios, name=="Cristo Rey")
+    
+    c1 <- str_split_fixed(un_sp(b$poly," "),",",2)
+    
+    leafletProxy("map") %>%
+      addPolylines(lng=as.numeric(c1[,1]),lat=as.numeric(c1[,2]),
+                   group = "line",color = "black")
+    
+  }
+
+  if(a==2){
+    
+    b <- barrios#[200:320,]
+    
+    df1 <- dftoSPDF(b)
+    
+    leafletProxy("map",data = df1) %>%
+      addPolygons(group = "line",color = "black")
+      
+    
+  }
+  
+  
+  if(a==3){
+    
+    b <- c(6.21125279766647, -75.5956792831421, 6.19700302276826, -75.6224155426026)
+    b <- input$map_bounds
+    
+    z <- input$map_zoom
+    
+    pripas("bounds <- ",paste(b,collapse = ", "))
+    
+    data1 <- filter(usos, latmean<b[1] & lngmean<b[2] & latmean>b[3] & lngmean>b[4])
+    
+    pripas("dim(data1)[1] <- ",dim(data1)[1])
+    
+    df1 <- dftoSPDF(data1)
+    
+    leafletProxy("map",data = df1) %>%
+      addPolygons(group = "line",color = "black")
+    
+    
+  }
+  
+  if(a==4){
+    
+    
+    leafletProxy("map") %>%
+      addRectangles(
+        lng1=min(usos$lngmean), lat1=max(usos$latmean),
+        lng2=max(usos$lngmean), lat2=min(usos$latmean),
+        fillColor = "transparent"
+      )
+  
+  }
+  
   
 })
 
-observeEvent(input$gpscontrol,{
-  
-  print(input$gpscontrol)
-  
-})
-
-
-# observeEvent(input$lat,{
-#   
-#   print(input$lat)
-#   
-# })
 
 
 
 
-output$lat <- renderPrint({
-  input$lat
-})
 
-output$long <- renderPrint({
-  input$long
-})
 
-output$geolocation <- renderPrint({
-  input$geolocation
-})
 
-output$accuracy <- renderPrint({
-  input$accuracy
-})
 
-output$time <- renderPrint({
-  input$time
-})
+
+
+
+
+
+
+
+
+
+

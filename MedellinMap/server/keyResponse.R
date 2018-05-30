@@ -1,5 +1,12 @@
 
 
+observeEvent(input$shift_key,{
+  
+  pripas("input$shift_key pressed at ",Sys.time())
+  
+  
+})
+
 
 observeEvent(input$dirKeys, {
   

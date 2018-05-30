@@ -6,6 +6,7 @@ library(shiny)
 library(shinyBS)
 library(shinyjs, quietly = T)
 library(shinydashboard)
+# library(semantic.dashboard)
 library(shinyalert)
 library(shinyWidgets)
 library(DT)
@@ -15,6 +16,7 @@ library(purrr)
 library(leaflet)
 # library(leafletplugins)
 library(leaflet.extras)
+library(sp)
 
 options(warn=1)
 
@@ -24,14 +26,14 @@ options(warn=1)
 barrios <- readRDS(paste0("solid/rds/Barrios.rds"))
 
 espac <- readRDS(paste0("solid/rds/EspacioPublico.rds"))
-colnames(espac)[1] <- "ID"
+  colnames(espac)[1] <- "ID"
 
 domic <- readRDS(paste0("solid/rds/NomenDomic.rds"))
-colnames(domic) <- c("Long","Lat","OBJECTID","CBML","NUMERO_MEJORA",
-                     "ID_NM_DOM","VIA","PLACA")
-colnames(domic)[c(1,2)] <- c("Long","Lat")
+  colnames(domic)[c(1,2)] <- c("lng","lat")
+  domic <- domic[complete.cases(domic$lat), ]
+  domic <- domic[complete.cases(domic$lng), ]
 
-usos <- readRDS(paste0("solid/rds/UsosUrbano.rds"))
+usos <- readRDS(paste0("solid/rds/UsosUrbano5-29.rds"))
 
 vias <- readRDS(paste0("solid/rds/ViasUrbano.rds"))
 
@@ -80,6 +82,16 @@ split_between <- function(x,pat1,pat2){
 
 #...RV's
 #####-------------------------------------------------------------------
+rv <- reactiveValues()
+
+rv$lng1 = -75.583515
+rv$lat1 = 6.205090
+
+# rv <- list()
+rv$latRng <- round(range(domic$lat),digits = 3)
+rv$lngRng <- round(range(domic$lng),digits = 3)
+
+
 
 
 #####

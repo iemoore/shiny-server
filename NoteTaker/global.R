@@ -1,5 +1,5 @@
 
-# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server/NoteTaker")
+# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server")
 
 
 library(shiny)
