@@ -17,6 +17,7 @@ options(warn=1)
 
 
 #...Data Load
+#####------------------------------------------------------------------
 verbdf <- readRDS("solid/data/rds/verbs501.rds")
 
 verbMaster <- readRDS("solid/data/rds/verbMaster5-16.rds")
@@ -86,12 +87,15 @@ tenses2 <- c("Present","Preterite","Imperfect","Imperfect2","Conditional",
              "Future","Past","Affirmative","Negative")
 
 tenseC <- list(c(1,2,3,5,6),c(1,3,4,6),c(8,9),c(1,2,3,5,6),c(1,2,3,5,6),c(1,7,6))
-tenseC <- list(c(1,3,2,6,5),c(1,3,4,6),c(8,9),c(1,3,2,6,5),c(1,3,2,6,5),c(1,7,6))
+tenseC <- list(c(1,3,2,6,5),c(1,3,4,6),c(8,9),c(1,3,2,6,5),c(1,2,7,6,5),c(1,7,6))
 #chainC <- list(c(1,30),c(31,54),c(55,64),c(65,94),c(95,124),c(125,142))
 chainC <- list(c(3,32),c(33,56),c(57,66),c(67,96),c(97,126),c(127,144))
 
+#####
 
-#Functions 
+
+#Functions
+#####-------------------------------------------------------------------
 
 pripas <- function(...){
   
@@ -128,7 +132,7 @@ split_between <- function(x,pat1,pat2){
   return(b)
 } 
 
-
+#####
 
 
 

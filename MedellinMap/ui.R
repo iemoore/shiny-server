@@ -49,7 +49,7 @@ body <- dashboardBody(
   
   HTML(paste0("<meta content='width=device-width, initial-scale=1.0,",
               " maximum-scale=1.0, user-scalable=0' name='viewport' />")),
-  
+
   useShinyalert(),
   
   tabItems(
@@ -107,8 +107,8 @@ shinyUI(
 
       header = header, 
       sidebar = sidebar,
-      body = body#,
-      # skin="black"
+      body = body,
+      skin= "black"
       
   )
 )  

@@ -119,15 +119,17 @@ output$sf_Modal_fill <- renderUI({
   a <- rv$sf_word_now
   # a <- "1/2-faltar-73"
   # a <- "1-convocar-73"
+  # a <- "1/2-alquilar-112"
+  
+  word1 <- str_split_fixed(a,"-",3)[,1]
+  verb1 <- str_split_fixed(a,"-",3)[,2]
+  tense1 <- str_split_fixed(a,"-",3)[,3]
+  
+  n <- filter(verbMaster,spn==verb1)
+  head <- h3(tags$b(paste0(n$spn," - ",n$eng))) 
   
   
-  # <dl>
-  #   <dt>Coffee</dt><dd>- black hot drink</dd>
-  #   <dt>Milk</dt><dd>- white cold drink</dd>
-  # </dl>
-  
-
-  b <- filter(dictdf,verb==split_between(a,"-","-"))
+  b <- filter(dictdf,verb==verb1)
   dim(b)
   
   if(length(b[[1]])>0){
@@ -137,89 +139,30 @@ output$sf_Modal_fill <- renderUI({
     h1 <- paste0("The verb ",b$verb[1]," has ",length(b1),
                  " unique context",ifelse(length(b1)==1,"","s"))
     
+    table1 <- verbToTable(a)
+    
     list3 <- NULL
     for(i in 1:length(b1)){
       
       b2 <- filter(b,ctx==b1[i])
       b3 <- paste0("<b>(",b2$mean,")</b> ",b2$spn," ... ",b2$eng)
       
-      b4 <- paste0("<dt><u>",b1[i],"</u>...</dt><br><dd>",paste(b3,
+      b4 <- paste0("<dt><u>",toupper(b1[i]),"</u>...</dt><br><dd>",paste(b3,
                   collapse = "<br><br>"),"</dd>")
       
       list3 <- paste0(list3,"<dl>",b4,"</dl><br>")
     }
     
     
-    
-    
-    # list2 <- paste0("<dl>",paste("<dt>",b$ctx,"  (",b$mean,")</dt><dd>",b$spn," - ",
-    #                              b$eng,"</dd>",collapse = "<br>"),"</dl>")
-    # 
-    
-    return(HTML(paste0(h3(h1),list3)))
+    return(HTML(paste0(head,table1,"<br>",h3(h1),list3)))
     
   }
   
   
-  
-  
 })
 
 
-observeEvent(rv$sf_word_now, {
-  
-  #print("Verb tbl row selected")
-  # removeUI("#conjUI2")
-  # 
-  # r <- "1/2-faltar-73"
-  # r <- rv$sf_word_now
-  # 
-  #   if(length(r)>0){
-  #     
-  #     source("server/Fun/verbTable.R",local = T)
-  #     verbTable_fun(r)
-  #     
-  #     n <- dynamicTabs
-  #     h1<-n[1];h4<-n[4];b1<-n[6];b4<-n[9]
-  #     h2 <- "";h3<-"";b2<-"";b3<-""
-  #     h2 <- sub("Home",verbdf$verb[r[1]],n[2])
-  #     if(length(r)>1){
-  #       for(i in 2:length(r)){
-  #         
-  #         h <- gsub("Menu 1",verbdf$verb[r[i]],n[3])
-  #         h <- sub("menu1",paste0("menu",i),h)
-  #         h3 <- c(h3,h)
-  #         
-  #       }
-  #     }
-  #     
-  #     b2 <- sub("home content",a[1],n[7])  
-  #     if(length(r)>1){
-  #       for(i in 2:length(r)){
-  #         
-  #         b <- sub("menu1",paste0("menu",i),n[8])
-  #         b <- sub("tab content",a[i],b)
-  #         b3 <- c(b3,b)
-  #         
-  #       }
-  #     }
-  #     
-  #     f <- c(h1,h2,h3,h4,b1,b2,b3,b4)
-  #     
-  #     ui_build <- tags$div(
-  #       id= "conjUI",
-  #       HTML(f)
-  #     )  
-  #     
-  #     insertUI(
-  #       selector = "#hereModal1",
-  #       where = "afterEnd",
-  #       ui = ui_build
-  #     )
-  #   }
-  #   
-  #   
-})
+
 
 
 
