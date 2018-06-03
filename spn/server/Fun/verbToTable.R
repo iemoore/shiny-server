@@ -29,6 +29,7 @@ a <- "3/4-fijarse-13"
 a <- "2-prohibir-13/57"
 a <- "4-promover-13/57"
 a <- "2-obsequiar-6/16"
+a <- "4-sonar-16"
 
 verbToTable <- function(a){
   
@@ -78,6 +79,34 @@ verbToTable <- function(a){
     b <- chainC[[tm]]
     
     d2 <- d[which(d$tenseNum %in% seq(b[1],b[2],1)),] 
+    #-------------------------------------------------
+    
+    d3 <- d2[which(nchar(d2$irreg)>0),]
+    rownames(d3) <- NULL
+    
+    d3l <- length(d3[[1]])
+    if(d3l>0){
+      for(w in 1:length(d3[[1]])){
+        
+        # d2$conj[d3$tenseNum[i]] <- d3$irreg[i]
+        
+        a1 <- which(d2$tenseNum==d3$tenseNum[w])
+        
+        res1 <- d3$irreg[w]
+        res1 <- sub("\'","<font color=\"blue\">",res1)
+        res1 <- sub("\'","</font>",res1)
+        
+        
+        d2[a1,"conj"] <- res1
+        
+      }
+    }
+    
+    
+    
+    
+    
+    #-------------------------------------------------
     
     mn <- NULL
     for(y in 1:length(dm[[1]])){
