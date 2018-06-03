@@ -33,6 +33,33 @@ mylist <- as.list(choices$num)
 names(mylist) <- choices$var
 #####
 
+#...Functions
+#####----------------------------------------------------------------------
+
+uiBuildFun <- function(ui_tar1,ui_tar2){
+  
+  ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+  
+  ui_build2 <- div(id= "flashUI2_sf",
+                   shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
+  
+  insertUI(
+    selector = "#hereSe1",
+    where = "afterEnd",
+    ui = ui_build1
+  )
+  
+  insertUI(
+    selector = "#hereSe2",
+    where = "afterEnd",
+    ui = ui_build2
+  )  
+  
+}
+
+
+#####----------------------------------------------------------------------
+
 
 #... Search, Buttons
 #####----------------------------------------------------------------------
@@ -314,42 +341,49 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           ui_tar2 <- f[1,2]
           
         }
-  
-        ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
-  
-        ui_build2 <- div(id= "flashUI2_sf",
-                         shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
         
-        insertUI(
-          selector = "#hereSe1",
-          where = "afterEnd",
-          ui = ui_build1
-        )
-        
-        insertUI(
-          selector = "#hereSe2",
-          where = "afterEnd",
-          ui = ui_build2
-        )
+        uiBuildFun(ui_tar1,ui_tar2)
+  
+        # ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+        # 
+        # ui_build2 <- div(id= "flashUI2_sf",
+        #                  shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
+        # 
+        # insertUI(
+        #   selector = "#hereSe1",
+        #   where = "afterEnd",
+        #   ui = ui_build1
+        # )
+        # 
+        # insertUI(
+        #   selector = "#hereSe2",
+        #   where = "afterEnd",
+        #   ui = ui_build2
+        # )
         
       }
       else {
   
+        # a1 <- h2("Has agotado este conjunto de frases verbales")
+        # a2 <- h2("You have exhausted this Verb Sentence Set")
+        # uiBuildFun(a1,a2)
+        # shinyjs::show('hideF2')
+        
         ui_build1 <- tags$div(id= "flashUI3_sf",
                               h2("Has agotado este conjunto de frases verbales")
                               )
-  
+
         ui_build2 <- tags$div(id= "flashUI4_sf",
                               h2("You have exhausted this Verb Sentence Set")
         )
-  
-        
+
+
         insertUI(
           selector = "#hereSe1",
           where = "afterEnd",
           ui = ui_build1
         )
-        
+
         insertUI(
           selector = "#hereSe2",
           where = "afterEnd",
@@ -408,22 +442,24 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
           
         }
         
-        ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+        uiBuildFun(ui_tar1,ui_tar2)
         
-        ui_build2 <- div(id= "flashUI2_sf",
-                         shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
-        
-        insertUI(
-          selector = "#hereSe1",
-          where = "afterEnd",
-          ui = ui_build1
-        )
-        
-        insertUI(
-          selector = "#hereSe2",
-          where = "afterEnd",
-          ui = ui_build2
-        )
+        # ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+        # 
+        # ui_build2 <- div(id= "flashUI2_sf",
+        #                  shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
+        # 
+        # insertUI(
+        #   selector = "#hereSe1",
+        #   where = "afterEnd",
+        #   ui = ui_build1
+        # )
+        # 
+        # insertUI(
+        #   selector = "#hereSe2",
+        #   where = "afterEnd",
+        #   ui = ui_build2
+        # )
       
     }
     
@@ -507,22 +543,24 @@ observeEvent(rv$backCt2, {
         
     }
       
-      ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+      uiBuildFun(ui_tar1,ui_tar2)
       
-      ui_build2 <- div(id= "flashUI2_sf",
-                       shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
-      
-      insertUI(
-        selector = "#hereSe1",
-        where = "afterEnd",
-        ui = ui_build1
-      )
-      
-      insertUI(
-        selector = "#hereSe2",
-        where = "afterEnd",
-        ui = ui_build2
-      )
+      # ui_build1 <- div(id= "flashUI1_sf",h3(ui_tar1))
+      # 
+      # ui_build2 <- div(id= "flashUI2_sf",
+      #                  shinyjs::hidden(div(id = "hideF2",h3(ui_tar2))))
+      # 
+      # insertUI(
+      #   selector = "#hereSe1",
+      #   where = "afterEnd",
+      #   ui = ui_build1
+      # )
+      # 
+      # insertUI(
+      #   selector = "#hereSe2",
+      #   where = "afterEnd",
+      #   ui = ui_build2
+      # )
       
     }
   
@@ -530,6 +568,7 @@ observeEvent(rv$backCt2, {
 })
 
 #####
+
 
 
 

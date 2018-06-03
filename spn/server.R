@@ -9,6 +9,7 @@ source("server/reactive.R",local = T)
 source("server/Login.R",local = T)  
   
 source("server/Fun/verbToTable.R",local = T) 
+source("server/Fun/sent2function.R",local = T) 
   
 #...Sentences  
 source("server/Sents/SentLearn.R",local = T)

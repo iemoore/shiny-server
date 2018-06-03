@@ -24,26 +24,49 @@
 # a <- "2/3-agrandar-114"
 # a <- "2-querer-13/57"
 a <- "2/3-rescatar-143"
+a <- "6-viajar-33/41/59"
+a <- "3/4-fijarse-13"
+a <- "2-prohibir-13/57"
+a <- "4-promover-13/57"
+a <- "2-obsequiar-6/16"
 
 verbToTable <- function(a){
   
   word1 <- str_split_fixed(a,"-",3)[,1]
   verb1 <- str_split_fixed(a,"-",3)[,2]
-  tense1 <- str_split_fixed(a,"-",3)[,3] 
+  tense1 <- str_split_fixed(a,"-",3)[,3]
   tense1 <-  un_sp(tense1,"/") %>% as.numeric()
   
   d <- filter(conjdf, verb==verb1)
-  # dim(d)
-  
   table1 <- NULL
   
-  for(g in 1:length(tense1)){
+  
+  tmdf <- data.frame(ten1 = tense1, tm = character(length=length(tense1)),
+                    stringsAsFactors = F)
+  
+  for(f in 1:length(tense1)){
+  
+    for(k in 1:length(chainC)){
+      
+      a1 <- chainC[[k]]
+      if(tense1[f] %in% seq(a1[1],a1[2],1)){ tm <- k }
+      
+    }
     
-    dm <-  filter(d, tenseNum==tense1[g])
+    tmdf$tm[f] <- tm
+  }
+  
+  unqt <- unique(tmdf$tm)
+  
+  for(g in 1:length(unqt)){
     
-    tm <- 0
+    # dm <-  filter(d, tenseNum==tense1[g])
     
-    if(tense1[g] %in% c(1,2)) {
+    dm <- d[which(d$tenseNum %in% tmdf[which(tmdf$tm %in% unqt[g]),"ten1"]),]
+    
+    tm <- unqt[g] %>% as.numeric()
+    
+    if(dm$tenseNum[1] %in% c(1,2)) {
       
       table1[g] <- h2(paste0(d[tense1[g],"tense"]," - ",d[tense1[g],"conj"]))
       pripas(table1[g])
@@ -51,24 +74,18 @@ verbToTable <- function(a){
       next()
     }
     
-    for(k in 1:length(chainC)){
-      
-      a1 <- chainC[[k]]
-      
-      if(tense1[g] %in% seq(a1[1],a1[2],1)){
-        
-        pripas("Match at ",tenses[k])
-        
-        tm <- k
-        
-      }
-    }
-    
+
     b <- chainC[[tm]]
     
     d2 <- d[which(d$tenseNum %in% seq(b[1],b[2],1)),] 
-    mn <- grep(dm$tenseNum,d2$tenseNum)
-    d2$conj[mn] <- paste0("<font color=\"red\">",d2$conj[mn],"</font>")
+    
+    mn <- NULL
+    for(y in 1:length(dm[[1]])){
+      mn[y] <- grep(paste0("\\b",dm$tenseNum[y],"\\b"),d2$tenseNum)
+    }
+    # mn <- grep(dm$tenseNum,d2$tenseNum)
+    
+    d2$conj[mn] <- paste0("<font color=\"red\"><b>",d2$conj[mn],"<b></font>")
     dim(d2)
     
   
@@ -101,7 +118,14 @@ verbToTable <- function(a){
     
     # p(paste0(tenses[tm]," Tense:"))
     
-    table1[g] <- paste(h4(tags$b(paste0(tenses[tm]," Tense:"))),
+    tran1 <- ifelse(dm$popup[1]=="Translation not available","",
+                    paste0(" - ",paste(dm$popup,collapse = ", ")))
+    
+    
+    title0 <- h3(HTML(paste0("<b><center>",dm$conj[1],tran1,"</b></center>")))
+    title1 <- paste0(tenses[tm]," Tense ")
+    
+    table1[g] <- paste(title0,"<br>",h4(tags$b(title1)),
                        "<table style=\"width:100%\">",h1,r,"</table>")
   
   }
