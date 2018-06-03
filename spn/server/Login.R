@@ -52,7 +52,7 @@ observeEvent(input$Login,{
       
       pripas("User: ",USER$name)
       
-      a11 <- readLines(paste0("userData/",USER$name,"/savedVerbs.txt"))
+      a11 <- readLines(paste0("userdata/",USER$name,"/savedVerbs.txt"))
       if(nchar(a11)>1){
         pripas("Login: savedVerbs <- ",a11)
         rv$savedVerbs <- as.numeric(unlist(str_split(a11,",")))  
@@ -60,7 +60,7 @@ observeEvent(input$Login,{
       } else { vls_cache <<- "" }
 
 
-      a12 <- readLines(paste0("userData/", USER$name,"/remVerbs.txt"))
+      a12 <- readLines(paste0("userdata/", USER$name,"/remVerbs.txt"))
       if(nchar(a12)>1){
         pripas("Login: remVerbs <- ",a12)
         rv$remVerbs <- as.numeric(unlist(str_split(a12,",")))
@@ -78,11 +78,11 @@ observeEvent(input$Login,{
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       
-      rv$excludeE <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
+      rv$excludeE <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
                                   "/excludeE.txt")),","))
-      rv$excludeW <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
+      rv$excludeW <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
                                   "/excludeW.txt")),","))
-      rv$excludeA <- as.numeric(un_sp(readLines(paste0("userData/",USER$name,
+      rv$excludeA <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
                                   "/excludeA.txt")),","))
       exE_data <<- rv$excludeE
       exW_data <<- rv$excludeW
@@ -104,19 +104,19 @@ observeEvent(input$logout , {
   USER$pass <- ""
   
   writeLines(paste(vls_cache,collapse = ","),
-             con = paste0("userData/",global_user,"/savedVerbs.txt"))
+             con = paste0("userdata/",global_user,"/savedVerbs.txt"))
   
   writeLines(paste(vlr_cache,collapse = ","),
-             con = paste0("userData/",global_user,"/remVerbs.txt"))
+             con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeE.txt"))
+             paste0("userdata/",global_user,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeW.txt"))
+             paste0("userdata/",global_user,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeA.txt"))
+             paste0("userdata/",global_user,"/excludeA.txt"))
   
   exE_data <<- ""
   exW_data <<- ""

@@ -46,19 +46,19 @@ session$onSessionEnded(function() {
   stopApp()
   
   writeLines(paste(vls_cache,collapse = ","),
-             con = paste0("userData/",global_user,"/savedVerbs.txt"))
+             con = paste0("userdata/",global_user,"/savedVerbs.txt"))
   
   writeLines(paste(vlr_cache,collapse = ","),
-             con = paste0("userData/",global_user,"/remVerbs.txt"))
+             con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
   writeLines(paste(exE_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeE.txt"))
+             paste0("userdata/",global_user,"/excludeE.txt"))
   
   writeLines(paste(exW_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeW.txt"))
+             paste0("userdata/",global_user,"/excludeW.txt"))
   
   writeLines(paste(exA_data,collapse = ","),
-             paste0("userData/",global_user,"/excludeA.txt"))
+             paste0("userdata/",global_user,"/excludeA.txt"))
   
   
 })
