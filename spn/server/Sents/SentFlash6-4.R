@@ -280,12 +280,12 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         rv$exNow <- c(rv$exNow,rNum)
         pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", "))
         
-        rv$exData <- rbind(rv$exData,lildf)
         
         #... Choose whether to save session
         if(input$ms_SaveSession==T){
           
           lildf <- data.frame(user=USER$name,type=rv$tNow,time=Sys.time(),row=rNum)
+          rv$exData <- rbind(rv$exData,lildf)
           exDataG <<- rv$exData   
         }
 
