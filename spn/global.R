@@ -35,12 +35,11 @@ vocabdf <- readRDS("solid/data/rds/vocab.4.30.rds")
   vocabdf <- vocabdf[,c(1,2,3,5,4)]
   vocabdf[which(vocabdf$theme1=="MiniList"),"theme1"] <-  "Category"
 
-audioDf <- readRDS("solid/data/rds/audioAnkiSent.rds") 
+audioDf <- readRDS("solid/data/rds/audioAnkiSent6-4.rds") 
   
 
-audioWeb <- readRDS("solid/data/rds/audioWebSent.rds")
-  audioWeb <- audioWeb[grepl(" ",audioWeb$spn),]
-  verbWeb <- audioWeb[!grepl(" ",audioWeb$spn),]
+audioWeb <- readRDS("solid/data/rds/audioWebSent6-4.rds")
+
 
   
 dynamicTabs <- readLines(paste0("solid/html/tabs/dynamicTabs.txt"),warn = F)

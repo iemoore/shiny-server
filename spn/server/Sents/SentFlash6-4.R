@@ -257,9 +257,22 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
       if(length(rv$exNow)<dim(rv$dfNow)[1]){
     
         b <- rv$dfNow
-        rvNow <- rv$exNow
-  
-        rNum <- sample(rownames(b)[!(rownames(b) %in% rvNow)],1)
+        
+        
+        #... Limit data to only irregular
+        pripas("input$ms_showIrreg <- ",input$ms_showIrreg)
+        # b1 <- ifelse(input$ms_showIrreg==FALSE,b,b[which(b$irregTF==T),])
+        if(input$ms_showIrreg==F){b1 <- b}
+        if(input$ms_showIrreg==T){b1 <- b[which(b$irregTF==T),]}
+        
+        #... Choose between new data and random
+        if(input$ms_ShowNew==T){
+          rNum <- sample(rownames(b1)[!(rownames(b1) %in% rv$exNow)],1)
+        }
+        else {
+          rNum <- sample(rownames(b1),1)
+        }
+
         f <- b[rNum,]
         
         rv$audioNow_sf <- f$num1
@@ -267,9 +280,15 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         rv$exNow <- c(rv$exNow,rNum)
         pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", "))
         
-        lildf <- data.frame(user=USER$name,type=rv$tNow,time=Sys.time(),row=rNum)
         rv$exData <- rbind(rv$exData,lildf)
-        exDataG <<- rv$exData 
+        
+        #... Choose whether to save session
+        if(input$ms_SaveSession==T){
+          
+          lildf <- data.frame(user=USER$name,type=rv$tNow,time=Sys.time(),row=rNum)
+          exDataG <<- rv$exData   
+        }
+
         
         sent2 <- sent2function(f)
         

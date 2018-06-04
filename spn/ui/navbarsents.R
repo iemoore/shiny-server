@@ -33,17 +33,21 @@ navbarMenu("Sentences",
                         
                         shinyjs::hidden(wellPanel(id = "options_panel_sf",
                                                   
-                            materialSwitch(inputId = "ms_sn", 
+                            materialSwitch(inputId = "ms_ShowNew", 
                                            label = "Show New", value = TRUE, 
                                            status = "primary"),
                             
-                            materialSwitch(inputId = "ms_ss", 
+                            materialSwitch(inputId = "ms_SaveSession", 
                                            label = "Save Session", value = TRUE, 
                                            status = "primary"),
                             
                             materialSwitch(inputId = "ms_aa", 
                                            label = "Autoplay Audio", value = TRUE, 
-                                           status = "primary")
+                                           status = "primary"),
+                            
+                            materialSwitch(inputId = "ms_showIrreg", 
+                                           label = "Show only irregular",
+                                           value = FALSE, status = "primary")
                                                   
                         ))
                         
