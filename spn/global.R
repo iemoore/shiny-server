@@ -25,7 +25,7 @@ verbMaster <- readRDS("solid/data/rds/verbMaster5-16.rds")
 sentdf <- readRDS("solid/data/rds/sent501.4.30.rds")
   conjAct <- sentdf[,6]
   sentdf <- sentdf[,-c(4,6)]
-  colnames(sentdf)[4] <- "tense"
+  colnames(sentdf)[c(2,3,4)] <- c("spn","eng","tense")
 
 # conjdf <- readRDS("solid/data/rds/conj501.4.25.rds")
 conjdf <- readRDS("solid/data/rds/conjMaster5-15.rds")

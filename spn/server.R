@@ -13,7 +13,7 @@ source("server/Fun/sent2function.R",local = T)
   
 #...Sentences  
 source("server/Sents/SentLearn.R",local = T)
-source("server/Sents/SentFlash.R",local = T) 
+source("server/Sents/SentFlash6-4.R",local = T) 
 source("server/Sents/SentQuiz.R",local = T)
 
 #...Verbs
@@ -43,7 +43,7 @@ vlr_cache <<- ""
   
 session$onSessionEnded(function() {
   
-  stopApp()
+
   
   writeLines(paste(vls_cache,collapse = ","),
              con = paste0("userdata/",global_user,"/savedVerbs.txt"))
@@ -51,14 +51,13 @@ session$onSessionEnded(function() {
   writeLines(paste(vlr_cache,collapse = ","),
              con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
-  writeLines(paste(exE_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeE.txt"))
   
-  writeLines(paste(exW_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeW.txt"))
+  saveRDS(exDataG,paste0("userdata/Data.rds"))
   
-  writeLines(paste(exA_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeA.txt"))
+  print(paste(tail(exDataG$row,n=5)))
+  print(paste(tail(exDataG$type,n=5)))
+  
+  stopApp()
   
   
 })

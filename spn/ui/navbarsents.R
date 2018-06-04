@@ -26,15 +26,6 @@ navbarMenu("Sentences",
                         
                         uiOutput("search_type_sf_Out"),
                         
-                        
-                      
-                        shinyjs::hidden(wellPanel(id = "e501_panel_sf",
-                                                  
-                        uiOutput("search_letters"),
-                        uiOutput("e501start")
-                        
-                        )),
-                        
                         inlineDing(actionBttn(inputId = "options_btn_sf",
                                               label = "Options", 
                                               style = "fill", 

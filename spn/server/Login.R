@@ -42,13 +42,14 @@ observeEvent(input$Login,{
   Password <- isolate(input$passwd)
   Id.username <- which(PASSWORD$User == Username)
   Id.password <- which(PASSWORD$Pswd    == Password)
+  
   if (length(Id.username) > 0 & length(Id.password) > 0) {
     if (Id.username == Id.password) {
       
       USER$Logged <- TRUE
       USER$name <- Username  
-      global_user <<- USER$name
-      print("Login Successful")
+      # global_user <<- as.character(USER$name)
+      pripas("Login Successful: ",USER$name)
       
       pripas("User: ",USER$name)
       
@@ -77,20 +78,15 @@ observeEvent(input$Login,{
       rv$vls_length <- ifelse(length(rv$savedVerbs)<10,length(rv$savedVerbs),10)
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
+      rv$exData <- readRDS(paste0("userdata/Data.rds"))
+      rv$exData <- rv$exData[which(rv$exData$user==USER$name),]
       
-      rv$excludeE <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
-                                  "/excludeE.txt")),","))
-      rv$excludeW <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
-                                  "/excludeW.txt")),","))
-      rv$excludeA <- as.numeric(un_sp(readLines(paste0("userdata/",USER$name,
-                                  "/excludeA.txt")),","))
-      exE_data <<- rv$excludeE
-      exW_data <<- rv$excludeW
-      exA_data <<- rv$excludeA
+      print(paste(tail(rv$exData$row,n=5)))
+      print(paste(tail(rv$exData$type,n=5)))
       
-      rv$excludeE_ct <- length(rv$excludeE)
-      rv$excludeW_ct <- length(rv$excludeW)
-      rv$excludeA_ct <- length(rv$excludeA)
+      exDataG <<- rv$exData
+      
+      
       
     } 
   } else {
@@ -109,21 +105,12 @@ observeEvent(input$logout , {
   writeLines(paste(vlr_cache,collapse = ","),
              con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
-  writeLines(paste(exE_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeE.txt"))
   
-  writeLines(paste(exW_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeW.txt"))
+  saveRDS(exDataG,paste0("userdata/Data.rds"))
   
-  writeLines(paste(exA_data,collapse = ","),
-             paste0("userdata/",global_user,"/excludeA.txt"))
-  
-  exE_data <<- ""
-  exW_data <<- ""
-  exA_data <<- ""
+  exDataG <<- NULL
   global_user <<- ""
-  vls_cache <<- ""
-  vlr_cache <<- ""
+
   
   
 })

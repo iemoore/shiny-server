@@ -58,10 +58,10 @@ uiBuildFun <- function(ui_tar1,ui_tar2){
 }
 
 
-#####----------------------------------------------------------------------
+#####
 
 
-#... Search, Buttons
+#...Search, Buttons
 #####----------------------------------------------------------------------
 
 output$search_type_sf_Out <- renderUI({
@@ -177,15 +177,8 @@ output$flashAudioWeb <- renderUI({
 #####
 
 
-#... ObserveEvent's
+#...ObserveEvent's
 #####----------------------------------------------------------------------
-
-
-# observeEvent(input$Login,{
-#   
-#   
-# })
-
 
 
 observeEvent(input$options_btn_sf, {shinyjs::toggle(id= "options_panel_sf")})
@@ -258,7 +251,7 @@ observeEvent(input$showF2, {
 #####
 
 
-#... Dynamic UI
+#...Dynamic UI
 #####----------------------------------------------------------------------
 
 observeEvent(c(rv$search_type_sf,rv$nextCt2), {
@@ -281,7 +274,6 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
     if(a2=="All") {b <- sentdf
     }else{ b <- filter(sentdf,verb %in% a2) }
     
-    # b <- ifelse(a2=="All",sentdf,filter(sentdf,verb %in% a2))
     rvNow <- rv$excludeE
     rvNow_ct <- rv$excludeE_ct
   }
