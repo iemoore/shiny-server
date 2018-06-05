@@ -79,7 +79,7 @@ observeEvent(input$Login,{
       rv$vlr_length <- ifelse(length(rv$remVerbs)<10,length(rv$remVerbs),10)
       
       rv$exData <- readRDS(paste0("userdata/Data.rds"))
-      rv$exData$row <- as.character(rv$exData$row)
+      # rv$exData$row <- as.character(rv$exData$row)
       rv$exData <- rv$exData[which(rv$exData$user==USER$name),]
       
       print(paste(tail(rv$exData$row,n=5)))
