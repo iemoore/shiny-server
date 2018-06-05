@@ -109,9 +109,13 @@ observeEvent(input$logout , {
   
   saveRDS(rv$exData,paste0("userdata/Data.rds"))
   
-  exDataG <<- NULL
   rv$typeLock <- 0
-  global_user <<- ""
+  rv$dfNow <- data.frame(var="1",bar="1")
+  rv$exData <- NULL
+  rv$exNow <- NULL
+  rv$exNow_ct <- 0
+  rv$tNow <- NULL
+  rv$audioNow_sf <- 0
 
   
   
