@@ -110,6 +110,7 @@ observeEvent(input$logout , {
   saveRDS(exDataG,paste0("userdata/Data.rds"))
   
   exDataG <<- NULL
+  rv$typeLock <- 0
   global_user <<- ""
 
   
