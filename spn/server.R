@@ -52,7 +52,8 @@ session$onSessionEnded(function() {
              con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
   if(!is.null(exDataG)){
-    saveRDS(exDataG,paste0("userdata/Data.rds"))    
+    a <- as.data.frame(exDataG)
+    saveRDS(a,paste0("userdata/Data.rds"))    
   }
 
   
