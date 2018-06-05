@@ -45,29 +45,29 @@ session$onSessionEnded(function() {
   
 
   
-  writeLines(paste(vls_cache,collapse = ","),
-             con = paste0("userdata/",global_user,"/savedVerbs.txt"))
-  
-  writeLines(paste(vlr_cache,collapse = ","),
-             con = paste0("userdata/",global_user,"/remVerbs.txt"))
-  
-  if(!is.null(exDataG)){
-    a <- as.data.frame(exDataG)
-    saveRDS(a,paste0("userdata/Data.rds"))    
-  }
-
-  
-  exDataG <<- NULL
-  rv$typeLock <- 0
-  rv$dfNow <- data.frame(var="1",bar="1")
-  rv$exData <- NULL
-  rv$exNow <- NULL
-  rv$exNow_ct <- 0
-  rv$tNow <- NULL
-  rv$audioNow_sf <- 0
-  
-  print(paste(tail(exDataG$row,n=5)))
-  print(paste(tail(exDataG$type,n=5)))
+  # writeLines(paste(vls_cache,collapse = ","),
+  #            con = paste0("userdata/",global_user,"/savedVerbs.txt"))
+  # 
+  # writeLines(paste(vlr_cache,collapse = ","),
+  #            con = paste0("userdata/",global_user,"/remVerbs.txt"))
+  # 
+  # if(!is.null(exDataG)){
+  #   a <- as.data.frame(exDataG)
+  #   saveRDS(a,paste0("userdata/Data.rds"))    
+  # }
+  # 
+  # 
+  # exDataG <<- NULL
+  # rv$typeLock <- 0
+  # rv$dfNow <- data.frame(var="1",bar="1")
+  # rv$exData <- NULL
+  # rv$exNow <- NULL
+  # rv$exNow_ct <- 0
+  # rv$tNow <- NULL
+  # rv$audioNow_sf <- 0
+  # 
+  # print(paste(tail(exDataG$row,n=5)))
+  # print(paste(tail(exDataG$type,n=5)))
   
   stopApp()
   

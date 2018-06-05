@@ -85,7 +85,7 @@ observeEvent(input$Login,{
       print(paste(tail(rv$exData$row,n=5)))
       print(paste(tail(rv$exData$type,n=5)))
       
-      exDataG <<- rv$exData
+      # exDataG <<- rv$exData
       
       
       
@@ -107,7 +107,7 @@ observeEvent(input$logout , {
              con = paste0("userdata/",global_user,"/remVerbs.txt"))
   
   
-  saveRDS(exDataG,paste0("userdata/Data.rds"))
+  saveRDS(rv$exData,paste0("userdata/Data.rds"))
   
   exDataG <<- NULL
   rv$typeLock <- 0
