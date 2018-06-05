@@ -13,9 +13,9 @@ da <- da[2:length(da)] %>% as.numeric()
 dw <- dw[2:length(dw)] %>% as.numeric()
 
 
-dedf <- data.frame(user="ian",type="E",time=Sys.time(),row=de)
-dadf <- data.frame(user="ian",type="A",time=Sys.time(),row=da)
-dwdf <- data.frame(user="ian",type="W",time=Sys.time(),row=dw)
+dedf <- data.frame(user="ian",type="E",time=Sys.time(),row=de,stringsAsFactors = F)
+dadf <- data.frame(user="ian",type="A",time=Sys.time(),row=da,stringsAsFactors = F)
+dwdf <- data.frame(user="ian",type="W",time=Sys.time(),row=dw,stringsAsFactors = F)
 
 dcdf <- rbind(dedf,dadf,dwdf)
 

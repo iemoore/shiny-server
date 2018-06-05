@@ -59,7 +59,7 @@ uiBuildFun <- function(ui_tar1,ui_tar2){
 #####
 
 
-#...Search, Buttons
+#...UI Elements
 #####----------------------------------------------------------------------
 
 output$search_type_sf_Out <- renderUI({
@@ -126,6 +126,30 @@ output$flashAudioWeb <- renderUI({
     }
  
   }
+})
+
+
+output$progressBar1 <- renderUI({
+  
+  
+  if(length(rv$exNow)>1){
+    
+    v1 <- floor(round(length(rv$exNow)/length(rv$dfNow[[1]]),0))
+    
+    pripas("v1 <- ",v1)
+    
+    a <- paste0("<div class=\"progress\"><div",
+            " class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"",v1,
+            "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>")
+    
+    a <- paste0("<div class=\"progress\"><div class=\"progress-bar progress-bar",
+                "-success\" role=\"progressbar\" aria-valuenow=\"",v1,"\" ",
+                "aria-valuemin=\"0\" aria-valuemax=\"100\"> ",v1,"%",
+                "</div></div>")
+  } else { a <- as.character(h4("Error"))}
+  
+  HTML(a)
+  
 })
 
 #####
@@ -230,7 +254,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
     
     if(t==1){ 
       rv$dfNow <- audioWeb 
-      rv$exNow <- as.numeric(rv$exData[which(rv$exData$type=="W"),]$row)
+      rv$exNow <- as.numeric(rv$exData[which(rv$exData$type=="W"),"row"])
       rv$exNow_ct <- length(rv$exNow)
       rv$tNow <- "W"
     }
@@ -382,6 +406,8 @@ observeEvent(rv$backCt2, {
   }  
   }
 })
+
+
 
 #####
 
