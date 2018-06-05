@@ -255,7 +255,8 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
     
     if(t==1){ 
       rv$dfNow <- audioWeb 
-      rv$exNow <- as.numeric(rv$exData[which(rv$exData$type=="W"),"row"])
+      # rv$exNow <- as.numeric(rv$exData[which(rv$exData$type=="W"),"row"])
+      rv$exNow <- as.numeric(rv$exData[which(rv$exData$type=="W"),]$row)
       rv$exNow_ct <- length(rv$exNow)
       rv$tNow <- "W"
     }
