@@ -54,6 +54,8 @@ session$onSessionEnded(function() {
   
   saveRDS(exDataG,paste0("userdata/Data.rds"))
   
+  exDataG <<- NULL
+  
   print(paste(tail(exDataG$row,n=5)))
   print(paste(tail(exDataG$type,n=5)))
   

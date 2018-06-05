@@ -2,6 +2,7 @@
 
 rv$typeLock <- 0
 rv$dfNow <- data.frame(var="1",bar="1")
+rv$exData <- NULL
 rv$exNow <- NULL
 rv$exNow_ct <- 0
 rv$tNow <- NULL
