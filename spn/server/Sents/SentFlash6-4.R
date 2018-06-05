@@ -130,28 +130,28 @@ output$flashAudioWeb <- renderUI({
 })
 
 
-output$progressBar1 <- renderUI({
-  
-  
-  if(length(rv$exNow)>1){
-    
-    v1 <- floor(round(length(rv$exNow)/length(rv$dfNow[[1]]),0))
-    
-    pripas("v1 <- ",v1)
-    
-    a <- paste0("<div class=\"progress\"><div",
-            " class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"",v1,
-            "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>")
-    
-    a <- paste0("<div class=\"progress\"><div class=\"progress-bar progress-bar",
-                "-success\" role=\"progressbar\" aria-valuenow=\"",v1,"\" ",
-                "aria-valuemin=\"0\" aria-valuemax=\"100\"> ",v1,"%",
-                "</div></div>")
-  } else { a <- as.character(h4("Error"))}
-  
-  HTML(a)
-  
-})
+# output$progressBar1 <- renderUI({
+#   
+#   
+#   if(length(rv$exNow)>1){
+#     
+#     v1 <- floor(round(length(rv$exNow)/length(rv$dfNow[[1]]),0))
+#     
+#     pripas("v1 <- ",v1)
+#     
+#     a <- paste0("<div class=\"progress\"><div",
+#             " class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"",v1,
+#             "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>")
+#     
+#     a <- paste0("<div class=\"progress\"><div class=\"progress-bar progress-bar",
+#                 "-success\" role=\"progressbar\" aria-valuenow=\"",v1,"\" ",
+#                 "aria-valuemin=\"0\" aria-valuemax=\"100\"> ",v1,"%",
+#                 "</div></div>")
+#   } else { a <- as.character(h4("Error"))}
+#   
+#   HTML(a)
+#   
+# })
 
 #####
 
@@ -286,17 +286,17 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         
         #... Limit data to only irregular
         pripas("input$ms_showIrreg <- ",input$ms_showIrreg)
-        # b1 <- ifelse(input$ms_showIrreg==FALSE,b,b[which(b$irregTF==T),])
         if(input$ms_showIrreg==F){b1 <- b}
         if(input$ms_showIrreg==T){b1 <- b[which(b$irregTF==T),]}
         
+        
         #... Choose between new data and random
-        if(input$ms_ShowNew==T){
+        # if(input$ms_ShowNew==T){
           rNum <- sample(rownames(b1)[!(rownames(b1) %in% rv$exNow)],1)
-        }
-        else {
-          rNum <- sample(rownames(b1),1)
-        }
+        # }
+        # else {
+        #   rNum <- sample(rownames(b1),1)
+        # }
 
         f <- b[rNum,]
         
@@ -304,15 +304,15 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         rv$exNow_ct <- rv$exNow_ct + 1
         rv$exNow <- c(rv$exNow,rNum)
         pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", "))
-        
+        logjs(paste0("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", ")))
         
         #... Choose whether to save session
-        if(input$ms_SaveSession==T){
+        # if(input$ms_SaveSession==T){
           
           lildf <- data.frame(user=USER$name,type=rv$tNow,time=Sys.time(),row=rNum)
           rv$exData <- rbind(rv$exData,lildf)
           exDataG <<- rv$exData   
-        }
+        # }
 
         
         sent2 <- sent2function(f)

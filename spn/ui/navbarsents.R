@@ -47,9 +47,9 @@ navbarMenu("Sentences",
                             
                             materialSwitch(inputId = "ms_showIrreg", 
                                            label = "Show only irregular",
-                                           value = FALSE, status = "primary"),
+                                           value = FALSE, status = "primary")#,
                             
-                            uiOutput("progressBar1")
+                            # uiOutput("progressBar1")
                                                   
                         ))
                         
