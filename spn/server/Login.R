@@ -71,6 +71,7 @@ observeEvent(input$Login,{
       if(nchar(a12)<2 & nchar(a12)<2){
         
         pripas("rv$initTrig bc of empty rem/save called")
+        logjs("rv$initTrig bc of empty rem/save called")
         rv$initTrig <- rv$initTrig*(-1)
       }
       
@@ -81,6 +82,7 @@ observeEvent(input$Login,{
       rv$exData <- readRDS(paste0("userdata/Data.rds"))
       rv$exData$row <- as.character(rv$exData$row)
       rv$exData <- rv$exData[which(rv$exData$user==USER$name),]
+      rv$typeLock <- 0
       
       print(paste(tail(rv$exData$row,n=5)))
       print(paste(tail(rv$exData$type,n=5)))
