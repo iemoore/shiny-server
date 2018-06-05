@@ -271,7 +271,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   
   pripas("length(rv$dfNow[,1]) <- ",length(rv$dfNow[,1]))
   
-  if(length(rv$exNow[,1])>2) {
+  if(length(rv$exNow)>2) {
     
     pripas("length(rv$exNow) <- ",length(rv$exNow))
     pripas("rv$exNow_ct <- ",rv$exNow_ct)
