@@ -15,10 +15,19 @@ navbarMenu("Sentences",
                             uiOutput("sf_Modal_fill")
                             ),
                     
+                    bsModal(id="sf_dataModal", "Sentence History", "actDataModal",
+                            size = "large",
+                            
+                            DTOutput("sf_dataModal_fill")
+                            
+                    ),
+                    
                     pageWithSidebar(
                       headerPanel(span(inlineDing("Flash:"),
                                   inlineDing(actionButton("hideSide",label = NULL,
-                                    icon=icon("cog", lib = "glyphicon")))
+                                    icon=icon("cog", lib = "glyphicon"))),
+                                  inlineDing(actionButton("actDataModal",label = NULL,
+                                    icon=icon("list", lib = "glyphicon")))
                       )),
                      
                       div( id ="Sidebar",sidebarPanel(
@@ -30,7 +39,7 @@ navbarMenu("Sentences",
                                               label = "Options", 
                                               style = "fill", 
                                               color = "primary")),
-                        
+                      
                         shinyjs::hidden(wellPanel(id = "options_panel_sf",
                                                   
                             materialSwitch(inputId = "ms_ShowNew", 

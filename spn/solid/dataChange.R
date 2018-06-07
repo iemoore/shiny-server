@@ -7,6 +7,9 @@
 de <- un_sp(readLines(paste0("userdata/ian/excludeE.txt")),",")
 da <- un_sp(readLines(paste0("userdata/ian/excludeA.txt")),",")
 dw <- un_sp(readLines(paste0("userdata/ian/excludeW.txt")),",")
+# de <- un_sp(readLines(paste0("excludeE.txt")),",")
+# da <- un_sp(readLines(paste0("excludeA.txt")),",")
+# dw <- un_sp(readLines(paste0("excludeW.txt")),",")
 
 de <- de[2:length(de)] %>% as.numeric()
 da <- da[2:length(da)] %>% as.numeric()
@@ -20,6 +23,7 @@ dwdf <- data.frame(user="ian",type="W",time=Sys.time(),row=dw,stringsAsFactors =
 dcdf <- rbind(dedf,dadf,dwdf)
 
 saveRDS(dcdf,"userdata/Data.rds")
+# saveRDS(dcdf,"Data.rds")
 
 #####
 

@@ -85,6 +85,44 @@ output$sf_Modal_fill <- renderUI({
 
 
 
+output$sf_dataModal_fill <- DT::renderDataTable({
+  if (USER$Logged == TRUE) {
+    
+    pripas("Data modal activated at ",Sys.time())
+    
+    input$actDataModal
+    
+    s2 <- isolate(rv$exData)
+    d2 <- isolate(rv$dfNow)
+    d2$row2 <- rownames(d2)
+    
+    s3 <- merge(s2, d2, by.x = "row", by.y = "row2")
+    
+    s2 <- s3[,c("row","time","spn","eng")]
+    s2 <- arrange(s2, desc(time))
+    
+    pripas("dim(s2)[1] <- ",dim(s2)[1])
+    
+     # action <- DT::dataTableAjax(session, s2)
+    
+    DT::datatable(s2, selection = list(mode = "none", target = "row"),
+    options = list(#ajax = list(url = action), 
+      processing = FALSE,
+      deferRender = TRUE,
+      scrollX=TRUE,
+      # columnDefs = list(list(width = '15%', targets = list(1,2)),
+      #                   list(className = 'dt-center', targets = c(0,1,3,4))),
+      
+      lengthMenu = c(5,10, 20, 50, 100),
+      language = list(search = 'Filter:')
+    ), 
+    # rownames=FALSE,
+    escape = FALSE,  
+    editable = T
+    ) 
+    
+  }
+})
 
 
 
