@@ -30,6 +30,7 @@ a <- "2-prohibir-13/57"
 a <- "4-promover-13/57"
 a <- "2-obsequiar-6/16"
 a <- "4-sonar-16"
+a <- "4-barrer-107"
 
 verbToTable <- function(a){
   
@@ -101,11 +102,7 @@ verbToTable <- function(a){
         
       }
     }
-    
-    
-    
-    
-    
+
     #-------------------------------------------------
     
     mn <- NULL
@@ -131,7 +128,7 @@ verbToTable <- function(a){
     r <- NULL
     for(n in ifelse(tm==3,2,1):length(cj)){
       
-      ifelse(tm %in% c(1,4),
+      ifelse(tm %in% c(1,4,5),
              rowlist <- c(1,3,2,5,4),
              rowlist <- c(1:length(tenseC[[tm]])))
       
