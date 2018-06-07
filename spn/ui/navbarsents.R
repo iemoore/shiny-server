@@ -22,12 +22,21 @@ navbarMenu("Sentences",
                             
                     ),
                     
+                    bsModal(id="sf_popHistModal", "Popup History", "actPopHistModal",
+                            size = "large",
+                            
+                            DTOutput("sf_popHistModal_fill")
+                            
+                    ),
+                    
                     pageWithSidebar(
                       headerPanel(span(inlineDing("Flash:"),
-                                  inlineDing(actionButton("hideSide",label = NULL,
-                                    icon=icon("cog", lib = "glyphicon"))),
-                                  inlineDing(actionButton("actDataModal",label = NULL,
-                                    icon=icon("list", lib = "glyphicon")))
+                        inlineDing(actionButton("hideSide",label = NULL,
+                            icon=icon("cog", lib = "glyphicon"))),
+                        inlineDing(actionButton("actDataModal",label = NULL,
+                            icon=icon("list", lib = "glyphicon"))),
+                        inlineDing(actionButton("actPopHistModal",label = NULL,
+                            icon=icon("list-alt", lib = "glyphicon")))
                       )),
                      
                       div( id ="Sidebar",sidebarPanel(

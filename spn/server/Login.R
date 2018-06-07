@@ -84,6 +84,8 @@ observeEvent(input$Login,{
       rv$exData$row <- as.character(rv$exData$row)
       rv$exData <- rv$exData[which(rv$exData$user==USER$name),]
       
+      rv$modal_data <- readRDS("userData/modal_data.rds") 
+      rv$modal_data <- rv$modal_data[which(rv$modal_data$user==USER$name),]
       
       rv$typeLock <- 0
       rv$audioNow_sf <- 0
@@ -114,6 +116,7 @@ observeEvent(input$logout , {
   
   
   saveRDS(rv$exData,paste0("userdata/Data.rds"))
+  saveRDS(rv$modal_data,paste0("userData/modal_data.rds"))
   
   rv$typeLock <- 0
   rv$dfNow <- data.frame(var="1",bar="1")
@@ -122,7 +125,8 @@ observeEvent(input$logout , {
   rv$exNow_ct <- 0
   rv$tNow <- NULL
   rv$audioNow_sf <- 0
-
+  rv$modal_data <- NULL
+  rv$sf_word_now <- NULL
   
   
 })

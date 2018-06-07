@@ -1,5 +1,25 @@
 
 
+# 6-7-18 modal data tracking initial data
+#####-------------------------------------------------------------------------
+
+a <- "2-obsequiar-6/16"
+
+word1 <- str_split_fixed(a,"-",3)[,1]
+verb1 <- str_split_fixed(a,"-",3)[,2]
+tense1 <- str_split_fixed(a,"-",3)[,3] 
+# tense1 <-  un_sp(tense1,"/") %>% as.numeric()
+
+conj1 <- "obsequiaría"
+
+lildf <- data.frame(user=USER$name,time=Sys.time(),word=word1,verb=verb1,
+                    conj=conj1,tense=tense1,type="W",row="1844")
+
+saveRDS(lildf,paste0("userData/modal_data.rds"))
+
+#####
+
+
 # 6-4-18 Txt to RDS for exclude values
 #####-------------------------------------------------------------------------
 
