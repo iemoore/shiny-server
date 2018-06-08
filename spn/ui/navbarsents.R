@@ -18,14 +18,14 @@ navbarMenu("Sentences",
                     bsModal(id="sf_dataModal", "Sentence History", "actDataModal",
                             size = "large",
                             
-                            DTOutput("sf_dataModal_fill")
+                            DTOutput("sf_dataModal_DF")
                             
                     ),
                     
                     bsModal(id="sf_popHistModal", "Popup History", "actPopHistModal",
                             size = "large",
                             
-                            DTOutput("sf_popHistModal_fill")
+                            DTOutput("sf_popHistModal_DF")
                             
                     ),
                     
@@ -65,9 +65,9 @@ navbarMenu("Sentences",
                             
                             materialSwitch(inputId = "ms_showIrreg", 
                                            label = "Show only irregular",
-                                           value = FALSE, status = "primary")#,
+                                           value = FALSE, status = "primary"),
                             
-                            # uiOutput("progressBar1")
+                            uiOutput("progressBar1")
                                                   
                         ))
                         

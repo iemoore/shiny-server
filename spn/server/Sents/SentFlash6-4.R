@@ -9,7 +9,10 @@ rv$tNow <- NULL
 rv$audioNow_sf <- 0
 rv$modal_data <- NULL
 rv$sf_word_now <- NULL
-
+rv$sf_word_force <- NULL
+rv$sf_word_key1 <- 0
+rv$sf_word_key2 <- 0
+  
 #...Old Rv's
 #####----------------------------------------------------------------------
 rv$nextCt2 <- 0
@@ -72,7 +75,21 @@ output$sf_Modal_fill <- renderUI({
   # a <- "1/2-alquilar-112"
   a <- "2-obsequiar-6/16"
   
+  pripas("sf_Modal_fill re-rendering at ",Sys.time())
+  
+  rv$sf_word_now
+  
   a <- rv$sf_word_now[1]
+  # b <- rv$sf_word_key1[1]
+
+  # if(b==1){ 
+  #   
+  #   isolate(rv$sf_word_key1 <- 0)
+  #   isolate(rv$sf_word_key2 <- 1)
+  #   
+  # }
+  # 
+
   word1 <- str_split_fixed(a,"-",3)[,1]
   verb1 <- str_split_fixed(a,"-",3)[,2]
   tense1 <- str_split_fixed(a,"-",3)[,3] 
@@ -113,7 +130,7 @@ output$sf_Modal_fill <- renderUI({
     
   }
   
-  
+
 })
 
 
@@ -184,28 +201,28 @@ output$flashAudioWeb <- renderUI({
 })
 
 
-# output$progressBar1 <- renderUI({
-#   
-#   
-#   if(length(rv$exNow)>1){
-#     
-#     v1 <- floor(round(length(rv$exNow)/length(rv$dfNow[[1]]),0))
-#     
-#     pripas("v1 <- ",v1)
-#     
-#     a <- paste0("<div class=\"progress\"><div",
-#             " class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"",v1,
-#             "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>")
-#     
-#     a <- paste0("<div class=\"progress\"><div class=\"progress-bar progress-bar",
-#                 "-success\" role=\"progressbar\" aria-valuenow=\"",v1,"\" ",
-#                 "aria-valuemin=\"0\" aria-valuemax=\"100\"> ",v1,"%",
-#                 "</div></div>")
-#   } else { a <- as.character(h4("Error"))}
-#   
-#   HTML(a)
-#   
-# })
+output$progressBar1 <- renderUI({
+
+
+  if(length(rv$exNow)>1){
+
+    v1 <- floor(round(length(rv$exNow)/length(rv$dfNow[[1]]),0))
+
+    # pripas("v1 <- ",v1)
+
+    a <- paste0("<div class=\"progress\"><div",
+            " class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"",v1,
+            "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div></div>")
+
+    a <- paste0("<div class=\"progress\"><div class=\"progress-bar progress-bar",
+                "-success\" role=\"progressbar\" aria-valuenow=\"",v1,"\" ",
+                "aria-valuemin=\"0\" aria-valuemax=\"100\"> ",v1,"%",
+                "</div></div>")
+  } else { a <- as.character(h4("Error"))}
+
+  HTML(a)
+
+})
 
 #####
 
@@ -230,7 +247,7 @@ observeEvent(input$flashClick_web,{
   c <- filter(conjdf, verb==verb1, tenseNum %in% tense1)
   c2 <- ifelse(length(c[[1]])>0,c$conj[1],verb1)
   
-  pripas(b0," <- ",paste(c$conj," = ",c$popup,collapse = ", "))
+  # pripas(b0," <- ",paste(c$conj," = ",c$popup,collapse = ", "))
   
   rv$sf_word_now <- c(b0,c2)
   
@@ -315,9 +332,9 @@ observeEvent(input$showF2, {
 observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   if (USER$Logged == TRUE) {
   
-  pripas("Search type or next clicked at ",Sys.time())
-  pripas("rv$search_type_sf <- ",rv$search_type_sf)
-  pripas("rv$typeLock <- ",rv$typeLock)
+  # pripas("Search type or next clicked at ",Sys.time())
+  # pripas("rv$search_type_sf <- ",rv$search_type_sf)
+  # pripas("rv$typeLock <- ",rv$typeLock)
 
   removeUI("#flashUI1_sf")
   removeUI("#flashUI2_sf")
@@ -328,7 +345,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   
   if(!(t==rv$typeLock)){
     
-    pripas("typeLock change at ",Sys.time())
+    # pripas("typeLock change at ",Sys.time())
     
     rv$typeLock <- t
     
@@ -348,16 +365,16 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
     
   }
   
-  pripas("length(rv$dfNow[,1]) <- ",length(rv$dfNow[,1]))
+  # pripas("length(rv$dfNow[,1]) <- ",length(rv$dfNow[,1]))
   
   if(length(rv$exNow)>2) {
     
-    pripas("length(rv$exNow) <- ",length(rv$exNow))
-    pripas("rv$exNow_ct <- ",rv$exNow_ct)
+    # pripas("length(rv$exNow) <- ",length(rv$exNow))
+    # pripas("rv$exNow_ct <- ",rv$exNow_ct)
     
     if(length(rv$exNow)==(rv$exNow_ct)){
       
-      pripas("Starting new row at ",Sys.time())
+      # pripas("Starting new row at ",Sys.time())
   
       if(length(rv$exNow)<dim(rv$dfNow)[1]){
     
@@ -365,7 +382,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         
         
         #... Limit data to only irregular
-        pripas("input$ms_showIrreg <- ",input$ms_showIrreg)
+        # pripas("input$ms_showIrreg <- ",input$ms_showIrreg)
         if(input$ms_showIrreg==F){b1 <- b}
         if(input$ms_showIrreg==T){b1 <- b[which(b$irregTF==T),]}
         
@@ -383,7 +400,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
         rv$audioNow_sf <- f$num1
         rv$exNow_ct <- rv$exNow_ct + 1
         rv$exNow <- c(rv$exNow,rNum)
-        pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", "))
+        # pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", "))
         logjs(paste0("tail of rv$exNow <- ",paste(tail(rv$exNow,10),collapse = ", ")))
         
         #... Choose whether to save session
@@ -436,7 +453,7 @@ observeEvent(c(rv$search_type_sf,rv$nextCt2), {
   
     if(rv$exNow_ct<length(rv$exNow)){
       
-      pripas("rv$exNow_ct<length(rv$exNow) at ",Sys.time())
+      # pripas("rv$exNow_ct<length(rv$exNow) at ",Sys.time())
       
       rv$exNow_ct <- rv$exNow_ct + 1
       
@@ -473,7 +490,7 @@ observeEvent(rv$backCt2, {
     
     rv$exNow_ct <- rv$exNow_ct - 1
     
-    pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,5),collapse = ", "))
+    # pripas("tail of rv$exNow <- ",paste(tail(rv$exNow,5),collapse = ", "))
     
     rNum <- rv$exNow[rv$exNow_ct]
     f <- rv$dfNow[rNum,]
