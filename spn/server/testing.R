@@ -3,93 +3,63 @@
 
 
 
-output$sf_dataModal_DF <- DT::renderDataTable({
-  if (USER$Logged == TRUE) {
-    
-    pripas("Data modal activated at ",Sys.time())
-    
-    # input$actDataModal
-    
-    s2 <- isolate(rv$exData)
-    d2 <- isolate(rv$dfNow)
-    d2$row2 <- rownames(d2)
-    
-    s3 <- merge(s2, d2, by.x = "row", by.y = "row2")
-    
-    s2 <- s3[,c("row","time","spn","eng")]
-    s2 <- arrange(s2, desc(time))
-    
-    pripas("dim(s2)[1] <- ",dim(s2)[1])
-    
-    # action <- DT::dataTableAjax(session, s2)
-    
-    DT::datatable(s2, selection = list(mode = "single", target = "row"),
-                  options = list(#ajax = list(url = action), 
-                    processing = FALSE,
-                    deferRender = TRUE,
-                    scrollX=TRUE,
-                    # columnDefs = list(list(width = '15%', targets = list(1,2)),
-                    #                   list(className = 'dt-center', targets = c(0,1,3,4))),
-                    
-                    lengthMenu = c(5,10, 20, 50, 100),
-                    language = list(search = 'Filter:')
-                  ), 
-                  # rownames=FALSE,
-                  escape = FALSE,  
-                  editable = T
-    ) 
-    
+
+
+output$modalBack <-renderUI({
+  
+  # inlineDing(actionBttn("modalBack","BACK"))
+  actionBttn("modalBack","BACK")
+})
+
+output$modalNext <-renderUI({
+  
+  a <- rv$modal_data_ct
+  # b <- ifelse(a==1,"",inlineDing(actionBttn("modalNext","NEXT")))
+  # return(b)
+  
+  # inlineDing(actionBttn("modalNext","NEXT"))
+  
+  if(!(a==1)){
+    actionBttn("modalNext","NEXT")
   }
-})
-proxy2 = dataTableProxy('sf_dataModal_DF')
-observe({
-  
-  input$actDataModal
-  s2 <- isolate(rv$exData)
-  d2 <- isolate(rv$dfNow)
-  d2$row2 <- rownames(d2)
-  
-  if(!is.null(s2)){
-    
-    s3 <- merge(s2, d2, by.x = "row", by.y = "row2")
-    s2 <- s3[,c("row","time","spn","eng")]
-    s2 <- arrange(s2, desc(time))
-    
-    dataTableAjax(session, s2, outputId = 'sf_dataModal_DF')
-    reloadData(proxy2, resetPaging = FALSE)    
-  }
+  else {""}
   
 })
 
 
-observeEvent(input$sf_dataModal_DF_rows_selected,{
+observeEvent(input$modalNext,{
   
-  a <- input$sf_dataModal_DF_rows_selected
-  # a <- length(rv$exData[[1]])-a+1
-  # b <- rv$exData
+  pripas("input$modalNext clicked at ",Sys.time())
   
-  s2 <- arrange(rv$exData, desc(time))
-  a <- s2[a,"row"]
+  a <- rv$sf_word_now 
+  b0 <- rv$modal_data_ct
   
-  pripas("rows_selected <- ",a)
+  rv$modal_data_ct <- b0 - 1
+  pripas("rv$modal_data_ct <- ",rv$modal_data_ct)
   
-  toggleModal(session, "sf_dataModal", toggle = "toggle")
+  b <- rv$modal_data[rv$modal_data_ct,]
   
-  b <- grep(paste0("\\b",a,"\\b"),rv$exNow)
-  pripas("b <- ",b)
-  
-  rv$exNow_ct <- b-1
-  
-  rv$nextCt2 <- rv$nextCt2 + 1
+  rv$sf_word_now <- c(paste0(b$word,"-",b$verb,"-",b$tense),Sys.time())
+  rv$sf_word_key1 <- c(1,Sys.time())
   
 })
 
-
-
-
-
-
-
+observeEvent(input$modalBack,{
+  
+  pripas("input$modalBack clicked at ",Sys.time())
+  
+  a <- rv$sf_word_now 
+  b0 <- rv$modal_data_ct
+  
+  rv$modal_data_ct <- b0 + 1
+  pripas("rv$modal_data_ct <- ",rv$modal_data_ct)
+  
+  b <- rv$modal_data[rv$modal_data_ct,]
+  
+  rv$sf_word_now <- c(paste0(b$word,"-",b$verb,"-",b$tense),Sys.time())
+  rv$sf_word_key1 <- c(1,Sys.time())
+  
+})
 
 
 

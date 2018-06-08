@@ -9,83 +9,86 @@ navbarMenu("Sentences",
             ),
             tabPanel("Flashcards", value = "panel8",
                      
-                    bsModal(id="sf_Modal", "More info", "sfm_trigger",size = "large",
-                            
-                            tags$a(id="hereModal1"),
-                            uiOutput("sf_Modal_fill")
-                            ),
+                bsModal(id="sf_Modal", 
+                        div(inlineDing(uiOutput("modalBack")),
+                            inlineDing(uiOutput("modalNext"))),
+                        "sfm_trigger",size = "large",
+                        
+                        tags$a(id="hereModal1"),
+                        uiOutput("sf_Modal_fill")
+                        ),
+                
+                bsModal(id="sf_dataModal", "Sentence History", "actDataModal",
+                        size = "large",
+                        
+                        DTOutput("sf_dataModal_DF")
+                        
+                        ),
+                
+                bsModal(id="sf_popHistModal", "Popup History", "actPopHistModal",
+                        size = "large",
+                        
+                        DTOutput("sf_popHistModal_DF")
+                        
+                        ),
+                
+                pageWithSidebar(
+                  headerPanel(span(inlineDing("Flash:"),
+                    inlineDing(actionButton("hideSide",label = NULL,
+                        icon=icon("cog", lib = "glyphicon"))),
+                    inlineDing(actionButton("actDataModal",label = NULL,
+                        icon=icon("list", lib = "glyphicon"))),
+                    inlineDing(actionButton("actPopHistModal",label = NULL,
+                        icon=icon("list-alt", lib = "glyphicon")))
+                  )),
+                 
+                  div( id ="Sidebar",sidebarPanel(
+                   
                     
-                    bsModal(id="sf_dataModal", "Sentence History", "actDataModal",
-                            size = "large",
-                            
-                            DTOutput("sf_dataModal_DF")
-                            
-                    ),
+                    uiOutput("search_type_sf_Out"),
                     
-                    bsModal(id="sf_popHistModal", "Popup History", "actPopHistModal",
-                            size = "large",
-                            
-                            DTOutput("sf_popHistModal_DF")
-                            
-                    ),
+                    uiOutput("progressBar1"),
                     
-                    pageWithSidebar(
-                      headerPanel(span(inlineDing("Flash:"),
-                        inlineDing(actionButton("hideSide",label = NULL,
-                            icon=icon("cog", lib = "glyphicon"))),
-                        inlineDing(actionButton("actDataModal",label = NULL,
-                            icon=icon("list", lib = "glyphicon"))),
-                        inlineDing(actionButton("actPopHistModal",label = NULL,
-                            icon=icon("list-alt", lib = "glyphicon")))
-                      )),
-                     
-                      div( id ="Sidebar",sidebarPanel(
-                       
+                    inlineDing(actionBttn(inputId = "options_btn_sf",
+                                          label = "Options", 
+                                          style = "fill", 
+                                          color = "primary")),
+                  
+                    shinyjs::hidden(wellPanel(id = "options_panel_sf",
+                                              
+                        materialSwitch(inputId = "ms_ShowNew", 
+                                       label = "Show New", value = TRUE, 
+                                       status = "primary"),
                         
-                        uiOutput("search_type_sf_Out"),
+                        materialSwitch(inputId = "ms_SaveSession", 
+                                       label = "Save Session", value = TRUE, 
+                                       status = "primary"),
                         
-                        uiOutput("progressBar1"),
+                        materialSwitch(inputId = "ms_aa", 
+                                       label = "Autoplay Audio", value = TRUE, 
+                                       status = "primary"),
                         
-                        inlineDing(actionBttn(inputId = "options_btn_sf",
-                                              label = "Options", 
-                                              style = "fill", 
-                                              color = "primary")),
-                      
-                        shinyjs::hidden(wellPanel(id = "options_panel_sf",
-                                                  
-                            materialSwitch(inputId = "ms_ShowNew", 
-                                           label = "Show New", value = TRUE, 
-                                           status = "primary"),
-                            
-                            materialSwitch(inputId = "ms_SaveSession", 
-                                           label = "Save Session", value = TRUE, 
-                                           status = "primary"),
-                            
-                            materialSwitch(inputId = "ms_aa", 
-                                           label = "Autoplay Audio", value = TRUE, 
-                                           status = "primary"),
-                            
-                            materialSwitch(inputId = "ms_showIrreg", 
-                                           label = "Show only irregular",
-                                           value = FALSE, status = "primary")
-                                                  
-                        ))
-                        
-                        
-                        
-                      )),
-                      mainPanel(
-                       
-                        wellPanel(id="flashPanel",a(id="hereSe1")),
-                        wellPanel(id="flashPanel2",a(id="hereSe2")),
-                       
-                        inlineDing(uiOutput("flashBack2")),
-                        inlineDing(uiOutput("flashShow2")),
-                        inlineDing(uiOutput("flashNext2")),
-                        inlineDing(uiOutput("flashAudioWeb"))
-                       
-                      )
-                    )
+                        materialSwitch(inputId = "ms_showIrreg", 
+                                       label = "Show only irregular",
+                                       value = FALSE, status = "primary")
+                                              
+                    ))
+                    
+                    
+                    
+                  )),
+                  mainPanel(
+                   
+                    wellPanel(id="flashPanel",a(id="hereSe1")),
+                    wellPanel(id="flashPanel2",a(id="hereSe2")),
+                   
+                    inlineDing(uiOutput("flashBack2")),
+                    inlineDing(uiOutput("flashShow2")),
+                    inlineDing(uiOutput("flashNext2")),
+                    inlineDing(uiOutput("flashAudioWeb"))
+                   
+                  )
+                )
                     
             ),
             tabPanel("Quiz", value = "panel9",
