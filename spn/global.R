@@ -98,7 +98,7 @@ chainC <- list(c(3,32),c(33,56),c(57,66),c(67,96),c(97,126),c(127,144))
 
 pripas <- function(...){
   
-  
+  logjs(paste0(...))
   print(paste0(...))
   
 }

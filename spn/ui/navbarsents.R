@@ -44,6 +44,8 @@ navbarMenu("Sentences",
                         
                         uiOutput("search_type_sf_Out"),
                         
+                        uiOutput("progressBar1"),
+                        
                         inlineDing(actionBttn(inputId = "options_btn_sf",
                                               label = "Options", 
                                               style = "fill", 
@@ -65,9 +67,7 @@ navbarMenu("Sentences",
                             
                             materialSwitch(inputId = "ms_showIrreg", 
                                            label = "Show only irregular",
-                                           value = FALSE, status = "primary"),
-                            
-                            uiOutput("progressBar1")
+                                           value = FALSE, status = "primary")
                                                   
                         ))
                         

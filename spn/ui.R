@@ -13,8 +13,7 @@ shinyUI(
   useShinyjs(),
   useShinyalert(),
 
-
-
+  
   includeScript("solid/js/key.js"),
   includeScript("solid/js/clicktest.js"),
   includeScript("solid/js/conjCon.js"),
