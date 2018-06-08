@@ -4,29 +4,6 @@
 
 
 
-
-output$modalBack <-renderUI({
-  
-  # inlineDing(actionBttn("modalBack","BACK"))
-  actionBttn("modalBack","BACK")
-})
-
-output$modalNext <-renderUI({
-  
-  a <- rv$modal_data_ct
-  # b <- ifelse(a==1,"",inlineDing(actionBttn("modalNext","NEXT")))
-  # return(b)
-  
-  # inlineDing(actionBttn("modalNext","NEXT"))
-  
-  if(!(a==1)){
-    actionBttn("modalNext","NEXT")
-  }
-  else {""}
-  
-})
-
-
 observeEvent(input$modalNext,{
   
   pripas("input$modalNext clicked at ",Sys.time())

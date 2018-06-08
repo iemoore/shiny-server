@@ -5,8 +5,6 @@
 }
 
 
-
-
 div.login { 
   text-align: left;
   position:absolute;
@@ -44,7 +42,7 @@ z-index: 1000;
 }
 
 
-
 .vocabNav{
 z-index: -1;
 } 
+

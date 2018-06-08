@@ -33,14 +33,16 @@ navbarMenu("Sentences",
                         ),
                 
                 pageWithSidebar(
-                  headerPanel(span(inlineDing("Flash:"),
+                  #headerPanel(
+                  span(#inlineDing("Flash:"),
                     inlineDing(actionButton("hideSide",label = NULL,
                         icon=icon("cog", lib = "glyphicon"))),
                     inlineDing(actionButton("actDataModal",label = NULL,
                         icon=icon("list", lib = "glyphicon"))),
                     inlineDing(actionButton("actPopHistModal",label = NULL,
                         icon=icon("list-alt", lib = "glyphicon")))
-                  )),
+                  #)
+                  ),
                  
                   div( id ="Sidebar",sidebarPanel(
                    

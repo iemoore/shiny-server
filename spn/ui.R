@@ -25,8 +25,8 @@ shinyUI(
   includeCSS("solid/css/testStyles.css"),
   includeCSS("solid/css/yeti.bootstrap.min.css"),
   tags$head(tags$style(HTML('.modal-lg {width: 4000px;}'))),
-  inlineCSS('#flashPanel {min-height: 150px;}'),
-  inlineCSS('#flashPanel2 {min-height: 150px;}'),
+  inlineCSS('#flashPanel {min-height: 130px;}'),
+  inlineCSS('#flashPanel2 {min-height: 130px;}'),
   inlineCSS('#flashPanel3 {min-height: 80px;}'),
 
   div(class = "login",
