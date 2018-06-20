@@ -10,14 +10,6 @@ output$selectInput1 <- renderUI({
     
 })
 
-# observeEvent(input$typeInput,{
-#   
-#   
-#   rv$pickedNow <- input$typeInput
-#   
-# })
-
-
 
 output$pickerOut <- renderUI({
   
@@ -38,7 +30,6 @@ output$pickerOut <- renderUI({
   )
   
 })
-
 
 
 observeEvent(input$typePicker,{

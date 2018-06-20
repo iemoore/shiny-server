@@ -31,7 +31,7 @@ observeEvent(input$saveNote,{
                        rv$noteData)
   notedf <<- rv$noteData
   
-  Encoding(rv$noteData$body) <-"UTF-8"
+  rv$noteData$body <- enc2utf8(rv$noteData$body)
   saveRDS(rv$noteData,paste0("solid/rds/",dfNow,".rds"))
   
 
