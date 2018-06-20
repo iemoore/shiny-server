@@ -14,7 +14,7 @@ library(stringr)
 library(purrr)
 
 options(warn=2)
-options(shiny.error=recover)
+# options(shiny.error=recover)
 options(shiny.sanitize.errors=F)
 options(shiny.reactlog=TRUE)
 
@@ -70,7 +70,10 @@ notedf$time <- paste(as.character(notedf$time), "CTZ")
 # Encoding(notedf$body) <- "UTF-8"
 # notedf$body <- enc2utf8(notedf$body)
 notedf$body <- iconv(notedf$body,"WINDOWS-1252","UTF-8")
+notedf$type <- as.character(notedf$type)
 
+notedf <- notedf[which(nchar(notedf$body)>0),]
+rownames(notedf) <- NULL
 #####
 
 #...RV's

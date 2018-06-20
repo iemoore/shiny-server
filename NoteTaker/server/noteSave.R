@@ -25,18 +25,18 @@ observeEvent(input$saveNote,{
     
   }
 
-  
-  
-  rv$noteData <- rbind(data.frame(time = Sys.time(), body = as.character(a),
-                                  type= b,stringsAsFactors = F),rv$noteData)
-  notedf <<- rv$noteData
-  
-  # rv$noteData$body <- enc2utf8(rv$noteData$body)
-  rv$noteData$body <- iconv(rv$noteData$body,"WINDOWS-1252","UTF-8")
-  saveRDS(rv$noteData,paste0("solid/rds/",dfNow,".rds"))
-  
+  if(nchar(a)>0){
 
-   
+    rv$noteData <- rbind(data.frame(time = Sys.time(), body = as.character(a),
+                                    type= b),rv$noteData)
+    notedf <<- rv$noteData
+    
+    # rv$noteData$body <- enc2utf8(rv$noteData$body)
+    # rv$noteData$body <- iconv(rv$noteData$body,"WINDOWS-1252","UTF-8")
+    saveRDS(rv$noteData,paste0("solid/rds/",dfNow,".rds"))
+    
+  }
+  
   updateTextAreaInput(session, 'noteArea', label = NULL, value = "")
   
 })

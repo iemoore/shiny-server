@@ -44,6 +44,44 @@ observeEvent(input$typePicker,{
 
 
 
+observeEvent(input$note_tbl_cell_edit, {
+
+
+  info = input$note_tbl_cell_edit
+  # pripas("input$note_tbl_cell_edit <- ",info$value)
+  # str(info)
+  i = info$row
+  j = info$col
+  v = as.character(info$value)
+  
+  pripas("Cell edit initiated v <-",v," i=",i," j=",j)
+  
+  rv$noteData[i, j] <- v
+  notedf[i, j] <<- v
+  saveRDS(rv$noteData,paste0("solid/rds/",dfNow,".rds"))
+  # notedf[i, j] <<- DT::coerceValue(v, rv$noteData[i, j])
+  replaceData(proxy1, rv$noteData, resetPaging = FALSE)  # important
+})
+
+
+
+observeEvent(input$note_tbl_row_click,{
+  
+  a <- input$note_tbl_row_click
+  pripas("Row click <- ",a)
+  
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 

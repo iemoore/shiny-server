@@ -20,7 +20,14 @@ output$note_tbl <- DT::renderDataTable({
       # scrollCollapse=TRUE,
       scrollX=TRUE,
       lengthMenu = c(10, 20, 50, 100),
-      language = list(search = 'Filter:')
+      language = list(search = 'Filter:'),
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#000',",
+        " 'color': '#fff'});}"),
+      searchHighlight = TRUE,
+      filter = 'top',
+      columnDefs = list(list(targets = c(1, 3), searchable = FALSE))
     ),
     # rownames=FALSE,
     escape = FALSE,

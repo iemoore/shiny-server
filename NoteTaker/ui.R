@@ -72,7 +72,9 @@ body <- dashboardBody(
     tabItem(
       tabName="tab1",
       
-      fluidPage(
+      fluidPage(  
+        
+        bsModal("sentViewModal","Sentence Viewer","sentViewTrig",size="Large"),
         
         uiOutput("pickerOut"),
         
