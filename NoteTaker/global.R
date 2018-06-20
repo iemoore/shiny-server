@@ -1,5 +1,5 @@
 
-# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server")
+# setwd("C:/Users/moore/Dropbox/R3/Shiny/shiny-server/NoteTaker")
 
 
 library(shiny)
@@ -63,14 +63,13 @@ split_between <- function(x,pat1,pat2){
 #...Data Load
 #####-------------------------------------------------------------------
 
-# notedf <- readRDS("solid/rds/noteMaster5-23.rds")
-# notedf$type <- "Spanish"
-# saveRDS(notedf,"solid/rds/noteMaster2.rds")
+
 notedf <- readRDS(paste0("solid/rds/",dfNow,".rds"))
 notedf$time <- as.POSIXct(notedf$time,tz="US/Central")
 notedf$time <- paste(as.character(notedf$time), "CTZ")
+Encoding(notedf$body) <- "UTF-8"
 
-# n <- readRDS("solid/noteMaster.rds")
+
 
 #####
 
@@ -89,8 +88,6 @@ rv$pickedNow <- "Spanish"
 
 #####
 
-
-# a <- as.character(unique(readRDS("solid/rds/noteMaster1.rds")$type))
 
 
 

@@ -30,6 +30,8 @@ observeEvent(input$saveNote,{
   rv$noteData <- rbind(data.frame(time = Sys.time(), body = a, type= b),
                        rv$noteData)
   notedf <<- rv$noteData
+  
+  Encoding(rv$noteData$body) <-"UTF-8"
   saveRDS(rv$noteData,paste0("solid/rds/",dfNow,".rds"))
   
 

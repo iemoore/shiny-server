@@ -20,6 +20,7 @@ server <- function(input, output, session) {
     
     stopApp()
     
+    Encoding(notedf$body) <-"UTF-8"
     saveRDS(notedf,paste0("solid/rds/",dfNow,".rds"))
     
     
