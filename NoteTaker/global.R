@@ -68,8 +68,8 @@ notedf <- readRDS(paste0("solid/rds/",dfNow,".rds"))
 notedf$time <- as.POSIXct(notedf$time,tz="US/Central")
 notedf$time <- paste(as.character(notedf$time), "CTZ")
 # Encoding(notedf$body) <- "UTF-8"
-notedf$body <- enc2utf8(notedf$body)
-
+# notedf$body <- enc2utf8(notedf$body)
+notedf$body <- iconv(notedf$body,"WINDOWS-1252","UTF-8")
 
 #####
 
